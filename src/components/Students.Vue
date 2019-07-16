@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <table style="border-radius: 0" class="ui single line striped selectable unstackable table">
-        <thead id="studentFilters" class="ui inverted grey table">
+        <thead id="studentFilters" class="ui inverted blue table">
           <tr>
             <th>
               <i class="filter icon"></i>
@@ -59,7 +59,6 @@ export default {
   data() {
     return {
       students: [],
-      modal: false
     };
   },
   created: function() {

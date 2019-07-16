@@ -30,6 +30,19 @@ router.get('/user', (req, res, next) => {
     });
 });
 
+router.get('/classes', (req, res, next) => {
+    res.status(200).json({
+        classes: [
+            { name: '1.tra' },
+            { name: '2.tra' },
+            { name: '3.tra' },
+            { name: '4.tra' },
+            { name: '1.trb' },
+            { name: '2.trb' }
+        ]
+    });
+});
+
 router.get('/competitions', (req, res, next) => {
     res.status(200).json({
         competitions: [{ name: 'Janez', surname: 'Kekec' },

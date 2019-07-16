@@ -10,9 +10,9 @@
         <option v-bind:value="null">Izberi razred</option>
         <option
           v-bind:key="index"
-          v-for="(subject, index) in subjects"
+          v-for="(_class, index) in classes"
           v-bind:value="index"
-        >{{ subject.long }}</option>
+        >{{ _class.name }}</option>
       </select>
     </div>
     <div v-if="pickedClass != null" class="row">
@@ -72,9 +72,12 @@ export default {
   },
   methods: {
     fetchData: function() {
-      fetch("http://localhost:3000/api/get/subjects")
-        .then(response => response.json())
-        .then(data => (this.subjects = data["subjects"]));
+        fetch("http://localhost:3000/api/get/subjects")
+            .then(response => response.json())
+            .then(data => (this.subjects = data["subjects"]));
+        fetch("http://localhost:3000/api/get/classes")
+            .then(response => response.json())
+            .then(data => (this.classes = data["classes"]));
     },
     removeSubject: function() {
         this.$forceUpdate();
