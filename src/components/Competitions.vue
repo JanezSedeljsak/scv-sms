@@ -2,16 +2,14 @@
   <div class="ui padded grid">
     <div style="width:100%; border-bottom: 1px solid #666" class="ui">
       <h1 style="padding: 5px" class="ui header">
-        <i class="graduation cap icon"></i>Dijaki
+        <i class="sort numeric up icon"></i>Tekmovanja
       </h1>
     </div>
     <div class="row">
       <table style="border-radius: 0" class="ui single line striped selectable unstackable table">
-        <thead id="studentFilters" class="ui inverted grey table">
+        <thead class="ui inverted grey table">
           <tr>
-            <th>
-              <i class="filter icon"></i>
-            </th>
+            <th><i class="filter icon"></i></th>
             <th>
               <div class="ui inverted left icon input">
                 <input type="text" placeholder="filtriraj..." />
@@ -27,34 +25,46 @@
           </tr>
           <tr>
             <th>#</th>
-            <th class="sort hover-head" data-sort="name">Ime</th>
-            <th class="sort hover-head" data-sort="surname">Priimek</th>
+            <th class="hover-head">Ime</th>
+            <th class="hover-head">Priimek</th>
           </tr>
         </thead>
-        <tbody class="list">
+        <tbody>
           <tr
             class="studentRow"
             v-bind:key="index"
             v-for="(student, index) in students"
-            v-on:click="changeLocation(index)"
+            v-on:click="editStudent(index)"
           >
             <td>{{ index + 1}}</td>
-            <td class="name">{{ student.name }}</td>
-            <td class="surname">{{ student.surname }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.surname }}</td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div v-if="modal" style="display:block" class="ui modal">
+      <i class="close icon"></i>
+      <div class="header">Profile Picture</div>
+      <div class="image content">
+        <div class="description">
+          <div class="ui header">We've auto-chosen a profile image for you.</div>
+          <p>We've grabbed the following image from image associated with your registered e-mail address.</p>
+          <p>Is it okay to use this photo?</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui black deny button" v-on:click="modal = false">Nope</div>
+        <div class="ui positive right labeled icon button">
+          Yep, that's me
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import List from "list.js";
-var options = {
-  valueNames: ["name", "surname"]
-};
-
-var userList = new List("studentFilters", options);
 export default {
   data() {
     return {
@@ -71,8 +81,8 @@ export default {
         .then(response => response.json())
         .then(data => (this.students = data["students"]));
     },
-    changeLocation: function(student) {
-      window.location = `/students/${student}/`;
+    editStudent: function(student) {
+      this.modal = true;
     }
   }
 };

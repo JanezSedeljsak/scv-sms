@@ -1,5 +1,5 @@
 <template>
-  <h1>Dobrodošli na sistemu za razvščanje dijakov ŠCV-ja</h1>
+  <h1>Dobrodošli na spletni aplikaciji za razvščanje dijakov ŠCV-ja</h1>
 </template>
 
 <script>

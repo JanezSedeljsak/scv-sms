@@ -11,18 +11,38 @@ router.get('/students', (req, res, next) => {
     });
 });
 
-router.get('/classes', (req, res, next) => {
+router.get('/subjects', (req, res, next) => {
     res.status(200).json({
-        classes: [{ short: 'mat', long: 'Matematika' },
+        subjects: [
+            { short: 'mat', long: 'Matematika' },
             { short: 'slo', long: 'Slovenščina' },
-            { short: 'ang', long: 'Angleščina' }]
+            { short: 'ang', long: 'Angleščina' },
+            { short: 'mat', long: 'Matematika' },
+            { short: 'slo', long: 'Slovenščina' },
+            { short: 'ang', long: 'Angleščina' }
+        ]
     });
 });
-
 
 router.get('/user', (req, res, next) => {
     res.status(200).json({
         user: true
+    });
+});
+
+router.get('/competitions', (req, res, next) => {
+    res.status(200).json({
+        competitions: [{ name: 'Janez', surname: 'Kekec' },
+            { name: 'Luka', surname: 'Neki' },
+            { name: 'Pajdo', surname: 'Pajdo' }]
+    });
+});
+
+router.get('/achivments', (req, res, next) => {
+    res.status(200).json({
+        achivments: [{ name: 'Janez', surname: 'Kekec' },
+            { name: 'Luka', surname: 'Neki' },
+            { name: 'Pajdo', surname: 'Pajdo' }]
     });
 });
 
