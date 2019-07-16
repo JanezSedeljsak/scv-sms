@@ -108,14 +108,10 @@ export default {
   data() {
     return {
         modal: false,
-        user: false
+        user: true
     };
   },
   methods: {
-    logout: function() {
-        window.event.preventDefault();
-        this.user = false;
-    },
     login: function() {
         window.event.preventDefault();
         this.user = true;

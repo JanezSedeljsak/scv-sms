@@ -1,9 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require('express-session');
 
 const getRoutes = require("./routes/get.js");
 
 const app = express();
+
+app.use(session({
+    secret: 'key4Scv4pp'
+}));
 
 app.use(bodyParser.json());
 

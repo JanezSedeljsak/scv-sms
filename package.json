@@ -13,6 +13,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-session": "^1.16.2",
     "list.js": "^1.5.0",
     "vue": "^2.5.2",
     "vue-resource": "^1.5.1",

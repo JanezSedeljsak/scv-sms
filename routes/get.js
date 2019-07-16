@@ -25,9 +25,13 @@ router.get('/subjects', (req, res, next) => {
 });
 
 router.get('/user', (req, res, next) => {
-    res.status(200).json({
-        user: true
-    });
+    if (req.session.id) {
+        res.status(200).json({
+            user: req.session.id
+        });
+    } else {
+        req.session.id = null
+    }
 });
 
 router.get('/classes', (req, res, next) => {
