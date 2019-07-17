@@ -27,12 +27,12 @@
           <i class="book icon"></i>Predmeti
         </a>
         <a v-on:click="moveUrl('/logout')" class="item">
-          <i class="level up alternate icon"></i>Nivoji
+          <i class="edit icon"></i>Urejanja
         </a>
         <a v-on:click="moveUrl('/achivments')" class="item">
           <i class="trophy icon"></i>Dosezki
         </a>
-        <a v-on:click="moveUrl('/admins')" class="item">
+        <a v-on:click="createAdmin()" class="item">
           <i class="user plus icon"></i>Administratorji
         </a>
         <div style="height:3vw" class="ui hidden divider"></div>
@@ -57,7 +57,7 @@
             class="w3-button w3-xlarge w3-hover-red w3-display-topright"
             title="Close Modal"
           >&times;</span>
-          <img src="./assets/userlogin.png" alt="/" style="width:40%" class="w3-circle w3-margin-top" />
+          <img src="./assets/userlogin.png" alt="/" style="width:30%" class="w3-circle w3-margin-top" />
         </div>
 
         <form class="w3-container">
@@ -84,7 +84,7 @@
             />
             <button 
                 class="w3-button w3-block w3-green w3-section w3-padding" 
-                v-on:click="login()" 
+                v-on:click="toggleModal()"
                 type="submit"
             >Login</button>
             <input class="w3-check w3-margin-top" type="checkbox" checked="checked" /> Remember me
@@ -100,6 +100,85 @@
         </div>
       </div>
     </div>
+    <div v-if="req_modal != false" style="display:block" class="w3-modal">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+        <div class="w3-center">
+          <br />
+          <span
+            v-on:click="createAdmin()"
+            class="w3-button w3-xlarge w3-hover-red w3-display-topright"
+            title="Close Modal"
+          >&times;</span>
+          <img src="./assets/userlogin.png" alt="/" style="width:30%" class="w3-circle w3-margin-top" />
+        </div>
+
+        <form class="w3-container" style="max-height:50vh; overflow-y: auto">
+          <div class="w3-section">
+                        <label>
+              <b>ime</b>
+            </label>
+            <input
+              class="w3-input w3-border w3-margin-bottom"
+              type="text"
+              placeholder="Vnesi e-pošto"
+              name="usrname"
+              required
+            />
+                        <label>
+              <b>priimek</b>
+            </label>
+            <input
+              class="w3-input w3-border w3-margin-bottom"
+              type="text"
+              placeholder="Vnesi e-pošto"
+              name="usrname"
+              required
+            />
+            <label>
+              <b>e-pošta</b>
+            </label>
+            <input
+              class="w3-input w3-border w3-margin-bottom"
+              type="text"
+              placeholder="Vnesi e-pošto"
+              name="usrname"
+              required
+            />
+            <label>
+              <b>geslo</b>
+            </label>
+            <input
+              class="w3-input w3-border"
+              type="password"
+              placeholder="Vnesi geslo"
+              name="psw"
+              required
+            />            <label>
+              <b>ponovi geslo</b>
+            </label>
+            <input
+              class="w3-input w3-border"
+              type="password"
+              placeholder="Vnesi geslo"
+              name="psw"
+              required
+            />
+            <button 
+                class="w3-button w3-block w3-green w3-section w3-padding"  
+                type="submit"
+            >Ustvari račun</button>
+          </div>
+        </form>
+
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+          <button
+            v-on:click="createAdmin()"
+            type="button"
+            class="w3-button w3-red"
+          >Prekliči</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -108,7 +187,8 @@ export default {
   data() {
     return {
         modal: false,
-        user: true
+        user: true,
+        req_modal: false
     };
   },
   methods: {
@@ -119,6 +199,10 @@ export default {
     },
     toggleModal: function() {
       this.modal = !this.modal
+    },
+    createAdmin: function() {
+      this.req_modal = !this.req_modal;
+      console.log( this.req_modal);
     },
     moveUrl: link => {
         window.event.preventDefault();

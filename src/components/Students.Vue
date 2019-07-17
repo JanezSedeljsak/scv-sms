@@ -6,29 +6,47 @@
       </h1>
     </div>
     <div class="row">
-      <table style="border-radius: 0" class="ui single line striped selectable unstackable table">
+      <table class="ui single line striped selectable unstackable table">
         <thead id="studentFilters" class="ui inverted blue table">
           <tr>
             <th>
               <i class="filter icon"></i>
             </th>
             <th>
-              <div class="ui inverted left icon input">
-                <input type="text" placeholder="filtriraj..." />
+              <div 
+
+                class="ui inverted left icon input">
+                <input 
+                  v-model="filtersApplied.name" 
+                  v-on:keydown="filter()"
+                  type="text" 
+                  placeholder="filtriraj..." 
+                />
                 <i class="search icon"></i>
               </div>
             </th>
             <th>
               <div class="ui inverted left icon input">
-                <input type="text" placeholder="filtriraj..." />
+                <input 
+                  v-model="filtersApplied.surname" 
+                  v-on:keydown="filter()"
+                  type="text" 
+                  placeholder="filtriraj..." 
+                />
                 <i class="search icon"></i>
               </div>
             </th>
           </tr>
           <tr>
             <th>#</th>
-            <th class="sort hover-head" data-sort="name">Ime</th>
-            <th class="sort hover-head" data-sort="surname">Priimek</th>
+            <th 
+              class="sort hover-head" 
+              v-on:click="sortActionClick('name')"
+            >Ime</th>
+            <th 
+              class="sort hover-head"
+              v-on:click="sortActionClick('surname')"
+            >Priimek</th>
           </tr>
         </thead>
         <tbody class="list">
@@ -54,9 +72,10 @@ export default {
     return {
       students: [],
       studentsForDisplay: [],
-      filtersApplied: [
-        {key: "name", value: "janez"}
-      ],
+      filtersApplied: {
+        name: '',
+        surname: ''
+      },
       sortByKey: "name",
       sortASC: true
     };
@@ -65,17 +84,16 @@ export default {
     this.fetchData();
   },
   methods: {
-    filter: function(key, value) {
-      keys = filtersApplied.map(x => x.key);
-      key in keys ? 
-        filtersApplied[keys.indexOf(key)] = value
-        : filtersApplied.push({"key": key, "value": value});
-
-      filtersApplied.forEach(item => {
-          this.studentsForDisplay = this.students.filter(student => student[item.key].includes(item.value));
+    filter: function() {
+      this.studentsForDisplay = this.students.filter(student => {
+          return student['name'].toUpperCase().includes(this.filtersApplied['name'].toUpperCase())
+            && student['surname'].toUpperCase().includes(this.filtersApplied['surname'].toUpperCase());
       });
-
       if(this.sortByKey) this.tblSort(this.sortByKey);
+    },
+    sortActionClick: function(key) {
+      if(this.sortByKey == key) this.sortASC = !this.sortASC;
+      this.tblSort(key);
     },
     tblSort: function(key) {
         this.sortByKey = key;
@@ -88,9 +106,10 @@ export default {
     fetchData: function() {
       fetch("http://localhost:3000/api/get/students")
         .then(response => response.json())
-        .then(data => (this.students = data["students"]));
-
-      console.log(this.students);
+        .then(data => {
+          this.students = data["students"];
+          this.studentsForDisplay = data["students"];
+        });
     },
     changeLocation: function(student) {
       window.location = `/students/${student}/`;

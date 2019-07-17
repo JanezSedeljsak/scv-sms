@@ -7,8 +7,9 @@ router.get('/students', (req, res, next) => {
     res.status(200).json({
         students: [
             { name: 'Janez', surname: 'Kekec' },
+            { name: 'Pajdo', surname: 'Pajdo' },
             { name: 'Luka', surname: 'Neki' },
-            { name: 'Pajdo', surname: 'Pajdo' }
+            { name: 'Mojstr', surname: 'Jaka' }
         ]
     });
 });

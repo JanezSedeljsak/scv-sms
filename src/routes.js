@@ -10,6 +10,7 @@ export const routes = [
     { path: "/classes", component: Classes },
     { path: "/students", component: Students },
     { path: '/students/:id', component: StudentEdit },
+    { path: '/students/:id/achivments', component: StudentEdit },
     { path: "/achivments", component: Achivments },
     { path: "/competitions", component: Competitions }
 ];
