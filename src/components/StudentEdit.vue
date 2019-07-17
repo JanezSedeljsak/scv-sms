@@ -22,24 +22,22 @@
             <div class="header">Povp. Ocena</div>3.2
           </div>
         </div>
+
         <div class="item">
           <div class="content">
-            <button 
-              class="ui secondary button"
-              v-on:click="editAchivmentsForStudent()"
-            >Urejaj dosezke</button>
+            <div class="header">Solsko leto</div>2018/19
           </div>
         </div>
 
         <div class="item">
           <div class="content">
-            <div class="header">Izberi leto</div>
             <select
-              style="height: 10px; min-width: 60px;"
+              style="height: 80%; min-width: 60px;"
               name="predmet"
               class="ui dropdown"
               v-model="pickedYear"
             >
+              <option v-bind:value="null">Izberi leto</option>
               <option
                 v-bind:key="index"
                 v-for="(year, index) in years"
@@ -47,6 +45,14 @@
               >{{ year }}</option>
             </select>
           </div>
+        </div>
+
+        <div class="item">
+          <button
+            style="height: 80%;"
+            class="ui secondary button"
+            v-on:click="editAchivmentsForStudent()"
+          >Urejaj dosezke</button>
         </div>
       </div>
     </div>
@@ -88,7 +94,7 @@ export default {
     return {
       students: [],
       modal: false,
-      pickedYear: "2018/19",
+      pickedYear: null,
       years: ["2016/17", "2017/18", "2018/19", "2019/20", "2020/21"]
     };
   },

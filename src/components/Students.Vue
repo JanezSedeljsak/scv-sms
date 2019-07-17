@@ -6,47 +6,48 @@
       </h1>
     </div>
     <div class="row">
+      <select style="width: 40%;" name="predmet" class="ui dropdown" v-model="pickedYear">
+        <option
+          v-bind:key="index"
+          v-for="(year, index) in years"
+          v-bind:value="index"
+        >{{ year }}</option>
+      </select>
+    </div>
+    <div class="row">
       <table class="ui single line striped selectable unstackable table">
-        <thead id="studentFilters" class="ui inverted blue table">
+        <thead>
           <tr>
             <th>
               <i class="filter icon"></i>
             </th>
             <th>
-              <div 
-
-                class="ui inverted left icon input">
-                <input 
-                  v-model="filtersApplied.name" 
+              <div style="border: 1px solid #44444466" class="ui inverted left icon input">
+                <input
+                  v-model="filtersApplied.name"
                   v-on:keydown="filter()"
-                  type="text" 
-                  placeholder="filtriraj..." 
+                  type="text"
+                  placeholder="filtriraj..."
                 />
                 <i class="search icon"></i>
               </div>
             </th>
             <th>
-              <div class="ui inverted left icon input">
-                <input 
-                  v-model="filtersApplied.surname" 
+              <div style="border: 1px solid #44444466" class="ui inverted left icon input">
+                <input
+                  v-model="filtersApplied.surname"
                   v-on:keydown="filter()"
-                  type="text" 
-                  placeholder="filtriraj..." 
+                  type="text"
+                  placeholder="filtriraj..."
                 />
                 <i class="search icon"></i>
               </div>
             </th>
           </tr>
-          <tr>
+          <tr class="ui inverted blue table">
             <th>#</th>
-            <th 
-              class="sort hover-head" 
-              v-on:click="sortActionClick('name')"
-            >Ime</th>
-            <th 
-              class="sort hover-head"
-              v-on:click="sortActionClick('surname')"
-            >Priimek</th>
+            <th class="sort hover-head" v-on:click="sortActionClick('name')">Ime</th>
+            <th class="sort hover-head" v-on:click="sortActionClick('surname')">Priimek</th>
           </tr>
         </thead>
         <tbody class="list">
@@ -73,11 +74,13 @@ export default {
       students: [],
       studentsForDisplay: [],
       filtersApplied: {
-        name: '',
-        surname: ''
+        name: "",
+        surname: ""
       },
       sortByKey: "name",
-      sortASC: true
+      sortASC: true,
+      pickedYear: "2018/19",
+      years: ["2016/17", "2017/18", "2018/19", "2019/20", "2020/21"]
     };
   },
   created: function() {
@@ -85,23 +88,30 @@ export default {
   },
   methods: {
     filter: function() {
+      if (window.event.keyCode != 13) return;
       this.studentsForDisplay = this.students.filter(student => {
-          return student['name'].toUpperCase().includes(this.filtersApplied['name'].toUpperCase())
-            && student['surname'].toUpperCase().includes(this.filtersApplied['surname'].toUpperCase());
+        return (
+          student["name"]
+            .toUpperCase()
+            .includes(this.filtersApplied["name"].toUpperCase()) &&
+          student["surname"]
+            .toUpperCase()
+            .includes(this.filtersApplied["surname"].toUpperCase())
+        );
       });
-      if(this.sortByKey) this.tblSort(this.sortByKey);
+      if (this.sortByKey) this.tblSort(this.sortByKey);
     },
     sortActionClick: function(key) {
-      if(this.sortByKey == key) this.sortASC = !this.sortASC;
+      if (this.sortByKey == key) this.sortASC = !this.sortASC;
       this.tblSort(key);
     },
     tblSort: function(key) {
-        this.sortByKey = key;
-        this.studentsForDisplay = this.studentsForDisplay.sort((a, b) => 
-          this.sortASC ?
-            a[this.sortByKey].localeCompare(b[this.sortByKey])
-            : b[this.sortByKey].localeCompare(a[this.sortByKey])
-        );
+      this.sortByKey = key;
+      this.studentsForDisplay = this.studentsForDisplay.sort((a, b) =>
+        this.sortASC
+          ? a[this.sortByKey].localeCompare(b[this.sortByKey])
+          : b[this.sortByKey].localeCompare(a[this.sortByKey])
+      );
     },
     fetchData: function() {
       fetch("http://localhost:3000/api/get/students")
