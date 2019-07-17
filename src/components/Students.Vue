@@ -35,7 +35,7 @@
           <tr
             class="studentRow"
             v-bind:key="index"
-            v-for="(student, index) in students"
+            v-for="(student, index) in studentsForDisplay"
             v-on:click="changeLocation(index)"
           >
             <td>{{ index + 1}}</td>
@@ -49,26 +49,48 @@
 </template>
 
 <script>
-import List from "list.js";
-var options = {
-  valueNames: ["name", "surname"]
-};
-
-var userList = new List("studentFilters", options);
 export default {
   data() {
     return {
       students: [],
+      studentsForDisplay: [],
+      filtersApplied: [
+        {key: "name", value: "janez"}
+      ],
+      sortByKey: "name",
+      sortASC: true
     };
   },
   created: function() {
     this.fetchData();
   },
   methods: {
+    filter: function(key, value) {
+      keys = filtersApplied.map(x => x.key);
+      key in keys ? 
+        filtersApplied[keys.indexOf(key)] = value
+        : filtersApplied.push({"key": key, "value": value});
+
+      filtersApplied.forEach(item => {
+          this.studentsForDisplay = this.students.filter(student => student[item.key].includes(item.value));
+      });
+
+      if(this.sortByKey) this.tblSort(this.sortByKey);
+    },
+    tblSort: function(key) {
+        this.sortByKey = key;
+        this.studentsForDisplay = this.studentsForDisplay.sort((a, b) => 
+          this.sortASC ?
+            a[this.sortByKey].localeCompare(b[this.sortByKey])
+            : b[this.sortByKey].localeCompare(a[this.sortByKey])
+        );
+    },
     fetchData: function() {
       fetch("http://localhost:3000/api/get/students")
         .then(response => response.json())
         .then(data => (this.students = data["students"]));
+
+      console.log(this.students);
     },
     changeLocation: function(student) {
       window.location = `/students/${student}/`;

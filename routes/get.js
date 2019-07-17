@@ -5,9 +5,11 @@ const router = express.Router();
 // GET /feed/posts
 router.get('/students', (req, res, next) => {
     res.status(200).json({
-        students: [{ name: 'Janez', surname: 'Kekec' },
+        students: [
+            { name: 'Janez', surname: 'Kekec' },
             { name: 'Luka', surname: 'Neki' },
-            { name: 'Pajdo', surname: 'Pajdo' }]
+            { name: 'Pajdo', surname: 'Pajdo' }
+        ]
     });
 });
 
