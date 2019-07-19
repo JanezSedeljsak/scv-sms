@@ -4,6 +4,9 @@ import Classes from "./components/Classes.vue";
 import Achivments from "./components/Achivments.vue";
 import Competitions from "./components/Competitions.vue";
 import StudentEdit from "./components/StudentEdit.vue";
+import AdminsTab from "./components/AdminsTab.vue";
+import AchivmentsEdit from "./components/AchivmentsEdit.vue";
+import CompetitionEdit from "./components/CompetitionEdit.vue";
 
 export const routes = [
     { path: "/", component: Home },
@@ -12,5 +15,10 @@ export const routes = [
     { path: '/students/:id', component: StudentEdit },
     { path: '/students/:id/achivments', component: StudentEdit },
     { path: "/achivments", component: Achivments },
-    { path: "/competitions", component: Competitions }
+    { path: "/competitions", component: Competitions },
+    { path: "/admins-tab", component: AdminsTab },
+    { path: "/achivments/:id/:type", component: AchivmentsEdit },
+    { path: "/achivments/:id/:type/", component: AchivmentsEdit },
+    { path: "/competitions/:id/:type", component: CompetitionEdit },
+    { path: "/competitions/:id/:type/", component: CompetitionEdit }
 ];

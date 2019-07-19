@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; border-bottom: 1px solid #666" class="ui">
+    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
       <h1 style="padding: 5px" class="ui header">
         <i class="book icon"></i>Predmeti
       </h1>
@@ -16,10 +16,10 @@
       </select>
     </div>
     <div v-if="pickedClass != null" class="row">
-      <ul style="display:block; width:90%" class="w3-ul w3-card-4">
+      <ul style="display:block; width:70%" class="w3-ul w3-card-4">
         <li v-bind:key="index" v-for="(subject, index) in subjects" class="w3-bar">
             <button 
-                style="width: 10%"
+                style="width: 15%"
                 v-on:click="removeSubject(index)"
                 class="ui red button w3-right"
             ><i class="remove icon"></i>Odstrani</button>

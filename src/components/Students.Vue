@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; border-bottom: 1px solid #666" class="ui">
+    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
       <h1 style="padding: 5px" class="ui header">
         <i class="graduation cap icon"></i>Dijaki
       </h1>
@@ -27,7 +27,7 @@
                   v-model="filtersApplied.name"
                   v-on:keydown="filter()"
                   type="text"
-                  placeholder="filtriraj..."
+                  placeholder="filtriraj imena..."
                 />
                 <i class="search icon"></i>
               </div>
@@ -38,7 +38,29 @@
                   v-model="filtersApplied.surname"
                   v-on:keydown="filter()"
                   type="text"
-                  placeholder="filtriraj..."
+                  placeholder="filtriraj priimke..."
+                />
+                <i class="search icon"></i>
+              </div>
+            </th>
+            <th>
+              <div style="border: 1px solid #44444466" class="ui inverted left icon input">
+                <input
+                  v-model="filtersApplied.surname"
+                  v-on:keydown="filter()"
+                  type="text"
+                  placeholder="filtriraj razrede..."
+                />
+                <i class="search icon"></i>
+              </div>
+            </th>
+            <th>
+              <div style="border: 1px solid #44444466" class="ui inverted left icon input">
+                <input
+                  v-model="filtersApplied.surname"
+                  v-on:keydown="filter()"
+                  type="text"
+                  placeholder="filtriraj ocene..."
                 />
                 <i class="search icon"></i>
               </div>
@@ -48,6 +70,8 @@
             <th>#</th>
             <th class="sort hover-head" v-on:click="sortActionClick('name')">Ime</th>
             <th class="sort hover-head" v-on:click="sortActionClick('surname')">Priimek</th>
+            <th class="sort hover-head" v-on:click="sortActionClick('surname')">Razredi</th>
+            <th class="sort hover-head" v-on:click="sortActionClick('surname')">Potrjene ocene</th>
           </tr>
         </thead>
         <tbody class="list">
@@ -60,6 +84,11 @@
             <td>{{ index + 1}}</td>
             <td class="name">{{ student.name }}</td>
             <td class="surname">{{ student.surname }}</td>
+            <td class="surname">{{ "3.tra" }}</td>
+            <td class="surname">
+              <i style="color: green" v-if="true" class="check icon"></i>
+              <i style="color: red" v-else class="close icon"></i>
+            </td>
           </tr>
         </tbody>
       </table>

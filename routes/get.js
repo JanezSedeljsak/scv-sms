@@ -27,6 +27,18 @@ router.get('/subjects', (req, res, next) => {
     });
 });
 
+
+router.get('/competitions', (req, res, next) => {
+    res.status(200).json({
+        competitions: [
+            { name: 'mat tekmovanje', date: new Date() },
+            { name: 'kenguru', date: new Date() },
+            { name: 'rtk programiranje', date: new Date() },
+            { name: 'malta2019', date: new Date() }
+        ]
+    });
+});
+
 router.get('/user', (req, res, next) => {
     if (req.session.id) {
         res.status(200).json({

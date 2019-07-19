@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; border-bottom: 1px solid #666" class="ui">
+    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
       <h1 style="padding: 5px" class="ui header">
         <i class="id badge outline icon"></i>Urejanje dijaka
       </h1>

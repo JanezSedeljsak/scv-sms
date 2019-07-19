@@ -1,88 +1,95 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; border-bottom: 1px solid #666" class="ui">
+    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
       <h1 style="padding: 5px" class="ui header">
         <i class="sort numeric up icon"></i>Tekmovanja
       </h1>
     </div>
     <div class="row">
-      <table style="border-radius: 0" class="ui single line striped selectable unstackable table">
-        <thead class="ui inverted grey table">
-          <tr>
-            <th><i class="filter icon"></i></th>
-            <th>
-              <div class="ui inverted left icon input">
-                <input type="text" placeholder="filtriraj..." />
-                <i class="search icon"></i>
-              </div>
-            </th>
-            <th>
-              <div class="ui inverted left icon input">
-                <input type="text" placeholder="filtriraj..." />
-                <i class="search icon"></i>
-              </div>
-            </th>
-          </tr>
-          <tr>
-            <th>#</th>
-            <th class="hover-head">Ime</th>
-            <th class="hover-head">Priimek</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            class="studentRow"
-            v-bind:key="index"
-            v-for="(student, index) in students"
-            v-on:click="editStudent(index)"
-          >
-            <td>{{ index + 1}}</td>
-            <td>{{ student.name }}</td>
-            <td>{{ student.surname }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <button 
+            v-on:click="openEdit('create')"
+            class="ui primary button w3-right"
+      ><i class="add icon"></i>Dodaj tekmovanje
+      </button>
+      <div style="margin-left: 10px" class="ui icon input">
+        <input 
+          v-model="filterValue"
+          v-on:keydown="filterCompetitions()" 
+          class="prompt" type="text" 
+          placeholder="Filtriraj tekmovanja..."
+        ><i class="search icon"></i>
+      </div>
     </div>
-    <div v-if="modal" style="display:block" class="ui modal">
-      <i class="close icon"></i>
-      <div class="header">Profile Picture</div>
-      <div class="image content">
-        <div class="description">
-          <div class="ui header">We've auto-chosen a profile image for you.</div>
-          <p>We've grabbed the following image from image associated with your registered e-mail address.</p>
-          <p>Is it okay to use this photo?</p>
-        </div>
-      </div>
-      <div class="actions">
-        <div class="ui black deny button" v-on:click="modal = false">Nope</div>
-        <div class="ui positive right labeled icon button">
-          Yep, that's me
-          <i class="checkmark icon"></i>
-        </div>
-      </div>
+    <div class="row">
+      <ul style="display:block; width:100%" class="w3-ul w3-card-4">
+        <li 
+            class="w3-bar" 
+            v-for="(competition, index) in competitionsForDisplay"             
+            v-bind:key="index"
+          >
+            <div style="margin-left: 15px; width: 25%; float: left;">
+              <span>Naslov: <b>{{ competition.name }}</b></span>
+              <br>
+              <span>Datum: <b>{{ competition.date | dateFormat }}</b></span>
+            </div>
+
+            <div style="width: 25%; float: left;">
+              <span>Naslov: <b>{{ competition.name }}</b></span>
+              <br>
+              <span>Datum: <b>{{ competition.date | dateFormat }}</b></span>
+            </div>
+
+            <div style="width: 25%; float: left;">
+              <span>Naslov: <b>{{ competition.name }}</b></span>
+              <br>
+              <span>Datum: <b>{{ competition.date | dateFormat }}</b></span>
+            </div>
+
+          <button 
+                style="width: 10%"
+                v-on:click="openEdit('edit')"
+                class="ui yellow button w3-right"
+            ><i class="edit icon"></i>Urejaj</button>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+var moment = require('moment');
 export default {
   data() {
     return {
-      students: [],
-      modal: false
+      competitions: [],
+      competitionsForDisplay: [],
+      filterValue: null
     };
+  },
+  filters: {
+    dateFormat: date => moment(date).format('DD. MM. YYYY')
   },
   created: function() {
     this.fetchData();
   },
   methods: {
     fetchData: function() {
-      fetch("http://localhost:3000/api/get/students")
+      fetch("http://localhost:3000/api/get/competitions")
         .then(response => response.json())
-        .then(data => (this.students = data["students"]));
+        .then(data => {
+          this.competitions = data["competitions"];
+          this.competitionsForDisplay = this.competitions;
+        });
     },
-    editStudent: function(student) {
-      this.modal = true;
+    filterCompetitions: function() {
+      if (window.event.keyCode != 13) return;
+      this.competitionsForDisplay = this.competitions.filter(row => {
+        let values = Object.keys(row).map(x => row[x].includes(this.filterValue));
+        return values.includes(true) ? true : false;
+      });
+    },
+    openEdit: function(type) {
+      window.location = `/competitions/1/${type}/`;
     }
   }
 };
