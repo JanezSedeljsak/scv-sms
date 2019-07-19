@@ -11,8 +11,8 @@
     </div>
     <div v-else-if="user == true" class="three wide tablet only three wide computer only column" id="sidebar">
       <img src="./assets/logo.svg" alt="/" style="width:110%" />
-      <h1 style="text-align: center; font-size: 2em; color:white">Razvrščevalni sistem ŠCV</h1>
-      <h2 style="text-align: center; font-size: 1.3em; color:white">
+      <h1 style="text-align: center; font-size: 1.7em; color:white">Razvrščevalni sistem ŠCV</h1>
+      <h2 style="text-align: center; font-size: 1.2em; color:white">
         <i class="user circle icon"></i>
         {{ "mojstr" }}
       </h2>
