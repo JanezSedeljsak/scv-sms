@@ -135,12 +135,12 @@ export default {
     }
   },
   head: {
-    link: [{ r: "icon", h: "./assets/headicon.ico", sz: "128x128", t: "images/x-icon" }]
+    link: [{ r: "icon", h: "https://cdn0.iconfinder.com/data/icons/new-seo-bussiness-set16-1/512/Algorithm-01-512.png", sz: "128x128", t: "images/x-icon" }]
   }
 };
 </script>
 
 
 <style lang="css">
-@import "./assets/overwrite.css";
+    @import "./assets/overwrite.css";
 </style>

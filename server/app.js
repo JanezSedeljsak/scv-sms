@@ -8,7 +8,7 @@ const app = express();
 app.use(morgan('combined'))
 app.use(cors())
 
-const {
+/*const {
     Student,
     School,
     SClass,
@@ -26,7 +26,7 @@ const {
     ClassStudentYear,
     ClassSubject,
     CompetitionStudent
-} = require('./models/schemas');
+} = require('./models/schemas');*/
 
 const mongodb_conn_module = require('./mongodbConnModule');
 var db = mongodb_conn_module.connect();
