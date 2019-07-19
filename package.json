@@ -7,15 +7,19 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "start-server": "nodemon app.js",
+    "start-server": "nodemon server/app.js",
     "build": "node build/build.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-session": "^1.16.2",
     "moment": "^2.24.0",
+    "mongoose": "^5.6.5",
+    "morgan": "^1.9.1",
     "vue": "^2.5.2",
+    "vue-head": "^2.1.2",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.2"
   },

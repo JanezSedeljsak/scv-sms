@@ -1,6 +1,10 @@
 <template>
   <div class="ui padded grid">
-    <div v-if="user == false" class="three wide tablet only three wide computer only column" id="sidebar">
+    <div
+      v-if="user == false"
+      class="three wide tablet only three wide computer only column"
+      id="sidebar"
+    >
       <img src="./assets/logo.svg" alt="/" style="width:110%" />
       <h1 style="text-align: center; font-size: 2em; color:white">Razvrščevalni sistem ŠCV</h1>
       <div class="ui vertical borderless fluid text menu">
@@ -9,7 +13,11 @@
         </a>
       </div>
     </div>
-    <div v-else-if="user == true" class="three wide tablet only three wide computer only column" id="sidebar">
+    <div
+      v-else-if="user == true"
+      class="three wide tablet only three wide computer only column"
+      id="sidebar"
+    >
       <img src="./assets/logo.svg" alt="/" style="width:110%" />
       <h1 style="text-align: center; font-size: 1.7em; color:white">Razvrščevalni sistem ŠCV</h1>
       <h2 style="text-align: center; font-size: 1.2em; color:white">
@@ -57,7 +65,12 @@
             class="w3-button w3-xlarge w3-hover-red w3-display-topright"
             title="Close Modal"
           >&times;</span>
-          <img src="./assets/userlogin.png" alt="/" style="width:30%" class="w3-circle w3-margin-top" />
+          <img
+            src="./assets/userlogin.png"
+            alt="/"
+            style="width:30%"
+            class="w3-circle w3-margin-top"
+          />
         </div>
 
         <form class="w3-container">
@@ -82,21 +95,17 @@
               name="psw"
               required
             />
-            <button 
-                class="w3-button w3-block w3-green w3-section w3-padding" 
-                v-on:click="toggleModal()"
-                type="submit"
+            <button
+              class="w3-button w3-block w3-green w3-section w3-padding"
+              v-on:click="toggleModal()"
+              type="submit"
             >Login</button>
             <input class="w3-check w3-margin-top" type="checkbox" checked="checked" /> Remember me
           </div>
         </form>
 
         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-          <button
-            v-on:click="toggleModal()"
-            type="button"
-            class="w3-button w3-red"
-          >Cancel</button>
+          <button v-on:click="toggleModal()" type="button" class="w3-button w3-red">Cancel</button>
         </div>
       </div>
     </div>
@@ -107,24 +116,31 @@
 export default {
   data() {
     return {
-        modal: false,
-        user: true
+      modal: false,
+      user: true
     };
   },
   methods: {
     login: function() {
-        window.event.preventDefault();
-        this.user = true;
-        this.modal = !this.modal;
+      window.event.preventDefault();
+      this.user = true;
+      this.modal = !this.modal;
     },
     toggleModal: function() {
-      this.modal = !this.modal
+      this.modal = !this.modal;
     },
     moveUrl: link => {
-        window.event.preventDefault();
-        window.location.pathname != link ? (window.location = link) : null;
+      window.event.preventDefault();
+      window.location.pathname != link ? (window.location = link) : null;
     }
-      
+  },
+  head: {
+    link: [{ r: "icon", h: "./assets/headicon.ico", sz: "128x128", t: "images/x-icon" }]
   }
 };
 </script>
+
+
+<style lang="css">
+@import "./assets/overwrite.css";
+</style>

@@ -5,10 +5,12 @@ import VueRouter from "vue-router";
 import VueResource from "vue-resource";
 import App from "./App.vue";
 import { routes } from "./routes";
+import VueHead from 'vue-head';
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 Vue.use(VueResource);
+Vue.use(VueHead);
 
 const router = new VueRouter({
   mode: "history",
