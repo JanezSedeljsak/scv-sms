@@ -1,16 +1,22 @@
 const express = require('express');
-
 const router = express.Router();
 
+const mongoClient = require('./mongodbConnModule');
+var db = mongoClient._connect();
+
+const {
+    Student, Teacher, School, SClass,
+    Year, Competition, Achivment, AchivmentLevel,
+    AchivmentStudent, CompetitionStudent, ClassSubject,
+    Subject, AchivmentType, Grade, ClassStudentYear,
+    CompetitionSubject, ClassCompetition
+} = require('./../models/schemas');
+
 router.get('/students', (req, res, next) => {
-    res.status(200).json({
-        students: [
-            { name: 'Janez', surname: 'Kekec' },
-            { name: 'Pajdo', surname: 'Pajdo' },
-            { name: 'Luka', surname: 'Neki' },
-            { name: 'Mojstr', surname: 'Jaka' }
-        ]
-    });
+    Student.find({}, '-_id name surname easistentId', function (error, students) {
+        if (error) console.error(error);
+        res.status(200).json({ students });
+    }).sort({ _id: -1 });
 });
 
 router.get('/subjects', (req, res, next) => {
@@ -64,16 +70,16 @@ router.get('/classes', (req, res, next) => {
 router.get('/competitions', (req, res, next) => {
     res.status(200).json({
         competitions: [{ name: 'Janez', surname: 'Kekec' },
-            { name: 'Luka', surname: 'Neki' },
-            { name: 'Pajdo', surname: 'Pajdo' }]
+        { name: 'Luka', surname: 'Neki' },
+        { name: 'Pajdo', surname: 'Pajdo' }]
     });
 });
 
 router.get('/achivments', (req, res, next) => {
     res.status(200).json({
         achivments: [{ name: 'Janez', surname: 'Kekec' },
-            { name: 'Luka', surname: 'Neki' },
-            { name: 'Pajdo', surname: 'Pajdo' }]
+        { name: 'Luka', surname: 'Neki' },
+        { name: 'Pajdo', surname: 'Pajdo' }]
     });
 });
 

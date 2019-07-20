@@ -17,7 +17,7 @@ export const routes = [
     { path: "/competitions", component: Competitions },
     { path: "/admins-tab", component: AdminsTab },
     { path: "/students/:id/achivments/", component: Achivments },
-    { path: "/students/:id/achivments/:id", component: AchivmentsEdit },
+    { path: "/students/:id/achivments/:achivment", component: AchivmentsEdit },
     { path: "/achivments/:id/:type/", component: AchivmentsEdit },
     { path: "/achivments/:id/:type/", component: AchivmentsEdit },
     { path: "/competitions/:id/:type", component: CompetitionEdit },

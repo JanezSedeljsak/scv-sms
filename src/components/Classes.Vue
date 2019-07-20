@@ -72,10 +72,10 @@ export default {
   },
   methods: {
     fetchData: function() {
-        fetch("http://localhost:3000/api/get/subjects")
+        fetch("http://localhost:3000/api/get/subjects", { method: "GET" })
             .then(response => response.json())
             .then(data => (this.subjects = data["subjects"]));
-        fetch("http://localhost:3000/api/get/classes")
+        fetch("http://localhost:3000/api/get/classes", { method: "GET" })
             .then(response => response.json())
             .then(data => (this.classes = data["classes"]));
     },
