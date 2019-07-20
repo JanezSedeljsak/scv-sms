@@ -1,127 +1,109 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let StudentSchema = new Schema({
+let Student = mongoose.model("Student", new Schema({
     name: { type: String, unique: false },
     surname: { type: String, unique: false },
-    easistent_id: {type: Number, unique: true} 
-});
+    easistentId: { type: Number, unique: true }
+}));
 
-let SchoolSchema = new Schema({
-    short_name: { type: String, unique: true },
-    long_name: { type: String, unique: true }
-});
+let School = mongoose.model("School", new Schema({
+    shortName: { type: String, unique: true },
+    longName: { type: String, unique: true }
+}));
 
-let ClassSchema = new Schema({
+let SClass = mongoose.model("SClass", new Schema({
     name: { type: String, unique: true },
-    _school_id: {type: Schema.Types.ObjectId, ref: 'School'}
-});
+}));
 
-let YearSchema = new Schema({
-    name: { type: String, unique: true }
-});
-
-let TeacherSchema = new Schema({
+let Teacher = mongoose.model("Teacher", new Schema({
     name: { type: String, unique: false },
     surname: { type: String, unique: false },
     email: { type: String, unique: true },
     password: { type: String, unique: false }
-});
+}));
 
-let CompetitionSchema = new Schema({
+let Year = mongoose.model("Year", new Schema({
+    name: { type: String, unique: true }
+}));
+
+let Subject = mongoose.model("Subject", new Schema({
+    shortName: { type: String, unique: true },
+    longName: { type: String, unique: true },
+}));
+
+let ClassStudentYear = mongoose.model("ClassStudentYear", new Schema({
+    student: { type: Schema.Types.ObjectId, ref: 'Student', unique: false },
+    year: { type: Schema.Types.ObjectId, ref: 'Year', unique: false },
+    class: { type: Schema.Types.ObjectId, ref: 'SClass', unique: false },
+    confirmedGrades: { type: Boolean, default: false, unique: false }
+}));
+
+let Competition = mongoose.model("Competition", new Schema({
     name: { type: String, unique: true },
-    insert_date: { type: Date, default: Date.now, unique: false },
-    max_entry: {type: Number, unique: false },
-    deadline: Date,
+    insertDate: { type: Date, default: Date.now, unique: false },
+    maxEntry: { type: Number, unique: false },
+    deadline: { type: Date, unique: false },
     decription: { type: String, required: false, unique: false },
-    achivments_weight: { type: Schema.Types.Decimal128, default: 0.00, unique: false },
-    _teacher_id: {type: Schema.Types.ObjectId, ref: 'Teacher'}
-});
+    achivmentsWeight: { type: mongoose.Decimal128, default: 0.00, unique: false },
+    teacher: { type: Schema.Types.ObjectId, ref: 'Teacher', unique: false }
+}));
 
-let CompetitionSubjectSchema = new Schema({
-    subject_weight: { type: Schema.Types.Decimal128, default: 0.00 },
-    _competition_id: {type: Schema.Types.ObjectId, ref: 'Competition'},
-    _subject_id: {type: Schema.Types.ObjectId, ref: 'Subject'},
-    _year_id: {type: Schema.Types.ObjectId, ref: 'Year'},
-    _teacher_id: {type: Schema.Types.ObjectId, ref: 'Teacher'}
-});
+let AchivmentLevel = mongoose.model("AchivmentLevel", new Schema({
+    name: { type: String, unique: true, unique: true },
+    points: { type: mongoose.Decimal128, deafult: 1.00, unique: false },
+}));
 
-let ClassCompetitionSchema = new Schema({
-    _competition_id: {type: Schema.Types.ObjectId, ref: 'Competition'},
-    _class_id: {type: Schema.Types.ObjectId, ref: 'SClass'}
-});
+let AchivmentType = mongoose.model("AchivmentType", new Schema({
+    name: { type: String, unique: true, unique: true },
+    points: { type: mongoose.Decimal128, deafult: 1.00, unique: false },
+}));
 
-let SubjectSchema = new Schema({
-    short_name: { type: String, unique: true },
-    long_name: { type: String, unique: true },
-});
+let CompetitionSubject = mongoose.model("CompetitionSubject", new Schema({
+    subjectWeight: { type: Schema.Types.Decimal128, default: 0.00, unique: false },
+    competition: { type: Schema.Types.ObjectId, ref: 'Competition', unique: false },
+    subject: { type: Schema.Types.ObjectId, ref: 'Subject', unique: false },
+    year: { type: Schema.Types.ObjectId, ref: 'Year', unique: false },
+    teacher: { type: Schema.Types.ObjectId, ref: 'Teacher', unique: false }
+}));
 
-let GradeSchema = new Schema({
-    value: Number,
-    date: { type: Date },
-    _subject_id: {type: Schema.Types.ObjectId, ref: 'Subject'},
-    _classStudentYear_id: {type: Schema.Types.ObjectId, ref: 'Ingredient'}
-});
+let ClassCompetition = mongoose.model("ClassCompetition", new Schema({
+    competition: { type: Schema.Types.ObjectId, ref: 'Competition', unique: false },
+    class: { type: Schema.Types.ObjectId, ref: 'SClass', unique: false }
+}));
 
-let AchivmentTypeSchema = new Schema({
-    name: { type: String, unique: true },
-    points: { type: Number, deafult: 1 },
-});
-
-let AchivmentLevelSchema = new Schema({
-    name: { type: String, unique: true },
-    points: { type: Number, deafult: 1 },
-});
-
-let AchivmentSchema = new Schema({
+let Achivment = mongoose.model("Achivment", new Schema({
     name: { type: String, unique: false },
-    date: { type: Date, default: Date.now },
+    date: { type: Date, default: Date.now, unique: false },
     description: { type: String, unique: false },
-    place: Number,
-    _level_id: {type: Schema.Types.ObjectId, ref: 'Level'},
-    _achivmentType_id: {type: Schema.Types.ObjectId, ref: 'Achivment'}
-});
+    place: { type: Number, unique: false },
+    level: { type: Schema.Types.ObjectId, ref: 'AchivmentLevel', unique: false },
+    type: { type: Schema.Types.ObjectId, ref: 'AchivmentType', unique: false },
+    schoolYear: { type: Schema.Types.ObjectId, ref: 'Year', unique: false }
+}));
 
-let ClassStudentYearSchema = new Schema({
-    _student_id: {type: Schema.Types.ObjectId, ref: 'Student'},
-    _year_id: {type: Schema.Types.ObjectId, ref: 'Year'},
-    _class_id: {type: Schema.Types.ObjectId, ref: 'SClass'},
-    confirmedGrades: { type: Boolean, default: false }
-});
+let Grade = mongoose.model("Grade", new Schema({
+    value: { type: Number, unique: false },
+    date: { type: Date, default: Date.now, unique: false },
+    subject: { type: Schema.Types.ObjectId, ref: 'Subject', unique: false },
+    classStudentYear: { type: Schema.Types.ObjectId, ref: 'ClassStudentYear', unique: false }
+}));
 
-let AchivmentStudentSchema = new Schema({
-    _classStudentYear_id: {type: Schema.Types.ObjectId, ref: 'Ingredient'},
-    _achivment_id: {type: Schema.Types.ObjectId, ref: 'Achivment'}
-});
+let AchivmentStudent = mongoose.model("AchivmentStudent", new Schema({
+    student: { type: Schema.Types.ObjectId, ref: 'Student', unique: false },
+    achivment: { type: Schema.Types.ObjectId, ref: 'Achivment', unique: false }
+}));
 
-let ClassSubjectSchema = new Schema({
-    _subject_id: {type: Schema.Types.ObjectId, ref: 'Subject'},
-    _class_id: {type: Schema.Types.ObjectId, ref: 'SClass'},
-});
+let ClassSubject = mongoose.model("ClassSubject", new Schema({
+    subject: { type: Schema.Types.ObjectId, ref: 'Subject', unique: false },
+    class: { type: Schema.Types.ObjectId, ref: 'SClass', unique: false },
+}));
 
-let CompetitionStudentSchema = new Schema({
-    _student_id: {type: Schema.Types.ObjectId, ref: 'Student'},
-    _competition_id: {type: Schema.Types.ObjectId, ref: 'Competition'},
-    date: { type: Date, default: Date.now }
-});
-
-var Student = mongoose.model("Student", StudentSchema);
-var Teacher = mongoose.model("Teacher", TeacherSchema);
-var School = mongoose.model("School", SchoolSchema);
-var SClass = mongoose.model("SClass", ClassSchema);
-var Year = mongoose.model("Year", YearSchema);
-var Competition = mongoose.model("Competition", CompetitionSchema);
-var AchivmentLevel = mongoose.model("AchivmentLevel", AchivmentLevelSchema);
-var AchivmentType = mongoose.model("AchivmentType", AchivmentTypeSchema);
-var Achivment = mongoose.model("Achivment", AchivmentSchema);
-var AchivmentStudent = mongoose.model("AchivmentStudent", AchivmentStudentSchema);
-var CompetitionStudent = mongoose.model("CompetitionStudent", CompetitionStudentSchema);
-var ClassSubject = mongoose.model("ClassSubject", ClassSubjectSchema);
-var Subject = mongoose.model("Subject", SubjectSchema);
-var Grade = mongoose.model("Grade", GradeSchema);
-var ClassStudentYear = mongoose.model("ClassStudentYear", ClassStudentYearSchema);
-var CompetitionSubject = mongoose.model("CompetitionSubject", CompetitionSubjectSchema);
-var ClassCompetition = mongoose.model("ClassCompetition", ClassCompetitionSchema);
+let CompetitionStudent = mongoose.model("CompetitionStudent", new Schema({
+    student: { type: Schema.Types.ObjectId, ref: 'ClassStudentYear', unique: false },
+    competition: { type: String, required: true, ref: 'Competition', unique: false },
+    date: { type: Date, default: Date.now, unique: false }
+}));
 
 module.exports = {
     Student, Teacher, School, SClass,
