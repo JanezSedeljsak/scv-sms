@@ -7,6 +7,7 @@ import StudentEdit from "./components/StudentEdit.vue";
 import AdminsTab from "./components/AdminsTab.vue";
 import AchivmentsEdit from "./components/AchivmentsEdit.vue";
 import CompetitionEdit from "./components/CompetitionEdit.vue";
+import Edits from "./components/Edits.vue";
 
 export const routes = [
     { path: "/", component: Home },
@@ -17,6 +18,7 @@ export const routes = [
     { path: "/competitions", component: Competitions },
     { path: "/admins-tab", component: AdminsTab },
     { path: "/students/:id/achivments/", component: Achivments },
+    { path: "/edits", component: Edits },
     { path: "/students/:id/achivments/:achivment", component: AchivmentsEdit },
     { path: "/achivments/:id/:type/", component: AchivmentsEdit },
     { path: "/achivments/:id/:type/", component: AchivmentsEdit },

@@ -2,7 +2,7 @@
   <div class="ui padded grid">
     <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
       <h1 style="padding: 5px" class="ui header">
-        <i class="graduation cap icon"></i>Administratorji
+        <i class="address book icon"></i>Administratorji
       </h1>
     </div>
     <div class="row">
@@ -17,7 +17,7 @@
     <div v-if="!toggleDisplay" class="row">
         <div style="box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%; padding: 15px" class="ui card">
             <form class="ui form">
-            <h1>Ustvari administratorja</h1>
+            <h2>Ustvari administratorja</h2>
             <div class="field">
                 <label>Ime</label>
                 <input type="text" name="first-name">

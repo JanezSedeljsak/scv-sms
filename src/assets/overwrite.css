@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=B612&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap');
+
 body {
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: grayscale;
@@ -7,6 +9,10 @@ body {
 *:not(i) {
     border-radius: 0px !important;
     font-family: "B612", sans-serif !important;
+}
+
+h1:not(.title) {
+    font-family: 'Abril Fatface', cursive !important;
 }
 
 #sidebar {

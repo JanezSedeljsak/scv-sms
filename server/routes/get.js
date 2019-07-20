@@ -13,7 +13,7 @@ const {
 } = require('./../models/schemas');
 
 router.get('/students', (req, res, next) => {
-    Student.find({}, '-_id name surname easistentId', function (error, students) {
+    Student.find({}, 'name surname easistentId', function (error, students) {
         if (error) console.error(error);
         res.status(200).json({ students });
     }).sort({ _id: -1 });

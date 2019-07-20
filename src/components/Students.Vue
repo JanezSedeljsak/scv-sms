@@ -79,7 +79,7 @@
             class="studentRow"
             v-bind:key="index"
             v-for="(student, index) in studentsForDisplay"
-            v-on:click="changeLocation(index)"
+            v-on:click="changeLocation( student._id)"
           >
             <td>{{ index + 1}}</td>
             <td class="name">{{ student.name }}</td>

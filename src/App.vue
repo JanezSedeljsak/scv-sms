@@ -19,7 +19,7 @@
       id="sidebar"
     >
       <img src="./assets/logo.svg" alt="/" style="width:110%" />
-      <h1 style="text-align: center; font-size: 1.7em; color:white">Razvrščevalni sistem ŠCV</h1>
+      <h1 class="title" style="text-align: center; font-size: 1.7em; color:white">Razvrščevalni sistem ŠCV</h1>
       <h2 style="text-align: center; font-size: 1.2em; color:white">
         <i class="user circle icon"></i>
         {{ "mojstr" }}
@@ -34,14 +34,14 @@
         <a v-on:click="moveUrl('/classes')" class="item">
           <i class="book icon"></i>Predmeti
         </a>
-        <a v-on:click="moveUrl('/logout')" class="item">
+        <a v-on:click="moveUrl('/edits')" class="item">
           <i class="edit icon"></i>Urejanja
         </a>
         <a v-on:click="moveUrl('/achivments')" class="item">
           <i class="trophy icon"></i>Dosezki
         </a>
         <a v-on:click="moveUrl('/admins-tab')" class="item">
-          <i class="user plus icon"></i>Administratorji
+          <i class="address book icon"></i>Administratorji
         </a>
         <div style="height:3vw" class="ui hidden divider"></div>
         <a v-on:click="logout()" class="item">

@@ -79,7 +79,8 @@ let Achivment = mongoose.model("Achivment", new Schema({
     place: { type: Number, unique: false },
     level: { type: Schema.Types.ObjectId, ref: 'AchivmentLevel', unique: false },
     type: { type: Schema.Types.ObjectId, ref: 'AchivmentType', unique: false },
-    schoolYear: { type: Schema.Types.ObjectId, ref: 'Year', unique: false }
+    schoolYear: { type: Schema.Types.ObjectId, ref: 'Year', unique: false },
+    teacher: { type: Schema.Types.ObjectId, ref: 'Teacher', unique: false }
 }));
 
 let Grade = mongoose.model("Grade", new Schema({
