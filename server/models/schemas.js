@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let StudentSchema = new Schema({
-    name: { type: String },
-    surname: { type: String },
+    name: { type: String, unique: false },
+    surname: { type: String, unique: false },
     easistent_id: {type: Number, unique: true} 
 });
 
@@ -22,19 +22,19 @@ let YearSchema = new Schema({
 });
 
 let TeacherSchema = new Schema({
-    name: { type: String },
-    surname: { type: String },
+    name: { type: String, unique: false },
+    surname: { type: String, unique: false },
     email: { type: String, unique: true },
-    password: { type: String }
+    password: { type: String, unique: false }
 });
 
 let CompetitionSchema = new Schema({
     name: { type: String, unique: true },
-    insert_date: { type: Date, default: Date.now },
-    max_entry: { type: Number, min: 1, required: false },
-    deadline: { type: Date, required: false },
-    decription: { type: String, required: false },
-    achivments_weight: { type: Schema.Types.Decimal128, default: 0.00 },
+    insert_date: { type: Date, default: Date.now, unique: false },
+    max_entry: {type: Number, unique: false },
+    deadline: Date,
+    decription: { type: String, required: false, unique: false },
+    achivments_weight: { type: Schema.Types.Decimal128, default: 0.00, unique: false },
     _teacher_id: {type: Schema.Types.ObjectId, ref: 'Teacher'}
 });
 
@@ -74,9 +74,9 @@ let AchivmentLevelSchema = new Schema({
 });
 
 let AchivmentSchema = new Schema({
-    name: { type: String },
+    name: { type: String, unique: false },
     date: { type: Date, default: Date.now },
-    description: { type: String },
+    description: { type: String, unique: false },
     place: Number,
     _level_id: {type: Schema.Types.ObjectId, ref: 'Level'},
     _achivmentType_id: {type: Schema.Types.ObjectId, ref: 'Achivment'}
@@ -105,20 +105,28 @@ let CompetitionStudentSchema = new Schema({
     date: { type: Date, default: Date.now }
 });
 
-exports.Student = mongoose.model("Student", StudentSchema);
-exports.School = mongoose.model("School", SchoolSchema);
-exports.SClass = mongoose.model("SClass", ClassSchema);
-exports.Year = mongoose.model("Year", YearSchema);
-exports.Teacher = mongoose.model("Post", TeacherSchema);
-exports.Competition = mongoose.model("Post", CompetitionSchema);
-exports.CompetitionSubject = mongoose.model("Post", CompetitionSubjectSchema);
-exports.ClassCompetition = mongoose.model("Post", ClassCompetitionSchema);
-exports.Subject = mongoose.model("Post", SubjectSchema);
-exports.Grade = mongoose.model("Post", GradeSchema);
-exports.AchivmentType = mongoose.model("Post", AchivmentTypeSchema);
-exports.AchivmentLevel = mongoose.model("Post", AchivmentLevelSchema);
-exports.Achivment = mongoose.model("Post", AchivmentSchema);
-exports.ClassStudentYear = mongoose.model("Post", ClassStudentYearSchema);
-exports.AchivmentStudent = mongoose.model("Post", AchivmentStudentSchema);
-exports.ClassSubject = mongoose.model("Post", ClassSubjectSchema);
-exports.CompetitionStudent = mongoose.model("Post", CompetitionStudentSchema);
+var Student = mongoose.model("Student", StudentSchema);
+var Teacher = mongoose.model("Teacher", TeacherSchema);
+var School = mongoose.model("School", SchoolSchema);
+var SClass = mongoose.model("SClass", ClassSchema);
+var Year = mongoose.model("Year", YearSchema);
+var Competition = mongoose.model("Competition", CompetitionSchema);
+var AchivmentLevel = mongoose.model("AchivmentLevel", AchivmentLevelSchema);
+var AchivmentType = mongoose.model("AchivmentType", AchivmentTypeSchema);
+var Achivment = mongoose.model("Achivment", AchivmentSchema);
+var AchivmentStudent = mongoose.model("AchivmentStudent", AchivmentStudentSchema);
+var CompetitionStudent = mongoose.model("CompetitionStudent", CompetitionStudentSchema);
+var ClassSubject = mongoose.model("ClassSubject", ClassSubjectSchema);
+var Subject = mongoose.model("Subject", SubjectSchema);
+var Grade = mongoose.model("Grade", GradeSchema);
+var ClassStudentYear = mongoose.model("ClassStudentYear", ClassStudentYearSchema);
+var CompetitionSubject = mongoose.model("CompetitionSubject", CompetitionSubjectSchema);
+var ClassCompetition = mongoose.model("ClassCompetition", ClassCompetitionSchema);
+
+module.exports = {
+    Student, Teacher, School, SClass,
+    Year, Competition, Achivment, AchivmentLevel,
+    AchivmentStudent, CompetitionStudent, ClassSubject,
+    Subject, AchivmentType, Grade, ClassStudentYear,
+    CompetitionSubject, ClassCompetition
+};
