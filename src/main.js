@@ -25,3 +25,5 @@ new Vue({
   router,
   render: h => h(App)
 });
+
+Vue.filter('capitalize',  value => value.toUpperCase());

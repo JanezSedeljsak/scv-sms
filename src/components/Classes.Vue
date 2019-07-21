@@ -64,9 +64,6 @@ export default {
       classes: []
     };
   },
-  filters: {
-    capitalize: value => value.toUpperCase()
-  },
   created: function() {
     this.fetchData();
   },

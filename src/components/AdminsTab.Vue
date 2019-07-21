@@ -43,11 +43,9 @@
         </div>
     </div>
     <div v-else class="row">
+        <h2>Pregled administratorjev</h2>
         <table class="ui celled table">
             <thead>
-                <tr>
-                    <th colspan="3"><h2>Pregled administratorjev</h2></th>
-                </tr>
                 <tr class="ui inverted blue table">
                     <th>Ime</th>
                     <th>Priimek</th>

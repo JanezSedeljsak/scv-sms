@@ -14,6 +14,7 @@ let School = mongoose.model("School", new Schema({
 
 let SClass = mongoose.model("SClass", new Schema({
     name: { type: String, unique: true },
+    school: { type: Schema.Types.ObjectId, ref: 'School', unique: false },
 }));
 
 let Teacher = mongoose.model("Teacher", new Schema({
@@ -44,6 +45,7 @@ let Competition = mongoose.model("Competition", new Schema({
     insertDate: { type: Date, default: Date.now, unique: false },
     maxEntry: { type: Number, unique: false },
     deadline: { type: Date, unique: false },
+    year: { type: Schema.Types.ObjectId, ref: 'Year', unique: false },
     decription: { type: String, required: false, unique: false },
     achivmentsWeight: { type: mongoose.Decimal128, default: 0.00, unique: false },
     teacher: { type: Schema.Types.ObjectId, ref: 'Teacher', unique: false }

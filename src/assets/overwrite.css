@@ -6,8 +6,15 @@ body {
     -moz-font-smoothing: grayscale;
 }
 
+.customTab {
+    display: block !important;
+    width: 93.8% !important;
+}
+
 .formIcon:hover {
     cursor: pointer !important;
+    font-weight: bold;
+    color: blue;
 }
 
 input, div.input {
