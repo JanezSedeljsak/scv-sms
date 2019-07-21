@@ -6,8 +6,26 @@ body {
     -moz-font-smoothing: grayscale;
 }
 
+.formIcon:hover {
+    cursor: pointer !important;
+}
+
+input, div.input {
+    border-radius: 0 !important;
+}
+.formIcon {
+    pointer-events: auto !important;
+    color: #032f8f;
+    font-weight: bold;
+    outline: 2px solid #032f8f;
+}
+
+label {
+    color: #444 !important;
+    font-weight: 600;
+}
+
 *:not(i) {
-    border-radius: 0px !important;
     font-family: "B612", sans-serif !important;
 }
 

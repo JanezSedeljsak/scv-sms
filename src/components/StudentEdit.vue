@@ -77,9 +77,14 @@
               <b>{{ student.short | capitalize }}</b>
             </td>
             <td class="surname">
-              <div class="ui icon input">
-                <input type="text" placeholder="Dodaj oceno" />
-              </div>
+                <select style="width: 10%; padding: 4px">
+                    <option 
+                        v-for="item in 5"
+                        v-bind:key="`key${item}`"
+                        v-bind:value="item"
+                    >{{ item}}
+                    </option>
+                </select>
             </td>
           </tr>
         </tbody>

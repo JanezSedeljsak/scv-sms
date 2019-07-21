@@ -46,7 +46,7 @@
       </div>
       <div style="display:block; width:49%; margin-left: 2% !important" class="ui padded grid">
         <div class="row" style="width: 100%">
-          <h2 style="width: 49%">Nivjoi dosežkov</h2>
+          <h2 style="width: 49%">Nivoji dosežkov</h2>
           <button
             style="margin-left: 25%; width: 25%"
             v-on:click="openEdit('edit')"
@@ -74,7 +74,6 @@
             </div>
 
             <button
-              style="width: 20%"
               v-on:click="openEdit('edit')"
               class="ui yellow button w3-right"
             >
@@ -122,6 +121,11 @@ export default {
       });
     },
     openEdit: function(type) {
+        this.$swal({
+            type: 'success',
+            title: 'Akcija uspešno končana',
+            showConfirmButton: false
+        });
     }
   }
 };

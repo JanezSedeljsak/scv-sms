@@ -32,7 +32,7 @@
         </li>
         <li class="w3-bar">
             <button 
-                style="width: 10%"
+                style="width: 15%"
                 v-if="selectedClass != null"
                 v-on:click="addSubject(index)"
                 class="ui green button w3-right"

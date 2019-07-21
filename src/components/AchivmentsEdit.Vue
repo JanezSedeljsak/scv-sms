@@ -14,31 +14,51 @@
                 </div>
                 <div class="five wide column">
                     <label>Datum</label>
-                    <input type="text" name="first-name">
+                    <datepicker :value="new Date()" name="uniquename"></datepicker>
                 </div>
                 <div class="five wide column">
                     <label>Mesto</label>
                     <input type="text" name="first-name">
                 </div>
                 <div class="five wide column">
-                    <label>Stopnja</label>
-                    <input type="text" name="first-name">
+                    <label>Tip</label><br>
+                    <div  style="width:100%" class="ui inverted right icon input">
+                        <input
+                        type="text"
+                        />
+                        <i class="formIcon add icon"></i>
+                    </div>
                 </div>
                 <div class="five wide column">
-                    <label>Nivo</label>
-                    <input type="text" name="first-name">
+                    <label>Nivo</label><br>
+                    <div  style="width:100%" class="ui inverted right icon input">
+                        <input
+                        type="text"
+                        />
+                        <i class="formIcon add icon"></i>
+                    </div>
                 </div>
                 <div class="five wide column">
-                    <label>Tip</label>
-                    <input type="text" name="first-name">
+                    <label>Mentor</label><br>
+                    <div  style="width:100%" class="ui inverted right icon input">
+                        <input
+                        type="text"
+                        />
+                        <i class="formIcon add icon"></i>
+                    </div>
                 </div>
                 <div class="five wide column">
-                    <label>Mentor</label>
-                    <input type="text" name="first-name">
+                    <label>Šolsko leto</label><br>
+                    <div  style="width:100%" class="ui inverted right icon input">
+                        <input
+                        type="text"
+                        />
+                        <i class="formIcon add icon"></i>
+                    </div>
                 </div>
                 <div class="ten wide column">
                     <label>Opis</label>
-                    <input type="text" name="first-name">
+                    <textarea rows="3"></textarea>
                 </div>
             </div>
             <hr style="width: 93.8%; border-bottom: 2px solid #2185d0">
@@ -65,10 +85,15 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker';
+
 export default {
   data() {
     return {
     };
+  },
+    components: {
+    Datepicker
   },
   created: function() {
   },
