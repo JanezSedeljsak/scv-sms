@@ -20,25 +20,22 @@
         <ul class="w3-ul w3-card-4">
           <li
             class="w3-bar"
-            v-for="(competition, index) in competitionsForDisplay"
+            v-for="(type, index) in types"
             v-bind:key="index"
           >
             <div style="margin-left: 15px; width: 60%; float: left;">
               <span>
                 Naziv:
-                <b>{{ competition.name }}</b>
+                <b>{{ type.name }}</b>
               </span>
               <br />
               <span>
                 Vrednost:
-                <b>{{ competition.date | dateFormat }}</b>
+                <b>{{ level.points.$numberDecimal }}</b>
               </span>
             </div>
 
-            <button
-              v-on:click="openEdit('edit')"
-              class="ui yellow button w3-right"
-            >
+            <button v-on:click="openEdit('edit')" class="ui yellow button w3-right">
               <i class="edit icon"></i>Uredi
             </button>
           </li>
@@ -58,25 +55,22 @@
         <ul class="w3-ul w3-card-4">
           <li
             class="w3-bar"
-            v-for="(competition, index) in competitionsForDisplay"
+            v-for="(level, index) in levels"
             v-bind:key="index"
           >
             <div style="margin-left: 15px; width: 60%; float: left;">
               <span>
                 Naziv:
-                <b>{{ competition.name }}</b>
+                <b>{{ level.name }}</b>
               </span>
               <br />
               <span>
                 Vrednost:
-                <b>{{ competition.date | dateFormat }}</b>
+                <b>{{ level.points.$numberDecimal }}</b>
               </span>
             </div>
 
-            <button
-              v-on:click="openEdit('edit')"
-              class="ui yellow button w3-right"
-            >
+            <button v-on:click="openEdit('edit')" class="ui yellow button w3-right">
               <i class="edit icon"></i>Uredi
             </button>
           </li>
@@ -91,8 +85,8 @@ var moment = require("moment");
 export default {
   data() {
     return {
-      competitions: [],
-      competitionsForDisplay: [],
+      types: [],
+      levels: [],
       filterValue: null
     };
   },
@@ -104,11 +98,16 @@ export default {
   },
   methods: {
     fetchData: function() {
-      fetch("http://localhost:3000/api/get/competitions")
+      fetch("http://localhost:3000/api/get/types")
         .then(response => response.json())
         .then(data => {
-          this.competitions = data["competitions"];
-          this.competitionsForDisplay = this.competitions;
+          this.types = data["types"];
+        });
+
+      fetch("http://localhost:3000/api/get/levels")
+        .then(response => response.json())
+        .then(data => {
+          this.levels = data["levels"];
         });
     },
     filterCompetitions: function() {
@@ -121,11 +120,11 @@ export default {
       });
     },
     openEdit: function(type) {
-        this.$swal({
-            type: 'success',
-            title: 'Akcija uspešno končana',
-            showConfirmButton: false
-        });
+      this.$swal({
+        type: "success",
+        title: "Akcija uspešno končana",
+        showConfirmButton: false
+      });
     }
   }
 };

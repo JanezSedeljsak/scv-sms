@@ -23,5 +23,7 @@ export const routes = [
     { path: "/achivments/:id/:type/", component: AchivmentsEdit },
     { path: "/achivments/:id/:type/", component: AchivmentsEdit },
     { path: "/competitions/:id/:type", component: CompetitionEdit },
-    { path: "/competitions/:id/:type/", component: CompetitionEdit }
+    { path: "/competitions/:id/:type/", component: CompetitionEdit },
+    { path: "/type/edits/:type", component: CompetitionEdit },
+    { path: "/level/edits/:type", component: CompetitionEdit }
 ];

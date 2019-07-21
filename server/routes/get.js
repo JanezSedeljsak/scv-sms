@@ -19,6 +19,39 @@ router.get('/students', (req, res, next) => {
     }).sort({ _id: -1 });
 });
 
+router.get('/types', (req, res, next) => {
+    AchivmentType.find({}, 'name points', function (error, types) {
+        if (error) console.error(error);
+        res.status(200).json({ types });
+    }).sort({ _id: -1 });
+});
+
+router.get('/levels', (req, res, next) => {
+    AchivmentLevel.find({}, 'name points', function (error, levels) {
+        if (error) console.error(error);
+        res.status(200).json({ levels });
+    }).sort({ _id: -1 });
+});
+
+//this should be moved to another file but for now its here
+//////
+router.post('/add-type', (req, res, next) => {
+    let newType = new AchivmentType({
+        name: req.body.name,
+        points: req.body.points
+    });
+    newType.save(error => error ? console.log(error) : res.send({ succes: true }))
+});
+
+router.get('/add-level', (req, res, next) => {
+    let newLevel = new AchivmentLevel({
+        name: req.body.name,
+        points: req.body.points
+    });
+    newLevel.save(error => error ? console.log(error) : res.send({ succes: true }))
+
+});
+
 router.get('/subjects', (req, res, next) => {
     res.status(200).json({
         subjects: [
