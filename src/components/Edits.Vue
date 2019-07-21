@@ -18,11 +18,7 @@
           </button>
         </div>
         <ul class="w3-ul w3-card-4">
-          <li
-            class="w3-bar"
-            v-for="(type, index) in types"
-            v-bind:key="index"
-          >
+          <li class="w3-bar" v-for="(type, index) in types" v-bind:key="index">
             <div style="margin-left: 15px; width: 60%; float: left;">
               <span>
                 Naziv:
@@ -35,9 +31,9 @@
               </span>
             </div>
 
-            <button v-on:click="moveUrl([ 2 , type._id])" class="ui yellow button w3-right">
-              <i class="edit icon"></i>Uredi
-            </button>
+            <a v-on:click="moveUrl([ 2 , type._id])" class="ui round-button w3-right">
+              <i class="edit icon"></i>
+            </a>
           </li>
         </ul>
       </div>
@@ -53,11 +49,7 @@
           </button>
         </div>
         <ul class="w3-ul w3-card-4">
-          <li
-            class="w3-bar"
-            v-for="(level, index) in levels"
-            v-bind:key="index"
-          >
+          <li class="w3-bar" v-for="(level, index) in levels" v-bind:key="index">
             <div style="margin-left: 15px; width: 60%; float: left;">
               <span>
                 Naziv:
@@ -70,9 +62,9 @@
               </span>
             </div>
 
-            <button v-on:click="moveUrl([ 3, level._id])" class="ui yellow button w3-right">
-              <i class="edit icon"></i>Uredi
-            </button>
+            <a v-on:click="moveUrl([ 3, level._id])" class="ui round-button w3-right">
+              <i class="edit icon"></i>
+            </a>
           </li>
         </ul>
       </div>
@@ -120,14 +112,13 @@ export default {
       });
     },
     moveUrl: function(params) {
-        let onClickRoutes = [
-            `/type-edits/1/create`,
-            `/level-edits/2/create`,
-            `/type-edits/3/${params[1]}`,
-            `/level-edits/4/${params[1]}`
-        ];
-        window.location = onClickRoutes[params[0]];
-
+      let onClickRoutes = [
+        `/type-edits/1/create`,
+        `/level-edits/2/create`,
+        `/type-edits/3/${params[1]}`,
+        `/level-edits/4/${params[1]}`
+      ];
+      window.location = onClickRoutes[params[0]];
     }
     /*openEdit: function(type) {
       this.$swal({

@@ -18,11 +18,9 @@
     <div v-if="pickedClass != null" class="row">
       <ul style="display:block; width:70%" class="w3-ul w3-card-4">
         <li v-bind:key="index" v-for="(subject, index) in subjects" class="w3-bar">
-            <button 
-                style="width: 15%"
-                v-on:click="removeSubject(index)"
-                class="ui red button w3-right"
-            ><i class="remove icon"></i>Odstrani</button>
+          <a v-on:click="removeSubject(index)" class="ui round-button w3-right">
+            <i class="delete icon"></i>
+          </a>
           <img src="https://backgroundcheckall.com/wp-content/uploads/2017/12/book-clipart-transparent-background-5.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px" />
           <div class="w3-bar-item">
             <span class="w3-large"><b>{{ subject.short | capitalize }}</b></span>

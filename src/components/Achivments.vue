@@ -46,11 +46,9 @@
               <span>Datum: <b>{{ achivment.date | dateFormat }}</b></span>
             </div>
 
-          <button 
-                style="width: 10%"
-                v-on:click="openEdit('edit')"
-                class="ui yellow button w3-right"
-            ><i class="edit icon"></i>Urejaj</button>
+          <a v-on:click="openEdit('edit')" class="ui round-button w3-right">
+            <i class="edit icon"></i>
+          </a>
         </li>
       </ul>
     </div>
