@@ -8,6 +8,7 @@ import AdminsTab from "./components/AdminsTab.vue";
 import AchivmentsEdit from "./components/AchivmentsEdit.vue";
 import CompetitionEdit from "./components/CompetitionEdit.vue";
 import Edits from "./components/Edits.vue";
+import GlobalEdit from "./components/GlobalEdit.vue";
 
 export const routes = [
     { path: "/", component: Home },
@@ -24,6 +25,9 @@ export const routes = [
     { path: "/achivments/:id/:type/", component: AchivmentsEdit },
     { path: "/competitions/:id/:type", component: CompetitionEdit },
     { path: "/competitions/:id/:type/", component: CompetitionEdit },
-    { path: "/type/edits/:type", component: CompetitionEdit },
-    { path: "/level/edits/:type", component: CompetitionEdit }
+    { path: "/type-edits/:titleIndex/create", component: GlobalEdit },
+    { path: "/level-edits/:titleIndex/create", component: GlobalEdit },
+    { path: "/type-edits/:titleIndex/:id", component: GlobalEdit },
+    { path: "/level-edits/:titleIndex/:id", component: GlobalEdit },
+    { path: '*', redirect: '/' }
 ];

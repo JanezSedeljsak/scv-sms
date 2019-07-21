@@ -14,7 +14,8 @@ body {
 .formIcon:hover {
     cursor: pointer !important;
     font-weight: bold;
-    color: blue;
+    color: #5900ff;
+    outline: 2px solid #5900ff;
 }
 
 input, div.input {

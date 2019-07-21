@@ -11,7 +11,7 @@
           <h2 style="width: 49%">Tipi dosežkov</h2>
           <button
             style="margin-left: 25%; width: 25%"
-            v-on:click="openEdit('edit')"
+            v-on:click="moveUrl([ 0 ])"
             class="ui primary button w3-right"
           >
             <i class="plus icon"></i>Dodaj tip
@@ -31,11 +31,11 @@
               <br />
               <span>
                 Vrednost:
-                <b>{{ level.points.$numberDecimal }}</b>
+                <b>{{ type.points.$numberDecimal }}</b>
               </span>
             </div>
 
-            <button v-on:click="openEdit('edit')" class="ui yellow button w3-right">
+            <button v-on:click="moveUrl([ 2 , type._id])" class="ui yellow button w3-right">
               <i class="edit icon"></i>Uredi
             </button>
           </li>
@@ -46,7 +46,7 @@
           <h2 style="width: 49%">Nivoji dosežkov</h2>
           <button
             style="margin-left: 25%; width: 25%"
-            v-on:click="openEdit('edit')"
+            v-on:click="moveUrl([ 1 ])"
             class="ui primary button w3-right"
           >
             <i class="plus icon"></i>Dodaj nivo
@@ -70,7 +70,7 @@
               </span>
             </div>
 
-            <button v-on:click="openEdit('edit')" class="ui yellow button w3-right">
+            <button v-on:click="moveUrl([ 3, level._id])" class="ui yellow button w3-right">
               <i class="edit icon"></i>Uredi
             </button>
           </li>
@@ -119,13 +119,23 @@ export default {
         return values.includes(true) ? true : false;
       });
     },
-    openEdit: function(type) {
+    moveUrl: function(params) {
+        let onClickRoutes = [
+            `/type-edits/1/create`,
+            `/level-edits/2/create`,
+            `/type-edits/3/${params[1]}`,
+            `/level-edits/4/${params[1]}`
+        ];
+        window.location = onClickRoutes[params[0]];
+
+    }
+    /*openEdit: function(type) {
       this.$swal({
         type: "success",
         title: "Akcija uspešno končana",
         showConfirmButton: false
       });
-    }
+    }*/
   }
 };
 </script>
