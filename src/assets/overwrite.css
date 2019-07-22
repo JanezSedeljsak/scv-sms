@@ -24,6 +24,7 @@ body {
 .round-button:hover {
     background: #262626;
     color: #ff7300;
+    cursor: pointer;
 }
 
 ul.w3-ul {

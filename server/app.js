@@ -14,6 +14,11 @@ app.use(express.static("dist"));
 const getRoutes = require("./routes/get.js");
 app.use("/api/get", getRoutes);
 
+const authRoutes = require("./routes/auth.js");
+app.use("/api/auth", authRoutes);
+
+
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
