@@ -31,7 +31,7 @@
               </span>
             </div>
 
-            <a v-on:click="moveUrl([ 2 , type._id])" class="ui round-button w3-right">
+            <a v-tooltip.top-center="'Odpri urejanje tipa'" v-on:click="moveUrl([ 2 , type._id])" class="ui round-button w3-right">
               <i class="edit icon"></i>
             </a>
           </li>
@@ -62,7 +62,7 @@
               </span>
             </div>
 
-            <a v-on:click="moveUrl([ 3, level._id])" class="ui round-button w3-right">
+            <a v-tooltip.top-center="'Odpri urejanje nivoja'" v-on:click="moveUrl([ 3, level._id])" class="ui round-button w3-right">
               <i class="edit icon"></i>
             </a>
           </li>

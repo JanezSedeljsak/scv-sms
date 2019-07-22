@@ -61,10 +61,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td data-label="Name">James</td>
-            <td data-label="Age">24</td>
-            <td data-label="Job">Engineer</td>
+          <tr
+            v-for="(teacher, index) in teachers"
+            v-bind:key="index"
+        >
+            <td>{{ teacher.name }}</td>
+            <td>{{ teacher.surname }}</td>
+            <td>{{ teacher.email }}</td>
           </tr>
         </tbody>
       </table>
@@ -83,13 +86,21 @@ export default {
         mail: "",
         pass: "",
         pass1: ""
-      }
+      },
+      teachers: []
     };
   },
-  created: function() {},
+  created: function() {
+      this.fetchData();
+  },
   methods: {
     toggle: function() {
       this.toggleDisplay = !this.toggleDisplay;
+    },
+    fetchData: function() {
+      fetch("http://localhost:3000/api/get/teachers", { method: "GET" })
+        .then(response => response.json())
+        .then(data => (this.teachers = data["teachers"]));
     },
     sendAdminForm: function() {
       window.event.preventDefault();

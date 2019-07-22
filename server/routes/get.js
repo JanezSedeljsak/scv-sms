@@ -19,6 +19,13 @@ router.get('/students', (req, res, next) => {
     }).sort({ _id: -1 });
 });
 
+router.get('/teachers', (req, res, next) => {
+    Teacher.find({}, 'name surname email', function (error, teachers) {
+        if (error) console.error(error);
+        res.status(200).json({ teachers });
+    }).sort({ _id: -1 });
+});
+
 router.get('/types', (req, res, next) => {
     AchivmentType.find({}, 'name points', function (error, types) {
         if (error) console.error(error);
