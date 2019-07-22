@@ -86,23 +86,23 @@ export default {
       }
     };
   },
-  created: function() {
-  },
+  created: function() {},
   methods: {
     toggle: function() {
       this.toggleDisplay = !this.toggleDisplay;
     },
     sendAdminForm: function() {
-        window.event.preventDefault();
-        console.log(this.form);
-       fetch("http://localhost:3000/api/auth/create-admin", {
+      window.event.preventDefault();
+      console.log(this.form);
+      fetch("http://localhost:3000/api/auth/create-admin", {
         method: "POST",
         body: JSON.stringify(this.form),
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(res => res.json())
-    .then(response => console.log('Success:', JSON.stringify(response)))
+      })
+        .then(res => res.json())
+        .then(response => console.log("Success:", JSON.stringify(response)));
     }
   }
 };

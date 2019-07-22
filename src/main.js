@@ -8,7 +8,9 @@ import { routes } from "./routes";
 import VueHead from 'vue-head';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
- 
+import VTooltip from 'v-tooltip';
+
+Vue.use(VTooltip);
 Vue.use(VueSweetalert2);
 Vue.use(VueRouter);
 Vue.config.productionTip = false;

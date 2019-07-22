@@ -9,9 +9,11 @@ import AchivmentsEdit from "./components/AchivmentsEdit.vue";
 import CompetitionEdit from "./components/CompetitionEdit.vue";
 import Edits from "./components/Edits.vue";
 import GlobalEdit from "./components/GlobalEdit.vue";
+import Login from "./components/Login.vue";
 
 export const routes = [
     { path: "/", component: Home },
+    { path: '/login', component: Login },
     { path: "/classes", component: Classes },
     { path: "/students", component: Students },
     { path: '/students/:id', component: StudentEdit },

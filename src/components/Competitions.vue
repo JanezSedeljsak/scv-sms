@@ -62,7 +62,7 @@
               <b>{{ competition.date | dateFormat }}</b>
             </span>
           </div>
-          <a v-on:click="openEdit('edit')" class="ui round-button w3-right">
+          <a v-tooltip.top-center="editTooltip" v-on:click="openEdit('edit')" class="ui round-button w3-right">
             <i class="edit icon"></i>
           </a>
         </li>
@@ -78,7 +78,8 @@ export default {
     return {
       competitions: [],
       competitionsForDisplay: [],
-      filterValue: null
+      filterValue: null,
+      editTooltip: "Odpri urejanje tekmovanja"
     };
   },
   filters: {
