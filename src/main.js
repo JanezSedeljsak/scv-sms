@@ -18,44 +18,55 @@ Vue.use(VueResource);
 Vue.use(VueHead);
 
 const router = new VueRouter({
-  mode: "history",
-  routes
+    mode: "history",
+    routes
 });
-
-new Vue({
-  el: "#app",
-  router,
-  render: h => h(App)
-});
-
-Vue.filter('capitalize',  value => value.toUpperCase());
 
 router.beforeEach((to, from, next) => {
-    const user = 'admin';
-    if(to.path === '/login') {
-        if(sessionStorage.getItem("szr_auth"))
+    let user = null;
+    if (to.path === '/login') {
+        if (sessionStorage.getItem("szr_auth"))
             sessionStorage.removeItem('szr_auth');
-        if(localStorage.getItem("szr_auth"))
+        if (localStorage.getItem("szr_auth"))
             localStorage.removeItem('szr_auth');
         next();
-    } else if (sessionStorage.getItem("szr_auth") || localStorage.getItem("szr_auth")){
+    } else if (sessionStorage.getItem("szr_auth") || localStorage.getItem("szr_auth")) {
         if (localStorage.getItem("szr_auth") && !sessionStorage.getItem("szr_auth")) {
             sessionStorage.setItem('szr_auth', localStorage.getItem("szr_auth"));
         }
-        if(to.path.includes('admin')) {
-            if(user === 'admin') {
-                next();
-            } else {
-                next('/login');
+        fetch("http://localhost:3000/api/auth/get-rights", {
+            method: "POST",
+            body: JSON.stringify({
+                tokenString: sessionStorage.getItem("szr_auth")
+            }),
+            headers: {
+                "Content-Type": "application/json"
             }
-        } else if (to.path.includes('user')) {
-            if(user === 'user') {
-                next();
-            } else {
-                next('/login');
+        }).then(res => res.json()).then(response => {
+            user = response.result._rights;
+            if (to.path.includes('admin')) {
+                if (user === 'admin') {
+                    next();
+                } else {
+                    next('/login');
+                }
+            } else if (to.path.includes('user')) {
+                if (user === 'user') {
+                    next();
+                } else {
+                    next('/login');
+                }
             }
-        }
+        });
     } else {
         next('/login');
     }
 });
+
+new Vue({
+    el: "#app",
+    router,
+    render: h => h(App)
+});
+
+Vue.filter('capitalize', value => value.toUpperCase());

@@ -87,12 +87,25 @@ router.post('/try-login', (req, res, next) => {
                 } else {
                     res.status(200).json({
                         ok: true,
-                        result: await generateToken({_id: result._id})
+                        result: await generateToken({
+                            _id: result._id,
+                            _rights: 'admin'
+                        })
                     });
                 }
             } 
         });
     }
+});
+
+
+router.post('/get-rights', (req, res, next) => {
+    console.log(req.body.tokenString);
+    let token = parseToken(req.body.tokenString);
+    res.status(200).json({
+        ok: true,
+        result: { _rights: token._rights }
+    });
 });
 
 

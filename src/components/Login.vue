@@ -42,7 +42,6 @@ export default {
   methods: {
     tryLogin: function() {
       window.event.preventDefault();
-      console.log(this.form);
       fetch("http://localhost:3000/api/auth/try-login", {
         method: "POST",
         body: JSON.stringify(this.form),
