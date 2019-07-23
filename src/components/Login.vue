@@ -57,6 +57,7 @@ export default {
             } else {
                 sessionStorage.setItem("szr_auth", response.result.toString());
                 localStorage.setItem('szr_auth',  response.result.toString());
+                window.location = '/admin';
                 //$cookies.set('szr_auth', response.result.toString());
                 //console.log($cookies.get('szr_auth'))
             }

@@ -151,7 +151,7 @@ export default {
         });
     },
     changeLocation: function(student) {
-      window.location = `/students/${student}/`;
+      window.location = `admin/students/${student}/`;
     }
   }
 };

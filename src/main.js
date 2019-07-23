@@ -29,3 +29,33 @@ new Vue({
 });
 
 Vue.filter('capitalize',  value => value.toUpperCase());
+
+router.beforeEach((to, from, next) => {
+    const user = 'admin';
+    if(to.path === '/login') {
+        if(sessionStorage.getItem("szr_auth"))
+            sessionStorage.removeItem('szr_auth');
+        if(localStorage.getItem("szr_auth"))
+            localStorage.removeItem('szr_auth');
+        next();
+    } else if (sessionStorage.getItem("szr_auth") || localStorage.getItem("szr_auth")){
+        if (localStorage.getItem("szr_auth") && !sessionStorage.getItem("szr_auth")) {
+            sessionStorage.setItem('szr_auth', localStorage.getItem("szr_auth"));
+        }
+        if(to.path.includes('admin')) {
+            if(user === 'admin') {
+                next();
+            } else {
+                next('/login');
+            }
+        } else if (to.path.includes('user')) {
+            if(user === 'user') {
+                next();
+            } else {
+                next('/login');
+            }
+        }
+    } else {
+        next('/login');
+    }
+});

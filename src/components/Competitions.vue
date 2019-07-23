@@ -108,7 +108,7 @@ export default {
     },
     openEdit: function(type) {
       window.event.preventDefault();
-      window.location = `/competitions/1/${type}/`;
+      window.location = `/admin/competitions/1/${type}/`;
     }
   }
 };

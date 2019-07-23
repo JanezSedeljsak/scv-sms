@@ -25,26 +25,26 @@
         {{ "mojstr" }}
       </h2>
       <div class="ui vertical borderless fluid text menu">
-        <a v-on:click="moveUrl('/students')" class="item">
+        <a v-on:click="moveUrl('/admin/students')" class="item">
           <i class="graduation cap icon"></i>Dijaki
         </a>
-        <a v-on:click="moveUrl('/competitions')" class="item">
+        <a v-on:click="moveUrl('/admin/competitions')" class="item">
           <i class="sort numeric up icon"></i>Tekmovanja
         </a>
-        <a v-on:click="moveUrl('/classes')" class="item">
+        <a v-on:click="moveUrl('/admin/classes')" class="item">
           <i class="book icon"></i>Predmeti
         </a>
-        <a v-on:click="moveUrl('/edits')" class="item">
+        <a v-on:click="moveUrl('/admin/edits')" class="item">
           <i class="edit icon"></i>Urejanja
         </a>
-        <a v-on:click="moveUrl('/achivments')" class="item">
+        <a v-on:click="moveUrl('/admin/achivments')" class="item">
           <i class="trophy icon"></i>Dosezki
         </a>
-        <a v-on:click="moveUrl('/admins-tab')" class="item">
+        <a v-on:click="moveUrl('/admin/admins-tab')" class="item">
           <i class="address book icon"></i>Administratorji
         </a>
         <div style="height:3vw" class="ui hidden divider"></div>
-        <a v-on:click="logout()" class="item">
+        <a v-on:click="moveUrl('/login')" class="item">
           <i class="sign out alternate icon"></i>Odjava
         </a>
       </div>

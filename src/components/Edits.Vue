@@ -113,10 +113,10 @@ export default {
     },
     moveUrl: function(params) {
       let onClickRoutes = [
-        `/type-edits/1/create`,
-        `/level-edits/2/create`,
-        `/type-edits/3/${params[1]}`,
-        `/level-edits/4/${params[1]}`
+        `/admin/type-edits/1/create`,
+        `/admin/level-edits/2/create`,
+        `/admin/type-edits/3/${params[1]}`,
+        `/admin/level-edits/4/${params[1]}`
       ];
       window.location = onClickRoutes[params[0]];
     }
