@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
+    <div class="ui szrheader">
       <h1 style="padding: 5px" class="ui header">
         <i class="edit icon"></i>Urejanja
       </h1>
@@ -8,65 +8,81 @@
     <div class="row">
       <div style="display:block; width:49%" class="ui padded grid">
         <div class="row" style="width: 100%">
-          <h2 style="width: 49%">Tipi dosežkov</h2>
-          <button
-            style="margin-left: 25%; width: 25%"
-            v-on:click="moveUrl([ 0 ])"
-            class="ui primary button w3-right"
-          >
-            <i class="plus icon"></i>Dodaj tip
-          </button>
+          <h2>Tipi dosežkov</h2>
         </div>
-        <ul class="w3-ul w3-card-4">
-          <li class="w3-bar" v-for="(type, index) in types" v-bind:key="index">
-            <div style="margin-left: 15px; width: 60%; float: left;">
-              <span>
-                Naziv:
-                <b>{{ type.name }}</b>
-              </span>
-              <br />
-              <span>
-                Vrednost:
-                <b>{{ type.points.$numberDecimal }}</b>
-              </span>
-            </div>
-
-            <a v-tooltip.top-center="'Odpri urejanje tipa'" v-on:click="moveUrl([ 2 , type._id])" class="ui round-button w3-right">
-              <i class="edit icon"></i>
-            </a>
-          </li>
-        </ul>
+        <table class="ui single line table">
+          <thead>
+            <tr class="ui inverted blue table">
+              <th>#</th>
+              <th>Naziv</th>
+              <th>Vrednost</th>
+              <th>
+                <a
+                  v-tooltip.top-center="'Dodaj nov zapis nivoja'"
+                  v-on:click="moveUrl([ 0 ])"
+                  class="ui round-button w3-right add-btn"
+                >
+                  <i class="add icon"></i>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(type, index) in types" v-bind:key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ type.name }}</td>
+              <td>{{ type.points.$numberDecimal }}</td>
+              <td>
+                <a
+                  v-tooltip.top-center="'Odpri urejanje nivoja'"
+                  v-on:click="moveUrl([ 2, type._id])"
+                  class="ui round-button w3-right"
+                >
+                  <i class="edit icon"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div style="display:block; width:49%; margin-left: 2% !important" class="ui padded grid">
         <div class="row" style="width: 100%">
-          <h2 style="width: 49%">Nivoji dosežkov</h2>
-          <button
-            style="margin-left: 25%; width: 25%"
-            v-on:click="moveUrl([ 1 ])"
-            class="ui primary button w3-right"
-          >
-            <i class="plus icon"></i>Dodaj nivo
-          </button>
+          <h2>Nivoji dosežkov</h2>
         </div>
-        <ul class="w3-ul w3-card-4">
-          <li class="w3-bar" v-for="(level, index) in levels" v-bind:key="index">
-            <div style="margin-left: 15px; width: 60%; float: left;">
-              <span>
-                Naziv:
-                <b>{{ level.name }}</b>
-              </span>
-              <br />
-              <span>
-                Vrednost:
-                <b>{{ level.points.$numberDecimal }}</b>
-              </span>
-            </div>
-
-            <a v-tooltip.top-center="'Odpri urejanje nivoja'" v-on:click="moveUrl([ 3, level._id])" class="ui round-button w3-right">
-              <i class="edit icon"></i>
-            </a>
-          </li>
-        </ul>
+        <table class="ui single line table">
+          <thead>
+            <tr class="ui inverted blue table">
+              <th>#</th>
+              <th>Naziv</th>
+              <th>Vrednost</th>
+              <th>
+                <a
+                  v-tooltip.top-center="'Dodaj nov zapis nivoja'"
+                  v-on:click="moveUrl([ 1 ])"
+                  class="ui round-button w3-right add-btn"
+                >
+                  <i class="add icon"></i>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(level, index) in levels" v-bind:key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ level.name }}</td>
+              <td>{{ level.points.$numberDecimal }}</td>
+              <td>
+                <a
+                  v-tooltip.top-center="'Odpri urejanje nivoja'"
+                  v-on:click="moveUrl([ 3, level._id])"
+                  class="ui round-button w3-right"
+                >
+                  <i class="edit icon"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

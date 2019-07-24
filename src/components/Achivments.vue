@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
+    <div class="ui szrheader">
       <h1 style="padding: 5px" class="ui header">
         <i class="trophy icon"></i>Dosežki
       </h1>
@@ -89,7 +89,7 @@ export default {
       });
     },
     openEdit: function(type) {
-      window.location = `/achivments/1/${type}/`;
+      window.location = `/admin/achivments/1/${type}/`;
     }
   }
 };

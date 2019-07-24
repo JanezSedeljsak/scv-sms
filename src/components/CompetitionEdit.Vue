@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; box-shadow: 0 8px 4px -4px gray;" class="ui">
+    <div class="ui szrheader">
       <h1 style="padding: 5px" class="ui header">
         <i class="trophy icon"></i>Urejanje tekmovanja
       </h1>

@@ -1,17 +1,20 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
+    <div class="ui szrheader">
       <h1 style="padding: 5px" class="ui header">
         <i class="key icon"></i>Prijava
       </h1>
     </div>
     <div class="row">
       <div
-        style="box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%; padding: 15px"
+        style="box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%;"
         class="ui card"
       >
-        <form class="ui form">
-          <img style="margin-left: 35%; width: 30%" src="./../assets/userlogin.png" />
+      <div id="topLogin">
+          <img style="padding: 10px; margin-left: 35%; width: 30%" src="./../assets/userlogin.png" />
+      </div><div>
+                    <form style=" padding: 15px" class="ui form">
+          
           <div class="field">
             <label>E-pošta</label>
             <input type="text" v-model="form.mail" />
@@ -20,8 +23,10 @@
             <label>Geslo</label>
             <input type="text" v-model="form.pass" />
           </div>
-          <button v-on:click="tryLogin()" class="ui primary button" type="submit">Prijavi se!</button>
+          <button style="min-width: 30%" v-on:click="tryLogin()" class="ui primary button" type="submit">Prijavi se!</button>
         </form>
+        </div>
+
       </div>
     </div>
   </div>

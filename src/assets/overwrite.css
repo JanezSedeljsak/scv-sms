@@ -1,11 +1,31 @@
 @import url("https://fonts.googleapis.com/css?family=B612&display=swap");
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Paytone+One&display=swap');
 
 body {
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: grayscale;
 }
 
+#app {
+    padding: 0 0 0 0 !important;
+}
+
+.row {
+    padding: .7vw !important;
+}
+
+.szrheader {
+    padding-top: 10px;
+    width:100%; 
+    margin-bottom: 5px;
+    background-color: #e1e1ea;
+    border-bottom: 2px solid #00000057;
+}
+
+.szrheader h1 {
+    color: #333 !important;
+    font-weight: 400 !important;
+}
 .round-button {
     display:block;
     width:50px;
@@ -27,6 +47,15 @@ body {
     cursor: pointer;
 }
 
+.round-button > i.icon {
+    margin-left: 3px;
+}
+
+
+.add-btn:hover {
+    color: #26b409 !important;  
+}
+
 ul.w3-ul {
     border-radius: 5px !important;
 }
@@ -39,8 +68,8 @@ ul.w3-ul {
 .formIcon:hover {
     cursor: pointer !important;
     font-weight: bold;
-    color: #5900ff;
-    outline: 2px solid #5900ff;
+    color: #1e054d;
+    transform: scale(1.2, 1.2);
 }
 
 input, div.input {
@@ -48,9 +77,8 @@ input, div.input {
 }
 .formIcon {
     pointer-events: auto !important;
-    color: #032f8f;
+    color: #494949;
     font-weight: bold;
-    outline: 2px solid #032f8f;
 }
 
 label {
@@ -62,8 +90,13 @@ label {
     font-family: "B612", sans-serif !important;
 }
 
+.hometitle {
+    padding: 10px;
+    font-size: 2vw;
+}
+
 h1:not(.title) {
-    font-family: 'Abril Fatface', cursive !important;
+    font-family: 'Paytone One', sans-serif !important;
 }
 
 .tooltip {
@@ -82,8 +115,17 @@ h1:not(.title) {
     padding-top: 18px;
     padding-left: 0;
     padding-right: 0;
-    box-shadow: inset -10px 5px 10px #58585896;
-    background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%, #525377 0%, #81c6dfad 100.2%);
+    box-shadow: inset -10px 5px 10px rgba(34, 34, 34, 0.726);
+    background-image: url("./navback.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#topLogin {
+    box-shadow: 0 5px 5px 0 gray;
+    background-image: url("./logback.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .studentRow:hover {

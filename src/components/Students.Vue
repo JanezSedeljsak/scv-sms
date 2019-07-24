@@ -1,17 +1,13 @@
 <template>
   <div class="ui padded grid">
-    <div style="width:100%; box-shadow: 0 4px 2px -2px gray;" class="ui">
+    <div class="szrheader ui">
       <h1 style="padding: 5px" class="ui header">
         <i class="graduation cap icon"></i>Dijaki
       </h1>
     </div>
     <div class="row">
       <select style="width: 40%;" name="predmet" class="ui dropdown" v-model="pickedYear">
-        <option
-          v-bind:key="index"
-          v-for="(year, index) in years"
-          v-bind:value="index"
-        >{{ year }}</option>
+        <option v-bind:key="index" v-for="(year, index) in years" v-bind:value="index">{{ year }}</option>
       </select>
     </div>
     <div class="row">
@@ -72,6 +68,7 @@
             <th class="sort hover-head" v-on:click="sortActionClick('surname')">Priimek</th>
             <th class="sort hover-head" v-on:click="sortActionClick('surname')">Razredi</th>
             <th class="sort hover-head" v-on:click="sortActionClick('surname')">Potrjene ocene</th>
+            <th class="sort hover-head">Akcije</th>
           </tr>
         </thead>
         <tbody class="list">
@@ -79,7 +76,6 @@
             class="studentRow"
             v-bind:key="index"
             v-for="(student, index) in studentsForDisplay"
-            v-on:click="changeLocation( student._id)"
           >
             <td>{{ index + 1}}</td>
             <td class="name">{{ student.name }}</td>
@@ -88,6 +84,15 @@
             <td class="surname">
               <i style="color: green" v-if="true" class="check icon"></i>
               <i style="color: red" v-else class="close icon"></i>
+            </td>
+            <td>
+              <a
+                v-tooltip.top-center="'Uredi podatke dijaka'"
+                v-on:click="changeLocation( student._id)"
+                class="ui round-button w3-right"
+              >
+                <i class="edit icon"></i>
+              </a>
             </td>
           </tr>
         </tbody>
@@ -151,7 +156,7 @@ export default {
         });
     },
     changeLocation: function(student) {
-      window.location = `admin/students/${student}/`;
+      window.location = `/admin/students/${student}/`;
     }
   }
 };

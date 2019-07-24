@@ -25,42 +25,23 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     let user = null;
     if (to.path === '/login') {
-        if (sessionStorage.getItem("szr_auth"))
-            sessionStorage.removeItem('szr_auth');
-        if (localStorage.getItem("szr_auth"))
-            localStorage.removeItem('szr_auth');
+        if (sessionStorage.getItem("szr_auth")) sessionStorage.removeItem('szr_auth');
+        if (localStorage.getItem("szr_auth")) localStorage.removeItem('szr_auth');
         next();
     } else if (sessionStorage.getItem("szr_auth") || localStorage.getItem("szr_auth")) {
-        if (localStorage.getItem("szr_auth") && !sessionStorage.getItem("szr_auth")) {
+        if (localStorage.getItem("szr_auth") && !sessionStorage.getItem("szr_auth"))
             sessionStorage.setItem('szr_auth', localStorage.getItem("szr_auth"));
-        }
         fetch("http://localhost:3000/api/auth/get-rights", {
             method: "POST",
-            body: JSON.stringify({
-                tokenString: sessionStorage.getItem("szr_auth")
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
+            body: JSON.stringify({tokenString: sessionStorage.getItem("szr_auth")}),
+            headers: {"Content-Type": "application/json"}
         }).then(res => res.json()).then(response => {
             user = response.result._rights;
-            if (to.path.includes('admin')) {
-                if (user === 'admin') {
-                    next();
-                } else {
-                    next('/login');
-                }
-            } else if (to.path.includes('user')) {
-                if (user === 'user') {
-                    next();
-                } else {
-                    next('/login');
-                }
-            }
+            if (to.path.includes('admin')) user === 'admin' ? next() : next('/login');
+            else if (to.path.includes('user'))  user === 'user' ? next() : next('/login');
         });
-    } else {
+    } else
         next('/login');
-    }
 });
 
 new Vue({
