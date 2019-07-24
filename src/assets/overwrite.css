@@ -115,7 +115,6 @@ h1:not(.title) {
     padding-top: 18px;
     padding-left: 0;
     padding-right: 0;
-    box-shadow: inset -10px 5px 10px rgba(34, 34, 34, 0.726);
     background-image: url("./navback.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
