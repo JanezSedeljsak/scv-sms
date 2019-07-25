@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title="<i class=`trophy icon`></i>Urejanje tekmovanja" />
+    <szr-header title="<i class='trophy icon'></i>Urejanje tekmovanja" />
     <div class="row">
       <form class="ui form">
         <div class="ui grid">

@@ -1,6 +1,10 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title='<i class="key icon"></i>Prijava'/>
+    <div class="ui szrheader">
+      <h1 style="padding: 5px" class="ui header">
+        <i class="key icon"></i>Prijava
+      </h1>
+    </div>
     <div class="row">
       <div
         style="box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%;"

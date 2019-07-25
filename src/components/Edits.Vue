@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title="<i class="edit icon"></i>Urejanja" />
+    <szr-header title="<i class='edit icon'></i>Urejanja" />
     <div class="row">
       <div style="display:block; width:49%" class="ui padded grid">
         <div class="row" style="width: 100%">
