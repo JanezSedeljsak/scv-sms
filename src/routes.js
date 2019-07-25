@@ -32,5 +32,5 @@ export const routes = [
     { path: "/admin/level-edits/:titleIndex/create", component: GlobalEdit },
     { path: "/admin/type-edits/:titleIndex/:id", component: GlobalEdit },
     { path: "/admin/level-edits/:titleIndex/:id", component: GlobalEdit },
-    { path: '*', redirect: '/' }
+    { path: '*', redirect: '/login' }
 ];

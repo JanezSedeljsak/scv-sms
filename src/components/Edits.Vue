@@ -1,10 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div class="ui szrheader">
-      <h1 style="padding: 5px" class="ui header">
-        <i class="edit icon"></i>Urejanja
-      </h1>
-    </div>
+    <szr-header title="<i class="edit icon"></i>Urejanja" />
     <div class="row">
       <div style="display:block; width:49%" class="ui padded grid">
         <div class="row" style="width: 100%">
@@ -146,3 +142,6 @@ export default {
   }
 };
 </script>
+
+
+

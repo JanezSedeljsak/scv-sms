@@ -1,10 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div class="ui szrheader">
-      <h1 style="padding: 5px" class="ui header">
-        <i class="id badge outline icon"></i>Urejanje dijaka
-      </h1>
-    </div>
+    <szr-header title='<i class="id badge outline icon"></i>Urejanje dijaka'/>
     <div class="row">
       <div
         style="height: 27vw; box-shadow: 0 0 10px #333 !important; margin-top: 15px; width: 23%"
@@ -45,7 +41,7 @@
           </select>
           <button
             style="margin-bottom: 10px;  width: 100% !important;"
-            class="ui grey button"
+            class="ui primary button"
             v-on:click="editAchivmentsForStudent()"
           >Uredi dosezke</button>
           <button

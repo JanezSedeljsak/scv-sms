@@ -1,10 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div class="ui szrheader">
-      <h1 style="padding: 5px" class="ui header">
-        <i class="trophy icon"></i>Dosežki
-      </h1>
-    </div>
+    <szr-header title="<i class='trophy icon'></i>Dosežki"/>
     <div class="row">
       <button 
             v-on:click="openEdit('create')"
@@ -56,7 +52,7 @@
 </template>
 
 <script>
-var moment = require('moment');
+const moment = require('moment');
 export default {
   data() {
     return {

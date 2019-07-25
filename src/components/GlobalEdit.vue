@@ -1,11 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div class="ui szrheader">
-      <h1 style="padding: 5px" class="ui header">
-        <i class="trophy icon"></i>
-        {{ this.titles[this.$route.params.titleIndex - 1] }}
-      </h1>
-    </div>
+    <szr-header v-bind:title='"<i class=\"edit icon\"></i>" + this.titles[this.$route.params.titleIndex - 1]'/>
     <div class="row" style="width:100%">
       <div
         style="box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%; padding: 15px"

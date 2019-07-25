@@ -1,10 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div class="ui szrheader">
-      <h1 style="padding: 5px" class="ui header">
-        <i class="address book icon"></i>Administratorji
-      </h1>
-    </div>
+    <szr-header title='<i class="address book icon"></i>Administratorji'/>
     <div class="row">
       <button v-on:click="toggle()" class="ui primary button w3-right">
         <span v-if="toggleDisplay">

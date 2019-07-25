@@ -1,10 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div class="ui szrheader">
-      <h1 style="padding: 5px" class="ui header">
-        <i class="trophy icon"></i>Urejanje tekmovanja
-      </h1>
-    </div>
+    <szr-header title="<i class=`trophy icon`></i>Urejanje tekmovanja" />
     <div class="row">
       <form class="ui form">
         <div class="ui grid">
@@ -23,10 +19,7 @@
           <div class="five wide column">
             <label>Mentor</label>
             <br />
-            <div style="width:100%" class="ui inverted right icon input">
-              <input type="text" />
-              <i class="formIcon edit icon"></i>
-            </div>
+            <szr-picker v-bind:data="JSON.stringify(szrPickerOptions.teacher)" />
           </div>
           <div class="ten wide column">
             <label>Opis</label>
@@ -53,14 +46,6 @@
             v-bind:class="{ active: tabDisplay === 'subjects' }"
             class="item"
           >Predmeti</div>
-          <button
-            style="margin-left: 44%; width: 17%"
-            v-on:click="openEdit('create')"
-            class="ui primary button w3-right"
-          >
-            <i class="add icon"></i>
-            {{ tabOptions[tabDisplay] }}
-          </button>
         </div>
         <div v-if="tabDisplay == 'students'" class="customTab ui bottom attached tab segment">
           <table
@@ -128,6 +113,11 @@ import Datepicker from "vuejs-datepicker";
 export default {
   data() {
     return {
+      szrPickerOptions: {
+        teacher: {
+          titles: ["Ime", "Priimek"]
+        }
+      },
       tabOptions: {
         students: "Dodaj dijaka",
         classes: "Dodaj razred",
@@ -138,7 +128,7 @@ export default {
     };
   },
   components: {
-      Datepicker
+    Datepicker
   },
   created: function() {
     this.fetchData();

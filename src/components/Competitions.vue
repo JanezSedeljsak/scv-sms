@@ -1,10 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <div class="ui szrheader">
-      <h1 style="padding: 5px" class="ui header">
-        <i class="sort numeric up icon"></i>Tekmovanja
-      </h1>
-    </div>
+    <szr-header title='<i class="sort numeric up icon"></i>Tekmovanja'/>
     <div class="row">
       <button v-on:click="openEdit('create')" class="ui primary button w3-right">
         <i class="add icon"></i>Dodaj tekmovanje
