@@ -14,6 +14,14 @@ body {
     padding: .7vw !important;
 }
 
+.blur-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #4646467a;
+    z-index: 10;
+}
+
 .szrheader {
     padding-top: 10px;
     width:100%; 
@@ -101,6 +109,7 @@ h1:not(.title) {
 
 .tooltip {
     margin-right: 150px;
+    z-index: 1000;
 }
 .tooltip-inner {
     background: black;

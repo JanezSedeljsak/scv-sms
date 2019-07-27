@@ -17,7 +17,7 @@
           <div class="content">
             <p>
               Ime & Priimek
-              <b>Janez Sedeljsak</b>
+              <b>{{ student.name }}&nbsp;{{ student.surname }}</b>
             </p>
             <p>
               Razred:
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="extra content">
-          <select
+          <!--<select
             style="margin-bottom: 10px; width: 100% !important;"
             name="predmet"
             class="ui dropdown"
@@ -38,16 +38,21 @@
           >
             <option v-bind:value="null">Izberi leto</option>
             <option v-bind:key="index" v-for="(year, index) in years" v-bind:value="year">{{ year }}</option>
-          </select>
+          </select>-->
           <button
             style="margin-bottom: 10px;  width: 100% !important;"
             class="ui primary button"
             v-on:click="editAchivmentsForStudent()"
           >Uredi dosezke</button>
           <button
+            style="margin-bottom: 10px;  width: 100% !important;"
+            class="ui primary button"
+            v-on:click="editCompetitionsForStudent()"
+          >Uredi tekmovanja</button>
+          <button
             style="width: 100% !important;"
             class="ui primary button"
-            v-on:click="editAchivmentsForStudent()"
+            v-on:click="updateGrades()"
           >Posodobi ocene</button>
         </div>
       </div>
@@ -66,12 +71,12 @@
           <tr
             class="studentRow"
             v-bind:key="index"
-            v-for="(student, index) in students"
+            v-for="(subject, index) in subjects"
             v-on:click="changeLocation(index)"
           >
             <td>{{ index + 1}}</td>
             <td class="name">
-              <b>{{ student.short | capitalize }}</b>
+              <b>{{ subject.short | capitalize }}</b>
             </td>
             <td class="surname">
               <div class="ui icon input">
@@ -89,8 +94,11 @@
 export default {
   data() {
     return {
-      students: [],
-      modal: false,
+      student: {
+        "name": "",
+        "surname": ""
+      },
+      subjects: [],
       pickedYear: null,
       years: ["2016/17", "2017/18", "2018/19", "2019/20", "2020/21"]
     };
@@ -105,10 +113,23 @@ export default {
     fetchData: function() {
       fetch("http://localhost:3000/api/get/subjects")
         .then(response => response.json())
-        .then(data => (this.students = data["subjects"]));
+        .then(data => (this.subjects = data["subjects"]));
+
+      fetch("http://localhost:3000/api/get/get-student-by-id", {
+        method: "POST",
+        body: JSON.stringify({ id: this.$route.params.id }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          this.student = data.result;
+          console.log(this.student);
+        });
     },
     editAchivmentsForStudent: function() {
-      window.location = `/students/${this.$route.params.id}/achivments`;
+      window.location = `/admin/students/${this.$route.params.id}/achivments`;
     }
   }
 };

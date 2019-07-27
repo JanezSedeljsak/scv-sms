@@ -69,7 +69,10 @@ Vue.component('szr-picker', {
     props: ['data'],
     data() {
         return {
-            headers: JSON.parse(this.$props.data).titles.map(x => `<th>${x}</th>`)
+            modalOpen: false,
+            modalTitle: JSON.parse(this.$props.data).mTitle,
+            titles: JSON.parse(this.$props.data).titles,
+            pickerOptions: []
         }
     },
     created: function() {
@@ -77,55 +80,52 @@ Vue.component('szr-picker', {
     },
     methods: {
         fetchData: function() {
-            fetch(JSON.parse(this.$props.data).apiRoute, { method: "POST"})
-                .then(response => response.json())
-                .then(res => console.log(res))
+                fetch(`http://localhost:3000/api/get${JSON.parse(this.$props.data).apiRoute}`, { method: "GET" })
+                  .then(response => response.json())
+                  .then(data => (this.pickerOptions = data['data']));
         },
-        openPickerModal: function() {
-            let component = this;
-            this.$swal({
-                title: '<strong>Izbirnik</strong>',
-                onBeforeOpen: function() {
-                },
-                html: (`
-                    <table
-                        style="box-shadow: none !important; table-layout: fixed !important"
-                        class="ui celled table"
-                    >
-                        <thead class="ui inverted blue table">
-                        <tr>
-                            <th>Dodaj</th>
-                            ` + component.headers + `
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                            <a
-                                v-tooltip.top-center="'Uredi podatke dijaka'"
-                                v-on:click="changeLocation( student._id)"
-                                class="add-btn ui round-button"
-                            >
-                                <i class="add icon"></i>
-                            </a>
-                            </td>
-                            <td>24</td>
-                            <td>Engineer</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                `),
-                showCloseButton: true,
-                width: window.innerWidth/2,
-                focusConfirm: false,
-                showConfirmButton: false
-              })
+        tryModalClose: function() {
+            if(window.event.target.className === 'w3-modal')
+                this.toggleModal()
+        },
+        toggleModal: function() {
+            this.modalOpen = !this.modalOpen
+        },
+        pickerClick: function(item) {
+            console.log(this.pickerOptions, item);
         }
     },
     template: (`
-        <div style="width:100%" class="ui inverted right icon input">
-            <input type="text" />
-            <i v-on:click='openPickerModal()' class="formIcon add icon"></i>
+        <div>
+            <div v-on:click="tryModalClose()" v-if="modalOpen" style="display:block" class="w3-modal">
+                <div class="w3-modal-content">
+                    <header class="w3-container w3-teal"> <span v-on:click="toggleModal()" class="w3-button w3-display-topright">&times;</span>
+                        <h2>{{ modalTitle }}</h2> </header>
+                    <div style="padding: 10px important!" class="w3-container">
+                        <table style="box-shadow: none !important; table-layout: fixed !important;" class="ui celled table">
+                            <thead class="ui inverted blue table">
+                                <tr>
+                                    <th>Dodaj</th>
+                                    <th v-for="title in titles">{{ title }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="option in pickerOptions">
+                                    <td>
+                                        <a v-on:click="pickerClick(option)" class="add-btn ui round-button"> <i class="add icon"></i> </a>
+                                    </td>
+                                    <td v-for="item in Object.values(option).splice(1)">{{ item }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <footer class="w3-container w3-teal">
+                        <p>Modal Footer</p>
+                    </footer>
+                </div>
+            </div>
+            <div style="width:100%" class="ui inverted right icon input">
+                <input type="text" /> <i v-on:click="toggleModal()" class="formIcon add icon"></i> </div>
         </div>
     `)
 });

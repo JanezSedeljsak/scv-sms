@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require("mongoose");
 
 const mongoClient = require('./mongodbConnModule');
 var db = mongoClient._connect();
@@ -19,10 +20,49 @@ router.get('/students', (req, res, next) => {
     }).sort({ _id: -1 });
 });
 
+router.post('/get-student-by-id', (req, res, next) => {
+    if (Object.values(req.body).includes('')) {
+        res.status(200).json({
+            ok: false,
+            result: 'Obrazec ni bil pravilno izpolnjen!'
+        });
+    } else {
+        Student.findOne({
+            _id: mongoose.Types.ObjectId(req.body.id)
+        }, async function (error, result) {
+            if (error) {
+                res.status(200).json({
+                    ok: false,
+                    result: 'Pojavila se je napaka pri iskanju uporabnika!'
+                });
+            } else {
+                if (!result) {
+                    res.status(200).json({
+                        ok: false,
+                        result: 'Zapis dijaka ni bil najden!!'
+                    });
+                } else {
+                    res.status(200).json({
+                        ok: true,
+                        result: result
+                    });
+                }
+            }
+        });
+    }
+});
+
 router.get('/teachers', (req, res, next) => {
     Teacher.find({}, 'name surname email', function (error, teachers) {
         if (error) console.error(error);
         res.status(200).json({ teachers });
+    }).sort({ _id: -1 });
+});
+
+router.get('/teachers-for-picker', (req, res, next) => {
+    Teacher.find({}, 'name surname', function (error, teachers) {
+        if (error) console.error(error);
+        res.status(200).json({ data: teachers });
     }).sort({ _id: -1 });
 });
 

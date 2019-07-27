@@ -115,6 +115,8 @@ export default {
     return {
       szrPickerOptions: {
         teacher: {
+          mTitle: 'Admin izbirnik',
+          apiRoute: "/teachers-for-picker",
           titles: ["Ime", "Priimek"]
         }
       },
