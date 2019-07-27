@@ -75,23 +75,23 @@ Vue.component('szr-picker', {
             pickerOptions: []
         }
     },
-    created: function() {
+    created: function () {
         this.fetchData();
     },
     methods: {
-        fetchData: function() {
-                fetch(`http://localhost:3000/api/get${JSON.parse(this.$props.data).apiRoute}`, { method: "GET" })
-                  .then(response => response.json())
-                  .then(data => (this.pickerOptions = data['data']));
+        fetchData: function () {
+            fetch(`http://localhost:3000/api/get${JSON.parse(this.$props.data).apiRoute}`, { method: "GET" })
+                .then(response => response.json())
+                .then(data => (this.pickerOptions = data['data']));
         },
-        tryModalClose: function() {
-            if(window.event.target.className === 'w3-modal')
+        tryModalClose: function () {
+            if (window.event.target.className === 'w3-modal')
                 this.toggleModal()
         },
-        toggleModal: function() {
+        toggleModal: function () {
             this.modalOpen = !this.modalOpen
         },
-        pickerClick: function(item) {
+        pickerClick: function (item) {
             console.log(this.pickerOptions, item);
         }
     },
@@ -99,13 +99,13 @@ Vue.component('szr-picker', {
         <div>
             <div v-on:click="tryModalClose()" v-if="modalOpen" style="display:block" class="w3-modal">
                 <div class="w3-modal-content">
-                    <header class="w3-container w3-teal"> <span v-on:click="toggleModal()" class="w3-button w3-display-topright">&times;</span>
+                    <header class="w3-container cstm-color"> <span v-on:click="toggleModal()" class="w3-button exit-btn w3-display-topright">&times;</span>
                         <h2>{{ modalTitle }}</h2> </header>
-                    <div style="padding: 10px important!" class="w3-container">
-                        <table style="box-shadow: none !important; table-layout: fixed !important;" class="ui celled table">
-                            <thead class="ui inverted blue table">
+                    <div style="padding: 0 !important;" class="w3-container">
+                        <table style="!important; box-shadow: none !important; table-layout: fixed !important;" class="ui celled table">
+                            <thead>
                                 <tr>
-                                    <th>Dodaj</th>
+                                    <th>#</th>
                                     <th v-for="title in titles">{{ title }}</th>
                                 </tr>
                             </thead>
@@ -119,8 +119,7 @@ Vue.component('szr-picker', {
                             </tbody>
                         </table>
                     </div>
-                    <footer class="w3-container w3-teal">
-                        <p>Modal Footer</p>
+                    <footer style="height: .5vw !important;" class="w3-container cstm-color">
                     </footer>
                 </div>
             </div>
@@ -129,3 +128,38 @@ Vue.component('szr-picker', {
         </div>
     `)
 });
+
+Vue.component('admin-nav', {
+    data() {
+        return {}
+    },
+    methods: {
+        moveUrl: link => window.location.pathname != link ? window.location = link : null
+    },
+    template: (`
+        <div class="ui vertical borderless fluid text menu">
+            <a v-on:click="moveUrl('/admin/students')" class="item">
+            <i class="graduation cap icon"></i>Dijaki
+            </a>
+            <a v-on:click="moveUrl('/admin/competitions')" class="item">
+            <i class="sort numeric up icon"></i>Tekmovanja
+            </a>
+            <a v-on:click="moveUrl('/admin/classes')" class="item">
+            <i class="book icon"></i>Predmeti
+            </a>
+            <a v-on:click="moveUrl('/admin/edits')" class="item">
+            <i class="edit icon"></i>Urejanja
+            </a>
+            <a v-on:click="moveUrl('/admin/achivments')" class="item">
+            <i class="trophy icon"></i>Dosezki
+            </a>
+            <a v-on:click="moveUrl('/admin/admins-tab')" class="item">
+            <i class="address book icon"></i>Administratorji
+            </a>
+            <div style="height:3vw" class="ui hidden divider"></div>
+            <a v-on:click="moveUrl('/login')" class="item">
+            <i class="sign out alternate icon"></i>Odjava
+            </a>
+        </div>
+    `)
+})

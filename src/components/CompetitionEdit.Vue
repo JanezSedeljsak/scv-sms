@@ -66,9 +66,9 @@
                 <td data-label="Age">24</td>
                 <td data-label="Job">Engineer</td>
                 <td data-label="Job">
-                  <button v-on:click="removeSubject(index)" class="ui red button w3-right">
-                    <i class="remove icon"></i>Odstrani
-                  </button>
+                <a v-tooltip.top-center="'Odstrani predmet iz tekmovanja'" v-on:click="removeSubject(index)" class="ui round-button w3-right">
+                    <i class="delete icon"></i>
+                </a>
                 </td>
               </tr>
             </tbody>
@@ -81,13 +81,9 @@
             class="w3-ul w3-card-4"
           >
             <li v-bind:key="index" v-for="(subject, index) in subjects" class="w3-bar">
-              <button
-                style="width: 15%"
-                v-on:click="removeSubject(index)"
-                class="ui red button w3-right"
-              >
-                <i class="remove icon"></i>Odstrani
-              </button>
+            <a v-tooltip.top-center="'Odstrani predmet iz tekmovanja'" v-on:click="removeSubject(index)" class="ui round-button w3-right">
+                <i class="delete icon"></i>
+            </a>
               <img
                 src="https://backgroundcheckall.com/wp-content/uploads/2017/12/book-clipart-transparent-background-5.png"
                 class="w3-bar-item w3-circle w3-hide-small"
