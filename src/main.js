@@ -48,7 +48,6 @@ new Vue({
 });
 
 Vue.filter('capitalize', value => value.toUpperCase());
-Vue.filter('jsonStringify', value => JSON.stringify(value));
 
 //// global vue components
 Vue.component('szr-header', {
@@ -72,7 +71,9 @@ Vue.component('szr-picker', {
             modalOpen: false,
             modalTitle: JSON.parse(this.$props.data).mTitle,
             titles: JSON.parse(this.$props.data).titles,
-            pickerOptions: []
+            pickerOptions: [],
+            picked: null,
+            pickedForDisplay: ""
         }
     },
     created: function () {
@@ -92,7 +93,9 @@ Vue.component('szr-picker', {
             this.modalOpen = !this.modalOpen
         },
         pickerClick: function (item) {
-            console.log(this.pickerOptions, item);
+            this.toggleModal();
+            this.picked = item;
+            this.pickedForDisplay = Object.values(item)[1];
         }
     },
     template: (`
@@ -102,7 +105,7 @@ Vue.component('szr-picker', {
                     <header class="w3-container cstm-color"> <span v-on:click="toggleModal()" class="w3-button exit-btn w3-display-topright">&times;</span>
                         <h2>{{ modalTitle }}</h2> </header>
                     <div style="padding: 0 !important;" class="w3-container">
-                        <table style="!important; box-shadow: none !important; table-layout: fixed !important;" class="ui celled table">
+                        <table style="box-shadow: none !important; table-layout: fixed !important;" class="ui celled table">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -124,42 +127,7 @@ Vue.component('szr-picker', {
                 </div>
             </div>
             <div style="width:100%" class="ui inverted right icon input">
-                <input type="text" /> <i v-on:click="toggleModal()" class="formIcon add icon"></i> </div>
+                <input type="text" v-model="pickedForDisplay" /> <i v-on:click="toggleModal()" class="formIcon add icon"></i> </div>
         </div>
     `)
 });
-
-Vue.component('admin-nav', {
-    data() {
-        return {}
-    },
-    methods: {
-        moveUrl: link => window.location.pathname != link ? window.location = link : null
-    },
-    template: (`
-        <div class="ui vertical borderless fluid text menu">
-            <a v-on:click="moveUrl('/admin/students')" class="item">
-            <i class="graduation cap icon"></i>Dijaki
-            </a>
-            <a v-on:click="moveUrl('/admin/competitions')" class="item">
-            <i class="sort numeric up icon"></i>Tekmovanja
-            </a>
-            <a v-on:click="moveUrl('/admin/classes')" class="item">
-            <i class="book icon"></i>Predmeti
-            </a>
-            <a v-on:click="moveUrl('/admin/edits')" class="item">
-            <i class="edit icon"></i>Urejanja
-            </a>
-            <a v-on:click="moveUrl('/admin/achivments')" class="item">
-            <i class="trophy icon"></i>Dosezki
-            </a>
-            <a v-on:click="moveUrl('/admin/admins-tab')" class="item">
-            <i class="address book icon"></i>Administratorji
-            </a>
-            <div style="height:3vw" class="ui hidden divider"></div>
-            <a v-on:click="moveUrl('/login')" class="item">
-            <i class="sign out alternate icon"></i>Odjava
-            </a>
-        </div>
-    `)
-})

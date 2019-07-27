@@ -8,7 +8,7 @@
       >Razvrščevalni sistem ŠCV</h1>
       <h2 style="text-align: center; font-size: 1.2em; color:white">
         <i class="user circle icon"></i>
-        {{ "mojstr" }}
+        {{ username }}
       </h2>
       <div class="ui vertical borderless fluid text menu">
         <a v-on:click="moveUrl('/admin/students')" class="item">
@@ -48,12 +48,21 @@
 export default {
   data() {
     return {
-      username: true
+      username: ""
     };
   },
   methods: {
     moveUrl: link =>
       window.location.pathname != link ? (window.location = link) : null
+  },
+  created: function() {
+        fetch("http://localhost:3000/api/auth/get-username", {
+            method: "POST",
+            body: JSON.stringify({ tokenString: sessionStorage.getItem("szr_auth") }),
+            headers: { "Content-Type": "application/json" }
+        }).then(res => res.json()).then(response => {
+            this.username = `${response.result.name} ${response.result.surname}`;
+        });
   },
   head: {
     link: [

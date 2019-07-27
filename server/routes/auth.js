@@ -108,5 +108,17 @@ router.post('/get-rights', (req, res, next) => {
     });
 });
 
+router.post('/get-username', (req, res, next) => {
+    let token = parseToken(req.body.tokenString);
+    Teacher.findOne({ 
+        _id: token._id,
+    }, '-_id name surname', async function (error, result) {
+        res.status(200).json({
+            ok: true,
+            result: result
+        });
+    });
+});
+
 
 module.exports = router;

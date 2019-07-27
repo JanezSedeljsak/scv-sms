@@ -13,6 +13,7 @@ body {
 tbody {
   display: block;
   height: 20vw;
+  overflow: hidden;
   overflow-y: scroll;
 }
 thead,
@@ -22,8 +23,8 @@ tbody tr {
   table-layout: fixed;
 }
 thead {
-  width: calc(100% - 1vh) !important;
   box-shadow: 0 3px 2px -2px #2e2e2e9c !important;
+  overflow-y: scroll !important;
 }
 
 table {
