@@ -18,7 +18,7 @@
           <i class="sort numeric up icon"></i>Tekmovanja
         </a>
         <a v-on:click="moveUrl('/admin/classes')" class="item">
-          <i class="book icon"></i>Predmeti
+          <i class="users icon"></i>Razredi
         </a>
         <a v-on:click="moveUrl('/admin/edits')" class="item">
           <i class="edit icon"></i>Urejanja
@@ -56,13 +56,15 @@ export default {
       window.location.pathname != link ? (window.location = link) : null
   },
   created: function() {
-        fetch("http://localhost:3000/api/auth/get-username", {
-            method: "POST",
-            body: JSON.stringify({ tokenString: sessionStorage.getItem("szr_auth") }),
-            headers: { "Content-Type": "application/json" }
-        }).then(res => res.json()).then(response => {
-            this.username = `${response.result.name} ${response.result.surname}`;
-        });
+    fetch("http://localhost:3000/api/auth/get-username", {
+      method: "POST",
+      body: JSON.stringify({ tokenString: sessionStorage.getItem("szr_auth") }),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .then(response => {
+        this.username = `${response.result.name} ${response.result.surname}`;
+      });
   },
   head: {
     link: [

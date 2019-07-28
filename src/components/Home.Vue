@@ -1,5 +1,5 @@
 <template>
-  <h1 class="hometitle">Dobrodošli na spletni aplikaciji za razvščanje dijakov ŠCV-ja</h1>
+  <h1 class="hometitle">Dobrodošli na spletni aplikaciji za razvrščanje dijakov ŠCV-ja</h1>
 </template>
 
 <script>

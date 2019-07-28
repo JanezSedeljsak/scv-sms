@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title='<i class="book icon"></i>Predmeti'/>
+    <szr-header title='<i class="users icon"></i>Razredi'/>
     <div class="row">
       <select style="width: 40%;" name="predmet" class="ui dropdown" v-model="pickedClass">
         <option v-bind:value="null">Izberi razred</option>

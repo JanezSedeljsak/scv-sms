@@ -13,6 +13,29 @@ const {
     CompetitionSubject, ClassCompetition
 } = require('./../models/schemas');
 
+
+const QueryBuilder = require('node-querybuilder');
+const settings = {
+    host: 'localhost',
+    port: '3306',
+    database: 'razvrscanje_dijakov',
+    user: 'root',
+    password: ''
+};
+
+
+router.get('/mysql-test', (req, res, next) => {
+    const qb = new QueryBuilder(settings, 'mysql', 'single');
+ 
+    qb.select('ime, tocke').get('nivoji', (err, result) => {
+        qb.disconnect();
+        res.status(200).json({
+            ok: true,
+            result: result 
+        });
+    });
+});
+
 router.get('/students', (req, res, next) => {
     Student.find({}, 'name surname easistentId', function (error, students) {
         if (error) console.error(error);
