@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title='<i class="sort numeric up icon"></i>Tekmovanja'/>
+    <szr-header v-cloak title='<i class="sort numeric up icon"></i>Tekmovanja'/>
     <div class="row">
       <button v-on:click="openEdit('create')" class="ui primary button w3-right">
         <i class="add icon"></i>Dodaj tekmovanje
@@ -75,7 +75,8 @@ export default {
       competitions: [],
       competitionsForDisplay: [],
       filterValue: null,
-      editTooltip: "Odpri urejanje tekmovanja"
+      editTooltip: "Odpri urejanje tekmovanja",
+      loading: true,
     };
   },
   filters: {
@@ -83,6 +84,9 @@ export default {
   },
   created: function() {
     this.fetchData();
+  },
+  mounted: function() {
+      this.loading = false
   },
   methods: {
     fetchData: function() {

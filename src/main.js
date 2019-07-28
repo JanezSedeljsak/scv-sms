@@ -52,13 +52,21 @@ Vue.filter('capitalize', value => value.toUpperCase());
 //// global vue components
 Vue.component('szr-header', {
     props: ['title'],
-    data() {
-        return {}
-    },
     template: (`
         <div class="ui szrheader">
             <h1 v-html="title" style="padding: 5px" class="ui header">
             </h1>
+        </div>
+    `)
+});
+
+Vue.component('szr-loader', {
+    template: (`
+        <div class="customLoader ui segment">
+            <div class="ui active dimmer">
+                <div class="ui text loader">Loading...</div>
+            </div>
+            <p></p>
         </div>
     `)
 });
@@ -95,17 +103,17 @@ Vue.component('szr-picker', {
         pickerClick: function (item) {
             this.toggleModal();
             this.picked = item;
-            this.pickedForDisplay = Object.values(item)[1];
+            this.pickedForDisplay = JSON.parse(this.$props.data).display.map(key => item[key]).join(" ");
         }
     },
     template: (`
         <div>
-            <div v-on:click="tryModalClose()" v-if="modalOpen" style="display:block" class="w3-modal">
+            <div @mousedown="tryModalClose()" v-if="modalOpen" style="display:block" class="w3-modal">
                 <div class="w3-modal-content">
                     <header class="w3-container cstm-color"> <span v-on:click="toggleModal()" class="w3-button exit-btn w3-display-topright">&times;</span>
                         <h2>{{ modalTitle }}</h2> </header>
-                    <div style="padding: 0 !important;" class="w3-container">
-                        <table style="box-shadow: none !important; table-layout: fixed !important;" class="ui celled table">
+                    <div style="padding: 0 !important;" class="picker-container w3-container">
+                        <table style="box-shadow: none !important; table-layout: fixed !important;" class="picker-table ui celled table">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -127,7 +135,7 @@ Vue.component('szr-picker', {
                 </div>
             </div>
             <div style="width:100%" class="ui inverted right icon input">
-                <input type="text" v-model="pickedForDisplay" /> <i v-on:click="toggleModal()" class="formIcon add icon"></i> </div>
+                <input readonly type="text" v-model="pickedForDisplay" /> <i v-on:click="toggleModal()" class="formIcon add icon"></i> </div>
         </div>
     `)
 });

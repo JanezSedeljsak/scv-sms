@@ -10,24 +10,44 @@ body {
   width: 1vh !important;
 }
 
-tbody {
+.customLoader {
+  display: block;
+  position: fixed !important;
+  left: -5vw !important;
+  top: -5vh !important;
+  width: 110vw !important;
+  height: 110vh !important;
+  z-index: 50 !important;
+  background: #23527c96 !important;
+}
+
+.picker-table tbody {
   display: block;
   height: 20vw;
   overflow: hidden;
   overflow-y: scroll;
 }
-thead,
-tbody tr {
+
+.picker-table thead * {
+    border-radius: 0 !important;
+    background: #fff !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.picker-table tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;
 }
-thead {
-  box-shadow: 0 3px 2px -2px #2e2e2e9c !important;
-  overflow-y: scroll !important;
+.picker-table thead {
+  width: calc(100% - 1vh) !important;
+  box-shadow: 0 5px 2px -2px #2e2e2e9c !important;
+  display: table;
+  table-layout: fixed;
 }
 
-table {
+table.picker-table {
   width: 100%;
 }
 
@@ -46,6 +66,7 @@ table {
 .cstm-color * {
   color: #ddd !important;
 }
+
 #app {
   padding: 0 0 0 0 !important;
 }
@@ -66,12 +87,11 @@ table {
   padding-top: 10px;
   width: 100%;
   margin-bottom: 5px;
-  background-color: #e1e1ea;
-  border-bottom: 2px solid #00000057;
+  background-color: #333;
 }
 
 .szrheader h1 {
-  color: #334766 !important;
+  color: #6888a7 !important;
   font-weight: 400 !important;
 }
 .round-button {

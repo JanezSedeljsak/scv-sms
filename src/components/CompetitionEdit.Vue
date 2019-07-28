@@ -113,7 +113,8 @@ export default {
         teacher: {
           mTitle: 'Admin izbirnik',
           apiRoute: "/teachers-for-picker",
-          titles: ["Ime", "Priimek"]
+          titles: ["Ime", "Priimek"],
+          display: ["name", "surname"]
         }
       },
       tabOptions: {
