@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `achivments` (
 
 -- Dumping data for table szr_db.achivments: 1 rows
 /*!40000 ALTER TABLE `achivments` DISABLE KEYS */;
-INSERT IGNORE INTO `achivments` (`id`, `level_id`, `type_id`, `name`, `date`, `place`, `description`) VALUES
+INSERT INTO `achivments` (`id`, `level_id`, `type_id`, `name`, `date`, `place`, `description`) VALUES
 	('edc1a631-b1e4-11e9-9658-f04da2b5f496', '8aef4c5b-b1da-11e9-9658-f04da2b5f496', '16712be8-b1da-11e9-9658-f04da2b5f496', 'Rekordni tek na 600m', '2018-02-06 07:19:25', 1, 'Dijak je podrl rekord na 600m');
 /*!40000 ALTER TABLE `achivments` ENABLE KEYS */;
 
@@ -51,9 +51,9 @@ CREATE TABLE IF NOT EXISTS `achivments_students` (
   KEY `ucenec_leto_razred_id` (`student_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
--- Dumping data for table szr_db.achivments_students: 0 rows
+-- Dumping data for table szr_db.achivments_students: 1 rows
 /*!40000 ALTER TABLE `achivments_students` DISABLE KEYS */;
-INSERT IGNORE INTO `achivments_students` (`id`, `student_id`, `achivment_id`) VALUES
+INSERT INTO `achivments_students` (`id`, `student_id`, `achivment_id`) VALUES
 	('374eb18e-b1e5-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'edc1a631-b1e4-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `achivments_students` ENABLE KEYS */;
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
 
 -- Dumping data for table szr_db.classes: 95 rows
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-INSERT IGNORE INTO `classes` (`id`, `scv_id`, `school_id`, `name`) VALUES
+INSERT INTO `classes` (`id`, `scv_id`, `school_id`, `name`) VALUES
 	('5ca4f7f5-b1c8-11e9-9658-f04da2b5f496', 62, '36ee6f6e-b1c7-11e9-9658-f04da2b5f496', '1.EL'),
 	('5ca50116-b1c8-11e9-9658-f04da2b5f496', 63, '36ee6f6e-b1c7-11e9-9658-f04da2b5f496', '1.ET'),
 	('5ca501f8-b1c8-11e9-9658-f04da2b5f496', 64, '36ee6f6e-b1c7-11e9-9658-f04da2b5f496', '1.PTI'),
@@ -197,9 +197,9 @@ CREATE TABLE IF NOT EXISTS `classes_subjects` (
   KEY `subject_id` (`subject_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table szr_db.classes_subjects: ~0 rows (približno)
+-- Dumping data for table szr_db.classes_subjects: ~6 rows (približno)
 /*!40000 ALTER TABLE `classes_subjects` DISABLE KEYS */;
-INSERT IGNORE INTO `classes_subjects` (`id`, `class_id`, `subject_id`) VALUES
+INSERT INTO `classes_subjects` (`id`, `class_id`, `subject_id`) VALUES
 	('b0b2f7f2-b1ec-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', '226d1b15-b1e7-11e9-9658-f04da2b5f496'),
 	('b0b30a5f-b1ec-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', '226d7d73-b1e7-11e9-9658-f04da2b5f496'),
 	('b0b30bbe-b1ec-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', '226d7fd5-b1e7-11e9-9658-f04da2b5f496'),
@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS `gstudents` (
 
 -- Dumping data for table szr_db.gstudents: 1 rows
 /*!40000 ALTER TABLE `gstudents` DISABLE KEYS */;
-INSERT IGNORE INTO `gstudents` (`id`, `student_id`, `year_id`, `class_id`, `confirmed_grades`) VALUES
+INSERT INTO `gstudents` (`id`, `student_id`, `year_id`, `class_id`, `confirmed_grades`) VALUES
 	('2247a287-b1e2-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'da8bcd31-b1e1-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', 1);
 /*!40000 ALTER TABLE `gstudents` ENABLE KEYS */;
 
@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `levels` (
 
 -- Dumping data for table szr_db.levels: 3 rows
 /*!40000 ALTER TABLE `levels` DISABLE KEYS */;
-INSERT IGNORE INTO `levels` (`id`, `name`, `value`) VALUES
+INSERT INTO `levels` (`id`, `name`, `value`) VALUES
 	('8aef4c5b-b1da-11e9-9658-f04da2b5f496', 'Šolski nivo', 0.5),
 	('8aef5427-b1da-11e9-9658-f04da2b5f496', 'Področni nivo', 1),
 	('8aef5621-b1da-11e9-9658-f04da2b5f496', 'Državni nivo', 1.5);
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `schools` (
 
 -- Dumping data for table szr_db.schools: ~4 rows (približno)
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT IGNORE INTO `schools` (`id`, `name`, `short_name`) VALUES
+INSERT INTO `schools` (`id`, `name`, `short_name`) VALUES
 	('36ee6f6e-b1c7-11e9-9658-f04da2b5f496', 'Elektro in računalniška šola', 'ERŠ'),
 	('36ee7671-b1c7-11e9-9658-f04da2b5f496', 'Šola za strojništvo, geotehniko in okolje', 'ŠSGO'),
 	('36ee7774-b1c7-11e9-9658-f04da2b5f496', 'Šola za storitvene dejavnosti', 'ŠSD'),
@@ -369,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `students` (
 
 -- Dumping data for table szr_db.students: 2 rows
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT IGNORE INTO `students` (`id`, `name`, `surname`, `mail`, `easistent_id`) VALUES
+INSERT INTO `students` (`id`, `name`, `surname`, `mail`, `easistent_id`) VALUES
 	('241a0ee6-b1d9-11e9-9658-f04da2b5f496', 'LUKA', 'PAVČNIK', 'luka.pavcnik@hotmail.com', '1953935'),
 	('241a43cb-b1d9-11e9-9658-f04da2b5f496', 'JANEZ', 'SEDELJSAK', 'janez.sedeljsak@gmail.com', '1953935');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
@@ -384,9 +384,9 @@ CREATE TABLE IF NOT EXISTS `subjects` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
--- Dumping data for table szr_db.subjects: 0 rows
+-- Dumping data for table szr_db.subjects: 7 rows
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-INSERT IGNORE INTO `subjects` (`id`, `name`, `short_name`) VALUES
+INSERT INTO `subjects` (`id`, `name`, `short_name`) VALUES
 	('226d1b15-b1e7-11e9-9658-f04da2b5f496', 'Slovenščina', 'SLO'),
 	('226d7d73-b1e7-11e9-9658-f04da2b5f496', 'Matematika', 'MAT'),
 	('226d7fd5-b1e7-11e9-9658-f04da2b5f496', 'Angleščina', 'ANG'),
@@ -410,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 
 -- Dumping data for table szr_db.teachers: 1 rows
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
-INSERT IGNORE INTO `teachers` (`id`, `name`, `surname`, `mail`, `password`) VALUES
+INSERT INTO `teachers` (`id`, `name`, `surname`, `mail`, `password`) VALUES
 	('7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'miran', 'zevnik', 'miran@gmail.com', '701a5a53956070cd9abf668359eef2dfb5bb6b23f1e525cc4ea4c154966156ac');
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `types` (
 
 -- Dumping data for table szr_db.types: 4 rows
 /*!40000 ALTER TABLE `types` DISABLE KEYS */;
-INSERT IGNORE INTO `types` (`id`, `name`) VALUES
+INSERT INTO `types` (`id`, `name`) VALUES
 	('1670c789-b1da-11e9-9658-f04da2b5f496', 'Raziskovalna naloga'),
 	('16712863-b1da-11e9-9658-f04da2b5f496', 'Projekt'),
 	('16712aa5-b1da-11e9-9658-f04da2b5f496', 'Tekmovanje'),
@@ -443,7 +443,7 @@ CREATE TABLE IF NOT EXISTS `years` (
 
 -- Dumping data for table szr_db.years: 5 rows
 /*!40000 ALTER TABLE `years` DISABLE KEYS */;
-INSERT IGNORE INTO `years` (`id`, `name`) VALUES
+INSERT INTO `years` (`id`, `name`) VALUES
 	('da8b1386-b1e1-11e9-9658-f04da2b5f496', '2016/17'),
 	('da8bc7db-b1e1-11e9-9658-f04da2b5f496', '2017/18'),
 	('da8bcb64-b1e1-11e9-9658-f04da2b5f496', '2018/19'),
