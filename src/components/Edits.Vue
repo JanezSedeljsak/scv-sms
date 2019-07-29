@@ -11,10 +11,9 @@
             <tr class="ui inverted blue table">
               <th>#</th>
               <th>Naziv</th>
-              <th>Vrednost</th>
               <th>
                 <a
-                  v-tooltip.top-center="'Dodaj nov zapis nivoja'"
+                  v-tooltip.top-center="'Dodaj nov zapis tipa'"
                   v-on:click="moveUrl([ 0 ])"
                   class="ui round-button w3-right add-btn"
                 >
@@ -27,11 +26,10 @@
             <tr v-for="(type, index) in types" v-bind:key="index">
               <td>{{ index + 1 }}</td>
               <td>{{ type.name }}</td>
-              <td>{{ type.points.$numberDecimal }}</td>
               <td>
                 <a
                   v-tooltip.top-center="'Odpri urejanje nivoja'"
-                  v-on:click="moveUrl([ 2, type._id])"
+                  v-on:click="moveUrl([ 2, type.id])"
                   class="ui round-button w3-right"
                 >
                   <i class="edit icon"></i>
@@ -66,11 +64,11 @@
             <tr v-for="(level, index) in levels" v-bind:key="index">
               <td>{{ index + 1 }}</td>
               <td>{{ level.name }}</td>
-              <td>{{ level.points.$numberDecimal }}</td>
+              <td>{{ level.value }}</td>
               <td>
                 <a
                   v-tooltip.top-center="'Odpri urejanje nivoja'"
-                  v-on:click="moveUrl([ 3, level._id])"
+                  v-on:click="moveUrl([ 3, level.id])"
                   class="ui round-button w3-right"
                 >
                   <i class="edit icon"></i>
@@ -105,13 +103,13 @@ export default {
       fetch("http://localhost:3000/api/get/types")
         .then(response => response.json())
         .then(data => {
-          this.types = data["types"];
+          this.types = data["result"];
         });
 
       fetch("http://localhost:3000/api/get/levels")
         .then(response => response.json())
         .then(data => {
-          this.levels = data["levels"];
+          this.levels = data["result"];
         });
     },
     filterCompetitions: function() {

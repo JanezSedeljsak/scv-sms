@@ -84,7 +84,7 @@
             <td>
               <a
                 v-tooltip.top-center="'Uredi podatke dijaka'"
-                v-on:click="changeLocation( student._id)"
+                v-on:click="changeLocation( student.id)"
                 class="ui round-button w3-right"
               >
                 <i class="edit icon"></i>
@@ -147,8 +147,8 @@ export default {
       fetch("http://localhost:3000/api/get/students")
         .then(response => response.json())
         .then(data => {
-          this.students = data["students"];
-          this.studentsForDisplay = data["students"];
+          this.students = data["result"];
+          this.studentsForDisplay = data["result"];
         });
     },
     changeLocation: function(student) {

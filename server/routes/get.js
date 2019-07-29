@@ -7,7 +7,7 @@ const settings = {
     port: '3306',
     database: 'SZR_DB',
     user: 'root',
-    password: 'root'
+    password: ''
 };
 
 class DBMethods {
@@ -124,6 +124,7 @@ router.get('/achivments', (req, res, next) => {
         qb.select([
             's.name as studentname',
             's.surname',
+            'a.date',
             'a.name as achivments',
             'a.description',
             't.name as type',
@@ -158,7 +159,7 @@ router.post('/get-student-by-id', (req, res, next) => {
                 qb.disconnect();
                 res.status(200).json({
                     ok: true,
-                    result: result
+                    result: result[0]
                 });
             });
     }
@@ -180,7 +181,7 @@ router.get('/teachers', (req, res, next) => {
 router.get('/teachers-for-picker', (req, res, next) => {
     const qb = new QueryBuilder(settings, 'mysql', 'single');
 
-    qb.select("name, surname").from('teachers')
+    qb.select("id, name, surname").from('teachers')
         .get((err, result) => {
             qb.disconnect();
             res.status(200).json({

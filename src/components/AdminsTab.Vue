@@ -63,7 +63,7 @@
         >
             <td>{{ teacher.name }}</td>
             <td>{{ teacher.surname }}</td>
-            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.mail }}</td>
           </tr>
         </tbody>
       </table>
@@ -96,7 +96,7 @@ export default {
     fetchData: function() {
       fetch("http://localhost:3000/api/get/teachers", { method: "GET" })
         .then(response => response.json())
-        .then(data => (this.teachers = data["teachers"]));
+        .then(data => (this.teachers = data.result));
     },
     sendAdminForm: function() {
       window.event.preventDefault();
