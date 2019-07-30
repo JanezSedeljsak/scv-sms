@@ -63,7 +63,9 @@ export default {
     })
       .then(res => res.json())
       .then(response => {
-        this.username = `${response.result.name} ${response.result.surname}`;
+        console.log(response);
+        let {name, surname} = response.result[0];
+        this.username = `${name} ${surname}`;
       });
   },
   head: {

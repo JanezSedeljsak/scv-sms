@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div
-        style="box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%;"
+        style="margin-top: 1vw; box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%;"
         class="ui card"
       >
         <div id="topLogin">
@@ -22,6 +22,12 @@
             <div class="field">
               <label>Geslo</label>
               <input type="password" v-model="form.pass" />
+            </div>
+            <div class="field">
+              <div class="ui toggle checkbox">
+                <input v-model="form.role" type="checkbox" name="public">
+                <label>Prijavi se kot:&nbsp;<span v-html="form.role ? 'Mentor' : 'Dijak'"></span></label>
+              </div>
             </div>
             <button
               style="min-width: 30%"
@@ -42,6 +48,7 @@ export default {
     return {
       toggleDisplay: true,
       form: {
+        role: false,
         mail: "",
         pass: ""
       }

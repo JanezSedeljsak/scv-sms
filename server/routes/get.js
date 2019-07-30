@@ -16,7 +16,7 @@ class DBMethods {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
     
             qb.select([
-                'c.id',
+                'c.id as id',
                 'CONCAT(t.name, " ", t.surname) AS teacher',
                 'c.name',
                 'c.deadline',
