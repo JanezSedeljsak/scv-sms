@@ -11,36 +11,139 @@ const settings = {
 };
 
 class DBMethods {
-    static getClasses() {
-        return new Promise(resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
-
-            qb.select("c.id, c.name as class, s.name").from('classes c')
-                .join('schools s', 's.id=c.school_id', 'left')
-                .get((err, result) => {
-                    qb.disconnect();
-                    resolve(result);
-                });
-        });
-    }
-
-    static getSubjects() {
-        return new Promise(resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
-
-            qb.select("cs.class_id, s.name, s.short_name").from('classes_subjects cs')
-                .join('subjects s', 's.id=cs.subject_id', 'left')
-                .get((err, result) => {
-                    qb.disconnect();
-                    resolve(result);
-                });
-        });
-    }
-
-    static getFormatedClasses() {
+    static getCompetitions() {
         return new Promise(async resolve => {
-            let classRes = await this.getClasses();
-            let subjectsRes = await this.getSubjects();
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+    
+            qb.select([
+                'CONCAT(t.name, " ", t.surname) AS teacher',
+                'c.name',
+                'c.deadline',
+                'c.date_created',
+                'c.places'
+            ]).from('competitions c')
+                .join('teachers t', 't.id=c.teacher_id', 'left')
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+    }
+
+
+    static getCompetitionData(id) {
+        return new Promise(async resolve => {
+            
+            let competitionBase = await new Promise(async resolve => {
+                const qb = new QueryBuilder(settings, 'mysql', 'single');
+        
+                qb.select([
+                    'CONCAT(t.name, " ", t.surname) AS teacher',
+                    'c.name',
+                    'c.deadline',
+                    'c.date_created',
+                    'c.places'
+                ]).from('competitions c')
+                    .where('c.id', id)
+                    .join('teachers t', 't.id=c.teacher_id', 'left')
+                    .get((err, result) => {
+                        qb.disconnect();
+                        resolve(result);
+                    });
+            });
+            let competitionTypes = await new Promise(async resolve => {
+                const qb = new QueryBuilder(settings, 'mysql', 'single');
+        
+                qb.select([
+                    'ct.value',
+                    't.name as type'
+                ]).from('competitions_types ct')
+                    .join('types t', 't.id=ct.type_id', 'left')
+                    .where('ct.competition_id', id)
+                    .get((err, result) => {
+                        qb.disconnect();
+                        resolve(result);
+                    });
+            });
+
+            let competitionsSubjects = await new Promise(async resolve => {
+                const qb = new QueryBuilder(settings, 'mysql', 'single');
+        
+                qb.select([
+                    's.name',
+                    'cs.value'
+                ]).from('competitions_subjects cs')
+                    .join('subjects s', 's.id=cs.subject_id', 'left')
+                    .where('cs.competition_id', id)
+                    .get((err, result) => {
+                        qb.disconnect();
+                        resolve(result);
+                    });
+            });
+
+            let competitionClasses = await new Promise(async resolve => {
+                const qb = new QueryBuilder(settings, 'mysql', 'single');
+        
+                qb.select([
+                    'c.name as class',
+                    's.name as school'
+                ]).from('classes_competitions cc')
+                    .join('classes c', 'c.id=cc.class_id', 'left')
+                    .join('schools s', 's.id = c.school_id', 'left')
+                    .where('cc.competition_id', id)
+                    .get((err, result) => {
+                        qb.disconnect();
+                        resolve(result);
+                    });
+            });
+
+            let competitionStudents = await new Promise(async resolve => {
+                const qb = new QueryBuilder(settings, 'mysql', 'single');
+        
+                qb.select([
+                    'CONCAT(s.name, " ", s.surname) AS student'
+                ]).from('competitions_students cs')
+                    .join('gstudents gs', 'gs.id=cs.gstudent_id', 'left')
+                    .join('students s', 's.id = gs.student_id', 'left')
+                    .where('cs.competition_id', id)
+                    .get((err, result) => {
+                        qb.disconnect();
+                        resolve(result);
+                    });
+            });
+
+            resolve({
+                base: competitionBase,
+                classes: competitionClasses,
+                subjects: competitionsSubjects,
+                types: competitionTypes,
+                students: competitionStudents
+            });
+        });
+    }
+
+    static getClasses() {
+        return new Promise(async resolve => {
+            let classRes = await new Promise(resolve => {
+                const qb = new QueryBuilder(settings, 'mysql', 'single');
+    
+                qb.select("c.id, c.name as class, s.name").from('classes c')
+                    .join('schools s', 's.id=c.school_id', 'left')
+                    .get((err, result) => {
+                        qb.disconnect();
+                        resolve(result);
+                    });
+            });
+            let subjectsRes = await new Promise(resolve => {
+                const qb = new QueryBuilder(settings, 'mysql', 'single');
+    
+                qb.select("cs.class_id, s.name, s.short_name").from('classes_subjects cs')
+                    .join('subjects s', 's.id=cs.subject_id', 'left')
+                    .get((err, result) => {
+                        qb.disconnect();
+                        resolve(result);
+                    });
+            });
     
             resolve(classRes.map(citem => {
                 citem['subjects'] = subjectsRes
@@ -57,11 +160,25 @@ class DBMethods {
     }
 }
 
+router.get('/competition-by-id', async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getCompetitionData('138e3551-b288-11e9-9658-f04da2b5f496')
+    })  
+});
+
+router.get('/competitions', async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getCompetitions()
+    })
+})
+
 
 router.get('/classes', async (req, res, next) => {
     res.status(200).json({
         ok: true,
-        result: await DBMethods.getFormatedClasses()
+        result: await DBMethods.getClasses()
     });
 });
 
