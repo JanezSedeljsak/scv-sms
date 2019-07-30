@@ -2,7 +2,7 @@
   <div class="ui padded grid">
     <szr-header v-cloak title='<i class="sort numeric up icon"></i>Tekmovanja'/>
     <div class="row">
-      <button v-on:click="openEdit('create')" class="ui primary button w3-right">
+      <button v-on:click="openCreate()" class="ui primary button w3-right">
         <i class="add icon"></i>Dodaj tekmovanje
       </button>
       <div style="margin-left: 10px" class="ui icon input">
@@ -30,35 +30,35 @@
             </span>
             <br />
             <span>
-              Datum:
-              <b>{{ competition.date | dateFormat }}</b>
+              Mentor:
+              <b>{{ competition.teacher }}</b>
             </span>
           </div>
 
           <div style="width: 25%; float: left;">
             <span>
-              Naslov:
-              <b>{{ competition.name }}</b>
+              Mesta:
+              <b>{{ competition.places }}</b>
             </span>
             <br />
             <span>
-              Datum:
-              <b>{{ competition.date | dateFormat }}</b>
+              St.prijavljenih:
+              <b>{{ competition.places }}</b>
             </span>
           </div>
 
           <div style="width: 25%; float: left;">
             <span>
-              Naslov:
-              <b>{{ competition.name }}</b>
+              Ustvajeno:
+              <b>{{ competition.date_created | dateFormat }}</b>
             </span>
             <br />
             <span>
-              Datum:
-              <b>{{ competition.date | dateFormat }}</b>
+              Rok prijave:
+              <b>{{ competition.deadline | dateFormat }}</b>
             </span>
           </div>
-          <a v-tooltip.top-center="editTooltip" v-on:click="openEdit('edit')" class="ui round-button w3-right">
+          <a v-tooltip.top-center="editTooltip" v-on:click="openEdit(competition.id)" class="ui round-button w3-right">
             <i class="edit icon"></i>
           </a>
         </li>
@@ -79,9 +79,6 @@ export default {
       loading: true,
     };
   },
-  filters: {
-    dateFormat: date => moment(date).format("DD. MM. YYYY")
-  },
   created: function() {
     this.fetchData();
   },
@@ -93,8 +90,9 @@ export default {
       fetch("http://localhost:3000/api/get/competitions")
         .then(response => response.json())
         .then(data => {
-          this.competitions = data["competitions"];
-          this.competitionsForDisplay = this.competitions;
+          this.competitions = data.result;
+          this.competitionsForDisplay = data.result;
+          console.log(data.result);
         });
     },
     filterCompetitions: function() {
@@ -106,9 +104,13 @@ export default {
         return values.includes(true) ? true : false;
       });
     },
-    openEdit: function(type) {
+    openEdit: (id) => {
       window.event.preventDefault();
-      window.location = `/admin/competitions/1/${type}/`;
+      window.location = `/admin/competitions/${id}/edit`;
+    },
+    openCreate: () => {
+      window.event.preventDefault();
+      window.location = `/admin/competitions/create/`;  
     }
   }
 };

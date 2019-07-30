@@ -9,6 +9,7 @@ import VueHead from 'vue-head';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VTooltip from 'v-tooltip';
+import moment from 'moment';
 
 Vue.use(VTooltip);
 Vue.use(VueSweetalert2);
@@ -48,6 +49,7 @@ new Vue({
 });
 
 Vue.filter('capitalize', value => value.toUpperCase());
+Vue.filter('dateFormat', date => moment(date).format('DD. MM. YYYY'));
 
 //// global vue components
 Vue.component('szr-header', {

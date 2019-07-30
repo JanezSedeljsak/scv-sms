@@ -7,7 +7,7 @@ const settings = {
     port: '3306',
     database: 'SZR_DB',
     user: 'root',
-    password: ''
+    password: 'root'
 };
 
 class DBMethods {
@@ -16,6 +16,7 @@ class DBMethods {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
     
             qb.select([
+                'c.id',
                 'CONCAT(t.name, " ", t.surname) AS teacher',
                 'c.name',
                 'c.deadline',
@@ -352,26 +353,6 @@ router.get('/add-level', (req, res, next) => {
     });
     newLevel.save(error => error ? console.log(error) : res.send({ succes: true }))
 
-});
-
-
-router.get('/competitions', (req, res, next) => {
-    res.status(200).json({
-        competitions: [
-            { name: 'mat tekmovanje', date: new Date() },
-            { name: 'kenguru', date: new Date() },
-            { name: 'rtk programiranje', date: new Date() },
-            { name: 'malta2019', date: new Date() }
-        ]
-    });
-});
-
-router.get('/competitions', (req, res, next) => {
-    res.status(200).json({
-        competitions: [{ name: 'Janez', surname: 'Kekec' },
-        { name: 'Luka', surname: 'Neki' },
-        { name: 'Pajdo', surname: 'Pajdo' }]
-    });
 });
 
 module.exports = router;

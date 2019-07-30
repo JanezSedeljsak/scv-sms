@@ -52,7 +52,6 @@
 </template>
 
 <script>
-const moment = require('moment');
 export default {
   data() {
     return {
@@ -61,9 +60,6 @@ export default {
       filterValue: null,
       editTooltip: "Odpri urejanje dosežkov"
     };
-  },
-  filters: {
-    dateFormat: date => moment(date).format('DD. MM. YYYY')
   },
   created: function() {
     this.fetchData();
