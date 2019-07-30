@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `achivments` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.achivments: 1 rows
+DELETE FROM `achivments`;
 /*!40000 ALTER TABLE `achivments` DISABLE KEYS */;
 INSERT INTO `achivments` (`id`, `level_id`, `type_id`, `name`, `date`, `place`, `description`) VALUES
 	('edc1a631-b1e4-11e9-9658-f04da2b5f496', '8aef4c5b-b1da-11e9-9658-f04da2b5f496', '16712be8-b1da-11e9-9658-f04da2b5f496', 'Rekordni tek na 600m', '2018-02-06 07:19:25', 1, 'Dijak je podrl rekord na 600m');
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `achivments_students` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.achivments_students: 1 rows
+DELETE FROM `achivments_students`;
 /*!40000 ALTER TABLE `achivments_students` DISABLE KEYS */;
 INSERT INTO `achivments_students` (`id`, `student_id`, `achivment_id`) VALUES
 	('374eb18e-b1e5-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'edc1a631-b1e4-11e9-9658-f04da2b5f496');
@@ -70,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.classes: 95 rows
+DELETE FROM `classes`;
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
 INSERT INTO `classes` (`id`, `scv_id`, `school_id`, `name`) VALUES
 	('5ca4f7f5-b1c8-11e9-9658-f04da2b5f496', 62, '36ee6f6e-b1c7-11e9-9658-f04da2b5f496', '1.EL'),
@@ -181,8 +184,12 @@ CREATE TABLE IF NOT EXISTS `classes_competitions` (
   KEY `razred_id` (`class_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table szr_db.classes_competitions: 0 rows
+-- Dumping data for table szr_db.classes_competitions: 2 rows
+DELETE FROM `classes_competitions`;
 /*!40000 ALTER TABLE `classes_competitions` DISABLE KEYS */;
+INSERT INTO `classes_competitions` (`id`, `competition_id`, `class_id`) VALUES
+	('80585af0-b28c-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '5ca506bd-b1c8-11e9-9658-f04da2b5f496'),
+	('80588272-b28c-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '5ca50613-b1c8-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `classes_competitions` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.classes_subjects
@@ -198,6 +205,7 @@ CREATE TABLE IF NOT EXISTS `classes_subjects` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table szr_db.classes_subjects: ~6 rows (približno)
+DELETE FROM `classes_subjects`;
 /*!40000 ALTER TABLE `classes_subjects` DISABLE KEYS */;
 INSERT INTO `classes_subjects` (`id`, `class_id`, `subject_id`) VALUES
 	('b0b2f7f2-b1ec-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', '226d1b15-b1e7-11e9-9658-f04da2b5f496'),
@@ -225,8 +233,12 @@ CREATE TABLE IF NOT EXISTS `competitions` (
   KEY `year_id` (`year_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
--- Dumping data for table szr_db.competitions: 0 rows
+-- Dumping data for table szr_db.competitions: 2 rows
+DELETE FROM `competitions`;
 /*!40000 ALTER TABLE `competitions` DISABLE KEYS */;
+INSERT INTO `competitions` (`id`, `teacher_id`, `name`, `date_created`, `places`, `deadline`, `description`, `year_id`) VALUES
+	('138e3551-b288-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'Malta2k19', '2019-02-06 07:19:25', 12, '2019-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496'),
+	('201e26a7-b288-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'Malta2k20', '2020-02-06 07:19:25', 9, '2020-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `competitions` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.competitions_students
@@ -241,8 +253,11 @@ CREATE TABLE IF NOT EXISTS `competitions_students` (
   KEY `razvrscanja_id` (`competition_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
--- Dumping data for table szr_db.competitions_students: 0 rows
+-- Dumping data for table szr_db.competitions_students: 1 rows
+DELETE FROM `competitions_students`;
 /*!40000 ALTER TABLE `competitions_students` DISABLE KEYS */;
+INSERT INTO `competitions_students` (`id`, `gstudent_id`, `competition_id`) VALUES
+	('3d560f82-b28d-11e9-9658-f04da2b5f496', '2247a287-b1e2-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `competitions_students` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.competitions_subjects
@@ -258,8 +273,13 @@ CREATE TABLE IF NOT EXISTS `competitions_subjects` (
   KEY `predmet_id` (`subject_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table szr_db.competitions_subjects: 0 rows
+-- Dumping data for table szr_db.competitions_subjects: 3 rows
+DELETE FROM `competitions_subjects`;
 /*!40000 ALTER TABLE `competitions_subjects` DISABLE KEYS */;
+INSERT INTO `competitions_subjects` (`id`, `competition_id`, `subject_id`, `value`) VALUES
+	('b8a12c08-b28a-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '226d7fd5-b1e7-11e9-9658-f04da2b5f496', 1),
+	('b8a18b8b-b28a-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '226d84eb-b1e7-11e9-9658-f04da2b5f496', 1.3),
+	('b8a18e1e-b28a-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '226d1b15-b1e7-11e9-9658-f04da2b5f496', 0.7);
 /*!40000 ALTER TABLE `competitions_subjects` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.competitions_types
@@ -275,8 +295,12 @@ CREATE TABLE IF NOT EXISTS `competitions_types` (
   KEY `type_id` (`type_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
--- Dumping data for table szr_db.competitions_types: 0 rows
+-- Dumping data for table szr_db.competitions_types: 2 rows
+DELETE FROM `competitions_types`;
 /*!40000 ALTER TABLE `competitions_types` DISABLE KEYS */;
+INSERT INTO `competitions_types` (`id`, `competition_id`, `type_id`, `value`) VALUES
+	('b442bdfb-b289-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '1670c789-b1da-11e9-9658-f04da2b5f496', 1),
+	('b443613e-b289-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '16712be8-b1da-11e9-9658-f04da2b5f496', 0.2);
 /*!40000 ALTER TABLE `competitions_types` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.grades
@@ -294,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `grades` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.grades: 0 rows
+DELETE FROM `grades`;
 /*!40000 ALTER TABLE `grades` DISABLE KEYS */;
 /*!40000 ALTER TABLE `grades` ENABLE KEYS */;
 
@@ -313,6 +338,7 @@ CREATE TABLE IF NOT EXISTS `gstudents` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.gstudents: 1 rows
+DELETE FROM `gstudents`;
 /*!40000 ALTER TABLE `gstudents` DISABLE KEYS */;
 INSERT INTO `gstudents` (`id`, `student_id`, `year_id`, `class_id`, `confirmed_grades`) VALUES
 	('2247a287-b1e2-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'da8bcd31-b1e1-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', 1);
@@ -329,6 +355,7 @@ CREATE TABLE IF NOT EXISTS `levels` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.levels: 3 rows
+DELETE FROM `levels`;
 /*!40000 ALTER TABLE `levels` DISABLE KEYS */;
 INSERT INTO `levels` (`id`, `name`, `value`) VALUES
 	('8aef4c5b-b1da-11e9-9658-f04da2b5f496', 'Šolski nivo', 0.5),
@@ -347,6 +374,7 @@ CREATE TABLE IF NOT EXISTS `schools` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table szr_db.schools: ~4 rows (približno)
+DELETE FROM `schools`;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
 INSERT INTO `schools` (`id`, `name`, `short_name`) VALUES
 	('36ee6f6e-b1c7-11e9-9658-f04da2b5f496', 'Elektro in računalniška šola', 'ERŠ'),
@@ -368,6 +396,7 @@ CREATE TABLE IF NOT EXISTS `students` (
 ) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.students: 2 rows
+DELETE FROM `students`;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
 INSERT INTO `students` (`id`, `name`, `surname`, `mail`, `easistent_id`) VALUES
 	('241a0ee6-b1d9-11e9-9658-f04da2b5f496', 'LUKA', 'PAVČNIK', 'luka.pavcnik@hotmail.com', '1953935'),
@@ -385,6 +414,7 @@ CREATE TABLE IF NOT EXISTS `subjects` (
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.subjects: 7 rows
+DELETE FROM `subjects`;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
 INSERT INTO `subjects` (`id`, `name`, `short_name`) VALUES
 	('226d1b15-b1e7-11e9-9658-f04da2b5f496', 'Slovenščina', 'SLO'),
@@ -409,6 +439,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.teachers: 1 rows
+DELETE FROM `teachers`;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
 INSERT INTO `teachers` (`id`, `name`, `surname`, `mail`, `password`) VALUES
 	('7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'miran', 'zevnik', 'miran@gmail.com', '701a5a53956070cd9abf668359eef2dfb5bb6b23f1e525cc4ea4c154966156ac');
@@ -424,6 +455,7 @@ CREATE TABLE IF NOT EXISTS `types` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.types: 4 rows
+DELETE FROM `types`;
 /*!40000 ALTER TABLE `types` DISABLE KEYS */;
 INSERT INTO `types` (`id`, `name`) VALUES
 	('1670c789-b1da-11e9-9658-f04da2b5f496', 'Raziskovalna naloga'),
@@ -442,6 +474,7 @@ CREATE TABLE IF NOT EXISTS `years` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.years: 5 rows
+DELETE FROM `years`;
 /*!40000 ALTER TABLE `years` DISABLE KEYS */;
 INSERT INTO `years` (`id`, `name`) VALUES
 	('da8b1386-b1e1-11e9-9658-f04da2b5f496', '2016/17'),

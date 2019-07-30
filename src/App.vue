@@ -8,7 +8,7 @@
       >Razvrščevalni sistem ŠCV</h1>
       <h2 style="text-align: center; font-size: 1.2em; color:white">
         <i class="user circle icon"></i>
-        {{ username }}
+        {{ username ? username : "Ni uporabnika" }}
       </h2>
       <div class="ui vertical borderless fluid text menu">
         <a v-on:click="moveUrl('/admin/students')" class="item">
