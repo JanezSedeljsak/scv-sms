@@ -25,15 +25,15 @@
             v-bind:key="index"
           >
             <div style="margin-left: 15px; width: 25%; float: left;">
-              <span>Naslov: <b>{{ achivment.name }}</b></span>
+              <span>Naslov: <b>{{ achivment.achivments }}</b></span>
               <br>
               <span>Datum: <b>{{ achivment.date | dateFormat }}</b></span>
             </div>
 
             <div style="width: 25%; float: left;">
-              <span>Naslov: <b>{{ achivment.name }}</b></span>
+              <span>Tip: <b>{{ achivment.type }}</b></span>
               <br>
-              <span>Datum: <b>{{ achivment.date | dateFormat }}</b></span>
+              <span>Nivo: <b>{{ achivment.level }}</b></span>
             </div>
 
             <div style="width: 25%; float: left;">
@@ -70,11 +70,11 @@ export default {
   },
   methods: {
     fetchData: function() {
-      fetch("http://localhost:3000/api/get/competitions")
+      fetch("http://localhost:3000/api/get/achivments")
         .then(response => response.json())
         .then(data => {
-          this.achivments = data["competitions"];
-          this.achivmentsForDisplay = this.achivments;
+          this.achivments = data.result;
+          this.achivmentsForDisplay = data.result;
         });
     },
     filterAchivments: function() {

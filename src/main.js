@@ -91,7 +91,7 @@ Vue.component('szr-picker', {
         fetchData: function () {
             fetch(`http://localhost:3000/api/get${JSON.parse(this.$props.data).apiRoute}`, { method: "GET" })
                 .then(response => response.json())
-                .then(data => (this.pickerOptions = data['data']));
+                .then(data => (this.pickerOptions = data.result));
         },
         tryModalClose: function () {
             if (window.event.target.className === 'w3-modal')
