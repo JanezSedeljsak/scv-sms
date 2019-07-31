@@ -3,10 +3,10 @@
     <szr-header title="<i class='trophy icon'></i>Dosežki" />
     <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
       <div class="row">
-        <button style="margin-left: 2%" v-on:click="openEdit('create')" class="ui primary button w3-right">
+        <button style="margin-left: 2%; min-width: 14%" v-on:click="openCreate()" class="ui primary button w3-right">
           <i class="add icon"></i>Dodaj dosežek
         </button>
-        <div style="margin-left: 10px" class="ui icon input">
+        <div style="margin-left: 1%; min-width: 14.3%" class="ui icon input">
           <input
             v-model="filterValue"
             v-on:keydown="filterAchivments()"
@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="content">
-            <a class="header">{{ achivment.achivments }}</a>
+            <a class="header">{{ achivment.achivmentname }}</a>
             <div class="meta">
               <span class="date">{{ achivment.date | dateFormat }}</span>
             </div>
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="extra content">
-            <a>
+            <a v-on:click="openEdit(achivment.id)">
               <i class="edit icon"></i>
               Uredi dosežek
             </a>
@@ -85,8 +85,11 @@ export default {
         return values.includes(true) ? true : false;
       });
     },
-    openEdit: function(type) {
-      window.location = `/admin/achivments/1/${type}/`;
+    openEdit: function(id) {
+      window.location = `/admin/achivments/${id}/edit/`;
+    },
+    openCreate: function() {
+      window.location = `/admin/achivments/create/`;
     }
   }
 };

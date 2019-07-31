@@ -237,7 +237,8 @@ router.get('/achivments', (req, res, next) => {
             's.name as studentname',
             's.surname',
             'a.date',
-            'a.name as achivments',
+            'a.id',
+            'a.name as achivmentname',
             'a.description',
             't.name as type',
             'l.name as level'

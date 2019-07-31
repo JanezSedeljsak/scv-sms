@@ -3,10 +3,10 @@
     <szr-header v-cloak title='<i class="sort numeric up icon"></i>Tekmovanja'/>
     <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
       <div class="row">
-        <button v-on:click="openCreate()" class="ui primary button w3-right">
+        <button style="margin-left: 2%; min-width: 14%" v-on:click="openCreate()" class="ui primary button w3-right">
           <i class="add icon"></i>Dodaj tekmovanje
         </button>
-        <div style="margin-left: 10px" class="ui icon input">
+        <div style="margin-left: 1%; min-width: 14.3%" class="ui icon input">
           <input
             v-model="filterValue"
             v-on:keydown="filterCompetitions()"
@@ -18,52 +18,47 @@
         </div>
       </div>
       <div class="row">
-        <ul style="display:block; width:100%" class="w3-ul w3-card-4">
-          <li
-            class="w3-bar"
-            v-for="(competition, index) in competitionsForDisplay"
-            v-bind:key="index"
-          >
-            <div style="margin-left: 15px; width: 25%; float: left;">
-              <span>
-                Naslov:
-                <b>{{ competition.name }}</b>
-              </span>
-              <br />
-              <span>
-                Mentor:
-                <b>{{ competition.teacher }}</b>
-              </span>
+        <div
+          style="float: left; width: 29.3%; margin: 2% !important"
+          class="ui card"
+          v-for="(competition, index) in competitionsForDisplay"
+          v-bind:key="index"
+        >
+          <div class="image">
+            <div class="img-container">
+              <img
+                style="padding: 10px; margin-left: 35%; width: 30%"
+                src="./../assets/competition.png"
+              />
             </div>
-
-            <div style="width: 25%; float: left;">
-              <span>
-                Mesta:
-                <b>{{ competition.places }}</b>
-              </span>
-              <br />
-              <span>
-                St.prijavljenih:
-                <b>{{ competition.places }}</b>
-              </span>
+          </div>
+          <div class="content">
+            <a class="header">{{ competition.name }}</a>
+            <div class="meta">
+              <span class="date">mentor:&nbsp;<b>{{ competition.teacher | capitalize }}</b></span>
             </div>
-
-            <div style="width: 25%; float: left;">
-              <span>
-                Ustvajeno:
-                <b>{{ competition.date_created | dateFormat }}</b>
-              </span>
-              <br />
-              <span>
-                Rok prijave:
-                <b>{{ competition.deadline | dateFormat }}</b>
-              </span>
+            <div class="description">
+              rok prijave: <b>{{ competition.deadline | dateFormat }}</b><br>
+              zasedenost: <b>{{ competition.places }}/{{ competition.places }}</b>
             </div>
-            <a v-tooltip.top-center="editTooltip" v-on:click="openEdit(competition.id)" class="ui round-button w3-right">
+          </div>
+          <div class="extra content">
+            <a
+              v-tooltip.top-center="'Uredi tekmovanje'"
+              v-on:click="openEdit(competition.id)"
+              class="ui round-button w3-right"
+            >
               <i class="edit icon"></i>
             </a>
-          </li>
-        </ul>
+            <a
+              v-tooltip.top-center="'Predogled prijavljenih'"
+              v-on:click="changeLocation( student.id)"
+              class="ui round-button w3-right add-btn"
+            >
+              <i class="add icon"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
