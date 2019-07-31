@@ -29,7 +29,7 @@
         <a v-on:click="moveUrl('/admin/admins-tab')" class="item">
           <i class="address book icon"></i>Administratorji
         </a>
-        <a v-on:click="moveUrl('/admin/admins-tab')" class="item">
+        <a v-on:click="moveUrl('/admin/requests')" class="item">
         <i class="sticky note icon"></i>
           Zahtevki
         </a>

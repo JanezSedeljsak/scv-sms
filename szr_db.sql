@@ -372,8 +372,12 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `state_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
   `header` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
   `content` text CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `date_sent` datetime DEFAULT NULL,
+  `date_edit` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  KEY `student_id` (`student_id`),
+  KEY `teacher_id` (`teacher_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table szr_db.messages: ~0 rows (approximately)

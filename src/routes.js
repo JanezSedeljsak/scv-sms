@@ -10,7 +10,8 @@ import CompetitionEdit from "./components/CompetitionEdit.vue";
 import Edits from "./components/Edits.vue";
 import GlobalEdit from "./components/GlobalEdit.vue";
 import Login from "./components/Login.vue";
-import CompetitionPreview from "./components/CompetitionPreview.vue"
+import CompetitionPreview from "./components/CompetitionPreview.vue";
+import Messages from './components/Messages.vue';
 
 export const routes = [
     { path: "/user", component: Home },
@@ -24,6 +25,7 @@ export const routes = [
     { path: "/admin/admins-tab", component: AdminsTab },
     { path: "/admin/students/:id/achivments/", component: Achivments, props: { getById: true }},
     { path: "/admin/edits", component: Edits },
+    { path: "/admin/requests", component: Messages },
     { path: "/admin/achivments/create", component: AchivmentsEdit },
     { path: "/admin/achivments/:id/edit/", component: AchivmentsEdit },
     { path: "/admin/competitions/:id/edit", component: CompetitionEdit },
