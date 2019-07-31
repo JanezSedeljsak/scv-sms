@@ -1,12 +1,12 @@
 <template>
   <div class="ui padded grid">
     <szr-header v-cloak title='<i class="sort numeric up icon"></i>Tekmovanja'/>
-    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+    <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
-        <button style="margin-left: 2%; min-width: 14%" v-on:click="openCreate()" class="ui primary button w3-right">
+        <button style="margin-left: 2%; min-width: 11%" v-on:click="openCreate()" class="ui primary button w3-right">
           <i class="add icon"></i>Dodaj tekmovanje
         </button>
-        <div style="margin-left: 1%; min-width: 14.3%" class="ui icon input">
+        <div style="margin-left: 1%; min-width: 13.3%" class="ui icon input">
           <input
             v-model="filterValue"
             v-on:keydown="filterCompetitions()"
@@ -19,7 +19,7 @@
       </div>
       <div class="row">
         <div
-          style="float: left; width: 29.3%; margin: 2% !important"
+          style="float: left; width: 29.3%; margin: 2% !important; margin-top: 0 !important"
           class="ui card"
           v-for="(competition, index) in competitionsForDisplay"
           v-bind:key="index"
@@ -42,7 +42,14 @@
               zasedenost: <b>{{ competition.places }}/{{ competition.places }}</b>
             </div>
           </div>
-          <div class="extra content">
+          <div class="extra content">       
+            <a
+              v-tooltip.top-center="'Pdf izvoz razsvrstitev'"
+              v-on:click="openEdit(competition.id)"
+              class="ui round-button w3-right"
+            >
+              <i class="file pdf icon"></i>
+            </a>
             <a
               v-tooltip.top-center="'Uredi tekmovanje'"
               v-on:click="openEdit(competition.id)"

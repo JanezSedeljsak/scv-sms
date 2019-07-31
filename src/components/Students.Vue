@@ -1,7 +1,7 @@
 <template>
   <div class="ui padded grid">
     <szr-header title='<i class="graduation cap icon"></i>Dijaki'/>
-    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+    <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
         <select style="width: 40%;" name="predmet" class="ui dropdown" v-model="pickedYear">
           <option v-bind:key="index" v-for="(year, index) in years" v-bind:value="index">{{ year }}</option>

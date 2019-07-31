@@ -99,7 +99,7 @@ table.picker-table {
   background-color: #333;
   position: fixed; 
   z-index: 5;
-  max-height: 4vw !important;
+  max-height: 8vh !important;
   box-shadow: 0 7px 4px -2px rgba(51, 51, 51, 0.61);
 }
 

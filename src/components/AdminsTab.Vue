@@ -1,7 +1,7 @@
 <template>
   <div class="ui padded grid">
     <szr-header title='<i class="address book icon"></i>Administratorji'/>
-    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+    <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
         <button v-on:click="toggle()" class="ui primary button w3-right">
           <span v-if="toggleDisplay">

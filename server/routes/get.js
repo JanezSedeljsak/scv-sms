@@ -7,7 +7,7 @@ const settings = {
     port: '3306',
     database: 'SZR_DB',
     user: 'root',
-    password: 'root'
+    password: ''
 };
 
 class DBMethods {
@@ -177,7 +177,26 @@ class DBMethods {
             })); 
         });*/
     }
+
+    static getSubjects() {
+        return new Promise(resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+            qb.select("id, name, short_name as shortname").from('subjects')
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });    
+    }
 }
+
+router.get('/subjects', async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getSubjects()
+    })  
+});
 
 router.get('/competition-students', async (req, res, next) => {
     res.status(200).json({

@@ -1,7 +1,7 @@
 <template>
   <div class="ui padded grid">
     <szr-header title="<i class='users icon'></i>Razredi" />
-    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+    <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
         <div style="margin-left: 2%; width: 29.3%;" class="ui icon input">
           <input 
@@ -16,7 +16,7 @@
       </div>
       <div class="row">
         <div 
-          style="float: left; width: 29.3%; margin: 2% !important" 
+          style="float: left; width: 29.3%; margin: 2% !important; margin-top: 0 !important" 
           class="ui card" 
           v-for="(_class, index) in classesForDisplay" 
           v-bind:key="index"

@@ -1,7 +1,7 @@
 <template>
   <div class="ui padded grid">
     <szr-header title='<i class="graduation cap icon"></i>Prijavljeni dijaki'/>
-    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+    <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
         <table style="table-layout: fixed" class="ui single line striped selectable unstackable table">
           <thead>

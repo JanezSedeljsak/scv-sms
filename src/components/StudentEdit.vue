@@ -1,7 +1,7 @@
 <template>
   <div class="ui padded grid">
     <szr-header title='<i class="id badge outline icon"></i>Urejanje dijaka'/>
-    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+    <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
         <div
           style="height: 27vw; box-shadow: 0 0 10px #333 !important; margin-top: 15px; width: 23%"

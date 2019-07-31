@@ -29,6 +29,10 @@
         <a v-on:click="moveUrl('/admin/admins-tab')" class="item">
           <i class="address book icon"></i>Administratorji
         </a>
+        <a v-on:click="moveUrl('/admin/admins-tab')" class="item">
+        <i class="sticky note icon"></i>
+          Zahtevki
+        </a>
         <div style="height:3vw" class="ui hidden divider"></div>
         <a v-on:click="moveUrl('/login')" class="item">
           <i class="sign out alternate icon"></i>Odjava
@@ -64,7 +68,7 @@ export default {
       .then(res => res.json())
       .then(response => {
         console.log(response);
-        let {name, surname} = response.result[0];
+        let { name, surname } = response.result[0];
         this.username = `${name} ${surname}`;
       });
   },

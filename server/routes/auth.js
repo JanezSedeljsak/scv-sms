@@ -9,7 +9,7 @@ const settings = {
     port: '3306',
     database: 'SZR_DB',
     user: 'root',
-    password: 'root'
+    password: ''
 };
 
 const hash = pass => {

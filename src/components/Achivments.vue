@@ -1,7 +1,7 @@
 <template>
   <div class="ui padded grid">
     <szr-header title="<i class='trophy icon'></i>Dosežki" />
-    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+    <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
         <button style="margin-left: 2%; min-width: 14%" v-on:click="openCreate()" class="ui primary button w3-right">
           <i class="add icon"></i>Dodaj dosežek
@@ -19,7 +19,7 @@
       </div>
       <div class="row">
         <div
-          style="float: left; width: 29.3%; margin: 2% !important"
+          style="float: left; width: 29.3%; margin: 2% !important; margin-top: 0 !important"
           class="ui card"
           v-for="(achivment, index) in achivmentsForDisplay"
           v-bind:key="index"
