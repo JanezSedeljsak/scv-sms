@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Strežnik:                     127.0.0.1
--- Verzija strežnika:            10.3.10-MariaDB - mariadb.org binary distribution
--- Operacijski sistem strežnika: Win64
--- HeidiSQL Različica:           10.2.0.5599
+-- Host:                         127.0.0.1
+-- Server version:               10.3.16-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -17,16 +17,16 @@ DROP DATABASE IF EXISTS `szr_db`;
 CREATE DATABASE IF NOT EXISTS `szr_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `szr_db`;
 
--- Dumping structure for tabela szr_db.achivments
+-- Dumping structure for table szr_db.achivments
 DROP TABLE IF EXISTS `achivments`;
 CREATE TABLE IF NOT EXISTS `achivments` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `level_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `type_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `name` varchar(50) COLLATE utf8_slovenian_ci ,
-  `date` datetime ,
-  `place` int(11) ,
-  `description` mediumtext COLLATE utf8_slovenian_ci ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `level_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `type_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `place` int(11) DEFAULT NULL,
+  `description` mediumtext COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `tip_dosezka` (`type_id`),
@@ -40,12 +40,12 @@ INSERT INTO `achivments` (`id`, `level_id`, `type_id`, `name`, `date`, `place`, 
 	('edc1a631-b1e4-11e9-9658-f04da2b5f496', '8aef4c5b-b1da-11e9-9658-f04da2b5f496', '16712be8-b1da-11e9-9658-f04da2b5f496', 'Rekordni tek na 600m', '2018-02-06 07:19:25', 1, 'Dijak je podrl rekord na 600m');
 /*!40000 ALTER TABLE `achivments` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.achivments_students
+-- Dumping structure for table szr_db.achivments_students
 DROP TABLE IF EXISTS `achivments_students`;
 CREATE TABLE IF NOT EXISTS `achivments_students` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `student_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `achivment_id` varchar(36) COLLATE utf8_slovenian_ci '',
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `student_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `achivment_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `dosezek_id` (`achivment_id`),
@@ -59,13 +59,13 @@ INSERT INTO `achivments_students` (`id`, `student_id`, `achivment_id`) VALUES
 	('374eb18e-b1e5-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'edc1a631-b1e4-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `achivments_students` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.classes
+-- Dumping structure for table szr_db.classes
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE IF NOT EXISTS `classes` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `scv_id` bigint(20) 0,
-  `school_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `name` varchar(50) COLLATE utf8_slovenian_ci '',
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `scv_id` bigint(20) DEFAULT 0,
+  `school_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `school_id` (`school_id`)
@@ -172,12 +172,12 @@ INSERT INTO `classes` (`id`, `scv_id`, `school_id`, `name`) VALUES
 	('5ca57046-b1c8-11e9-9658-f04da2b5f496', 46, '36ee7821-b1c7-11e9-9658-f04da2b5f496', '4.Š');
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.classes_competitions
+-- Dumping structure for table szr_db.classes_competitions
 DROP TABLE IF EXISTS `classes_competitions`;
 CREATE TABLE IF NOT EXISTS `classes_competitions` (
-  `id` varchar(36) ,
-  `competition_id` varchar(36) '',
-  `class_id` varchar(36) '',
+  `id` varchar(36) NOT NULL DEFAULT uuid(),
+  `competition_id` varchar(36) DEFAULT NULL,
+  `class_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `razvrscanje_id` (`competition_id`),
@@ -192,19 +192,19 @@ INSERT INTO `classes_competitions` (`id`, `competition_id`, `class_id`) VALUES
 	('80588272-b28c-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '5ca50613-b1c8-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `classes_competitions` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.classes_subjects
+-- Dumping structure for table szr_db.classes_subjects
 DROP TABLE IF EXISTS `classes_subjects`;
 CREATE TABLE IF NOT EXISTS `classes_subjects` (
-  `id` varchar(36) ,
-  `class_id` varchar(36) '',
-  `subject_id` varchar(36) '',
+  `id` varchar(36) NOT NULL DEFAULT uuid(),
+  `class_id` varchar(36) DEFAULT NULL,
+  `subject_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `class_id` (`class_id`),
   KEY `subject_id` (`subject_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table szr_db.classes_subjects: ~6 rows (približno)
+-- Dumping data for table szr_db.classes_subjects: ~6 rows (approximately)
 DELETE FROM `classes_subjects`;
 /*!40000 ALTER TABLE `classes_subjects` DISABLE KEYS */;
 INSERT INTO `classes_subjects` (`id`, `class_id`, `subject_id`) VALUES
@@ -216,17 +216,17 @@ INSERT INTO `classes_subjects` (`id`, `class_id`, `subject_id`) VALUES
 	('b0b30f0b-b1ec-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', '226d83b4-b1e7-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `classes_subjects` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.competitions
+-- Dumping structure for table szr_db.competitions
 DROP TABLE IF EXISTS `competitions`;
 CREATE TABLE IF NOT EXISTS `competitions` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `teacher_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `name` varchar(40) COLLATE utf8_slovenian_ci ,
-  `date_created` datetime ,
-  `places` int(11) ,
-  `deadline` datetime ,
-  `description` mediumtext COLLATE utf8_slovenian_ci ,
-  `year_id` varchar(36) COLLATE utf8_slovenian_ci ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `teacher_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `places` int(11) DEFAULT NULL,
+  `deadline` datetime DEFAULT NULL,
+  `description` mediumtext COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `year_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `mentor_id` (`teacher_id`),
@@ -241,12 +241,12 @@ INSERT INTO `competitions` (`id`, `teacher_id`, `name`, `date_created`, `places`
 	('201e26a7-b288-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'Malta2k20', '2020-02-06 07:19:25', 9, '2020-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `competitions` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.competitions_students
+-- Dumping structure for table szr_db.competitions_students
 DROP TABLE IF EXISTS `competitions_students`;
 CREATE TABLE IF NOT EXISTS `competitions_students` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `gstudent_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `competition_id` varchar(36) COLLATE utf8_slovenian_ci '',
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `gstudent_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `competition_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `ucenec_id` (`gstudent_id`),
@@ -260,13 +260,13 @@ INSERT INTO `competitions_students` (`id`, `gstudent_id`, `competition_id`) VALU
 	('3d560f82-b28d-11e9-9658-f04da2b5f496', '2247a287-b1e2-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `competitions_students` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.competitions_subjects
+-- Dumping structure for table szr_db.competitions_subjects
 DROP TABLE IF EXISTS `competitions_subjects`;
 CREATE TABLE IF NOT EXISTS `competitions_subjects` (
-  `id` varchar(36) ,
-  `competition_id` varchar(36) '',
-  `subject_id` varchar(36) '',
-  `value` double ,
+  `id` varchar(36) NOT NULL DEFAULT uuid(),
+  `competition_id` varchar(36) DEFAULT NULL,
+  `subject_id` varchar(36) DEFAULT NULL,
+  `value` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `razvrscanje_id` (`competition_id`),
@@ -282,13 +282,13 @@ INSERT INTO `competitions_subjects` (`id`, `competition_id`, `subject_id`, `valu
 	('b8a18e1e-b28a-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '226d1b15-b1e7-11e9-9658-f04da2b5f496', 0.7);
 /*!40000 ALTER TABLE `competitions_subjects` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.competitions_types
+-- Dumping structure for table szr_db.competitions_types
 DROP TABLE IF EXISTS `competitions_types`;
 CREATE TABLE IF NOT EXISTS `competitions_types` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `competition_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `type_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `value` float unsigned ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `competition_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `type_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `value` float unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `competition_id` (`competition_id`),
@@ -303,14 +303,14 @@ INSERT INTO `competitions_types` (`id`, `competition_id`, `type_id`, `value`) VA
 	('b443613e-b289-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '16712be8-b1da-11e9-9658-f04da2b5f496', 0.2);
 /*!40000 ALTER TABLE `competitions_types` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.grades
+-- Dumping structure for table szr_db.grades
 DROP TABLE IF EXISTS `grades`;
 CREATE TABLE IF NOT EXISTS `grades` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `grade` int(11) ,
-  `date` datetime ,
-  `subject_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `gstudent_id` varchar(36) COLLATE utf8_slovenian_ci '',
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `grade` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `subject_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `gstudent_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `predmet_id` (`subject_id`),
@@ -322,14 +322,14 @@ DELETE FROM `grades`;
 /*!40000 ALTER TABLE `grades` DISABLE KEYS */;
 /*!40000 ALTER TABLE `grades` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.gstudents
+-- Dumping structure for table szr_db.gstudents
 DROP TABLE IF EXISTS `gstudents`;
 CREATE TABLE IF NOT EXISTS `gstudents` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `student_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `year_id` varchar(36) COLLATE utf8_slovenian_ci '0',
-  `class_id` varchar(36) COLLATE utf8_slovenian_ci '',
-  `confirmed_grades` tinyint(1) 0,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `student_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `year_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT '0',
+  `class_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `confirmed_grades` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `ucenec_id` (`student_id`),
@@ -344,12 +344,12 @@ INSERT INTO `gstudents` (`id`, `student_id`, `year_id`, `class_id`, `confirmed_g
 	('2247a287-b1e2-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'da8bcd31-b1e1-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', 1);
 /*!40000 ALTER TABLE `gstudents` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.levels
+-- Dumping structure for table szr_db.levels
 DROP TABLE IF EXISTS `levels`;
 CREATE TABLE IF NOT EXISTS `levels` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `name` varchar(50) COLLATE utf8_slovenian_ci '',
-  `value` float ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `name` varchar(50) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `value` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
@@ -363,17 +363,35 @@ INSERT INTO `levels` (`id`, `name`, `value`) VALUES
 	('8aef5621-b1da-11e9-9658-f04da2b5f496', 'Državni nivo', 1.5);
 /*!40000 ALTER TABLE `levels` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.schools
+-- Dumping structure for table szr_db.messages
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `student_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `teacher_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `state_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `header` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table szr_db.messages: ~0 rows (approximately)
+DELETE FROM `messages`;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+
+-- Dumping structure for table szr_db.schools
 DROP TABLE IF EXISTS `schools`;
 CREATE TABLE IF NOT EXISTS `schools` (
-  `id` varchar(36) ,
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovenian_ci ,
-  `short_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_slovenian_ci ,
+  `id` varchar(36) NOT NULL DEFAULT uuid(),
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `short_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table szr_db.schools: ~4 rows (približno)
+-- Dumping data for table szr_db.schools: ~4 rows (approximately)
 DELETE FROM `schools`;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
 INSERT INTO `schools` (`id`, `name`, `short_name`) VALUES
@@ -383,14 +401,32 @@ INSERT INTO `schools` (`id`, `name`, `short_name`) VALUES
 	('36ee7821-b1c7-11e9-9658-f04da2b5f496', 'Gimnazija', 'GIM');
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.students
+-- Dumping structure for table szr_db.states
+DROP TABLE IF EXISTS `states`;
+CREATE TABLE IF NOT EXISTS `states` (
+  `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `value` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table szr_db.states: ~3 rows (approximately)
+DELETE FROM `states`;
+/*!40000 ALTER TABLE `states` DISABLE KEYS */;
+INSERT INTO `states` (`id`, `value`) VALUES
+	('06b1c46e-b3da-11e9-be63-902b34549865', 'Poslano'),
+	('06b1d474-b3da-11e9-be63-902b34549865', 'Odobreno'),
+	('06b1d52c-b3da-11e9-be63-902b34549865', 'Zavrnjeno');
+/*!40000 ALTER TABLE `states` ENABLE KEYS */;
+
+-- Dumping structure for table szr_db.students
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE IF NOT EXISTS `students` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `name` varchar(50) COLLATE utf8_slovenian_ci '',
-  `surname` varchar(50) COLLATE utf8_slovenian_ci '',
-  `mail` varchar(80) COLLATE utf8_slovenian_ci ,
-  `easistent_id` varchar(12) COLLATE utf8_slovenian_ci ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `name` varchar(50) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `surname` varchar(50) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `mail` varchar(80) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `easistent_id` varchar(12) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
@@ -403,12 +439,12 @@ INSERT INTO `students` (`id`, `name`, `surname`, `mail`, `easistent_id`) VALUES
 	('241a43cb-b1d9-11e9-9658-f04da2b5f496', 'JANEZ', 'SEDELJSAK', 'janez.sedeljsak@gmail.com', '1953935');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.subjects
+-- Dumping structure for table szr_db.subjects
 DROP TABLE IF EXISTS `subjects`;
 CREATE TABLE IF NOT EXISTS `subjects` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `name` varchar(50) COLLATE utf8_slovenian_ci '',
-  `short_name` varchar(50) COLLATE utf8_slovenian_ci ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `name` varchar(50) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `short_name` varchar(50) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
@@ -426,30 +462,32 @@ INSERT INTO `subjects` (`id`, `name`, `short_name`) VALUES
 	('226d84eb-b1e7-11e9-9658-f04da2b5f496', 'Načrtovanje in razvoj spletnih aplikacij', 'RSA');
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.teachers
+-- Dumping structure for table szr_db.teachers
 DROP TABLE IF EXISTS `teachers`;
 CREATE TABLE IF NOT EXISTS `teachers` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `name` char(20) COLLATE utf8_slovenian_ci ,
-  `surname` char(20) COLLATE utf8_slovenian_ci ,
-  `mail` mediumtext COLLATE utf8_slovenian_ci ,
-  `password` varchar(80) COLLATE utf8_slovenian_ci ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `name` char(20) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `surname` char(20) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `mail` mediumtext COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `password` varchar(80) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `school_id` varchar(36) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  KEY `school_id` (`school_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- Dumping data for table szr_db.teachers: 1 rows
 DELETE FROM `teachers`;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
-INSERT INTO `teachers` (`id`, `name`, `surname`, `mail`, `password`) VALUES
-	('7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'miran', 'zevnik', 'miran@gmail.com', '701a5a53956070cd9abf668359eef2dfb5bb6b23f1e525cc4ea4c154966156ac');
+INSERT INTO `teachers` (`id`, `name`, `surname`, `mail`, `password`, `school_id`) VALUES
+	('7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'miran', 'zevnik', 'miran@gmail.com', '701a5a53956070cd9abf668359eef2dfb5bb6b23f1e525cc4ea4c154966156ac', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.types
+-- Dumping structure for table szr_db.types
 DROP TABLE IF EXISTS `types`;
 CREATE TABLE IF NOT EXISTS `types` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `name` char(20) COLLATE utf8_slovenian_ci ,
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `name` char(20) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
@@ -464,11 +502,11 @@ INSERT INTO `types` (`id`, `name`) VALUES
 	('16712be8-b1da-11e9-9658-f04da2b5f496', 'Športni dosežek');
 /*!40000 ALTER TABLE `types` ENABLE KEYS */;
 
--- Dumping structure for tabela szr_db.years
+-- Dumping structure for table szr_db.years
 DROP TABLE IF EXISTS `years`;
 CREATE TABLE IF NOT EXISTS `years` (
-  `id` varchar(36) COLLATE utf8_slovenian_ci ,
-  `name` varchar(20) COLLATE utf8_slovenian_ci '',
+  `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
+  `name` varchar(20) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;

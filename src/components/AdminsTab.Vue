@@ -1,24 +1,55 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title='<i class="address book icon"></i>Administratorji'/>
+    <szr-header title="<i class='address book icon'></i>Administratorji" />
     <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
-        <button v-on:click="toggle()" class="ui primary button w3-right">
-          <span v-if="toggleDisplay">
-            <i class="add icon"></i>Dodaj administratorja
-          </span>
-          <span v-if="!toggleDisplay">
-            <i class="th list icon"></i>Pregled administratorjev
-          </span>
-        </button>
-      </div>
-      <div v-if="!toggleDisplay" class="row">
-        <div
-          style="box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%; padding: 15px"
-          class="ui card"
-        >
+        <div class="ui top attached tabular menu">
+          <div
+            v-on:click="setTab('adminlist')"
+            v-bind:class="{ active: tabOpen === 'adminlist' }"
+            class="item"
+          >
+            <i class="list icon"></i>Administratorji
+          </div>
+          <div
+            v-on:click="setTab('registeradmin')"
+            v-bind:class="{ active: tabOpen === 'registeradmin' }"
+            class="item"
+          >
+            <i class="unlock alternate icon"></i>Registracija
+          </div>
+          <div
+            v-on:click="setTab('profile')"
+            v-bind:class="{ active: tabOpen === 'profile' }"
+            class="item"
+          >
+            <i class="user circle outline icon"></i>Profil
+          </div>
+        </div>
+        <div v-if="tabOpen === 'adminlist'" class="ui bottom attached tab active segment">
+          <table style="box-shadow: none !important;" class="ui celled table">
+            <thead>
+              <tr class="ui inverted blue table">
+                <th>#</th>
+                <th>Ime</th>
+                <th>Priimek</th>
+                <th>E-Pošta</th>
+                <th>Šola</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(teacher, index) in teachers" v-bind:key="index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ teacher.name }}</td>
+                <td>{{ teacher.surname }}</td>
+                <td>{{ teacher.mail }}</td>
+                <td>{{ teacher.school }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-if="tabOpen === 'registeradmin'" class="ui bottom attached tab active segment">
           <form class="ui form">
-            <h2>Ustvari administratorja</h2>
             <div class="field">
               <label>Ime</label>
               <input type="text" v-model="form.name" />
@@ -46,28 +77,50 @@
             >Dodaj administratorja</button>
           </form>
         </div>
-      </div>
-      <div v-else class="row">
-        <h2>Pregled administratorjev</h2>
-        <table class="ui celled table">
-          <thead>
-            <tr class="ui inverted blue table">
-              <th>Ime</th>
-              <th>Priimek</th>
-              <th>E-Pošta</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(teacher, index) in teachers"
-              v-bind:key="index"
-          >
-              <td>{{ teacher.name }}</td>
-              <td>{{ teacher.surname }}</td>
-              <td>{{ teacher.mail }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div v-if="tabOpen === 'profile'" class="ui bottom attached active tab segment">
+          <div class="ui relaxed divided list">
+            <div class="item">
+              <div class="content" style="float: left; width: 10%">
+                <i class="large add middle aligned icon"></i>
+              </div>
+              <div class="content" style="float: left; width: 35%">
+                <a class="header">Kratica</a>
+                <div class="description">
+                  <div class="ui corner labeled input">
+                    <input type="text" placeholder="kratica..." />
+                    <div class="ui corner label">
+                      <i class="asterisk icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content" style="float: left; width: 35%">
+                <a class="header">Naziv</a>
+                <div class="description">
+                  <div class="ui corner labeled input">
+                    <input type="text" placeholder="naziv..." />
+                    <div class="ui corner label">
+                      <i class="asterisk icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item" v-for="(subject, index) in subjects" v-bind:key="index">
+              <div class="content" style="float: left; width: 10%">
+                <i class="large edit middle aligned icon"></i>
+              </div>
+              <div class="content" style="float: left; width: 35%">
+                <a class="header">Kratica</a>
+                <div class="description">{{ subject.shortname }}</div>
+              </div>
+              <div class="content" style="float: left; width: 35%">
+                <a class="header">Naziv</a>
+                <div class="description">{{ subject.name }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -77,7 +130,7 @@
 export default {
   data() {
     return {
-      toggleDisplay: true,
+      tabOpen: "adminlist",
       form: {
         name: "",
         surname: "",
@@ -89,7 +142,7 @@ export default {
     };
   },
   created: function() {
-      this.fetchData();
+    this.fetchData();
   },
   methods: {
     toggle: function() {
@@ -99,6 +152,9 @@ export default {
       fetch("http://localhost:3000/api/get/teachers", { method: "GET" })
         .then(response => response.json())
         .then(data => (this.teachers = data.result));
+    },
+    setTab(tab) {
+      this.tabOpen = tab;
     },
     sendAdminForm: function() {
       window.event.preventDefault();

@@ -344,7 +344,8 @@ router.post('/get-student-by-id', (req, res, next) => {
 router.get('/teachers', (req, res, next) => {
     const qb = new QueryBuilder(settings, 'mysql', 'single');
 
-    qb.select("*").from('teachers')
+    qb.select("t.id, t.name, t.surname, t.mail, s.name as school").from('teachers t')
+        .join('schools s', 's.id=t.school_id', 'left')
         .get((err, result) => {
             qb.disconnect();
             res.status(200).json({
