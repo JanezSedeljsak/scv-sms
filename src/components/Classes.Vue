@@ -3,7 +3,7 @@
     <szr-header title="<i class='users icon'></i>Razredi" />
     <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
       <div class="row">
-        <div style="margin-left: 2%" class="ui icon input">
+        <div style="margin-left: 2%; width: 29.3%;" class="ui icon input">
           <input 
             class="prompt" 
             type="text" 

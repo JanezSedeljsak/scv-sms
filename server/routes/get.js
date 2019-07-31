@@ -32,6 +32,30 @@ class DBMethods {
     }
 
 
+    static getStudentsInCompetition(idCompetition) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+    
+            qb.select([
+                'ss.name as school',
+                'c.name as class',
+                's.name',
+                's.id',
+                's.surname'
+            ]).from('competitions_students cs')
+                .join('gstudents gs', 'gs.id=cs.gstudent_id', 'left')
+                .join('students s', 's.id=gs.student_id', 'left')
+                .join('classes c', 'c.id=gs.class_id', 'left')
+                .join('schools ss', 'ss.id=c.school_id', 'left')
+                .where({'cs.competition_id': idCompetition})
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+    }
+
+
     static getCompetitionData(id) {
         return new Promise(async resolve => {
             
@@ -154,6 +178,13 @@ class DBMethods {
         });*/
     }
 }
+
+router.get('/competition-students', async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getStudentsInCompetition('138e3551-b288-11e9-9658-f04da2b5f496')
+    })  
+});
 
 router.get('/competition-by-id', async (req, res, next) => {
     res.status(200).json({

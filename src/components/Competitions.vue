@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="content">
-            <a class="header">{{ competition.name }}</a>
+            <a v-on:click="openPreview(competition.id)" class="header">{{ competition.name }}</a>
             <div class="meta">
               <span class="date">mentor:&nbsp;<b>{{ competition.teacher | capitalize }}</b></span>
             </div>
@@ -52,7 +52,7 @@
             </a>
             <a
               v-tooltip.top-center="'Predogled prijavljenih'"
-              v-on:click="changeLocation( student.id)"
+              v-on:click="openPreview(competition.id)"
               class="ui round-button w3-right add-btn"
             >
               <i class="add icon"></i>
@@ -104,6 +104,10 @@ export default {
     openEdit: (id) => {
       window.event.preventDefault();
       window.location = `/admin/competitions/${id}/edit`;
+    },
+    openPreview: (id) => {
+      window.event.preventDefault();
+      window.location = `/admin/competitions/${id}/preview`;    
     },
     openCreate: () => {
       window.event.preventDefault();
