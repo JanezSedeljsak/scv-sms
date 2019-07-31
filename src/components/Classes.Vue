@@ -1,49 +1,45 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title='<i class="users icon"></i>Razredi'/>
-    <div class="row">
-      <select style="width: 40%;" name="predmet" class="ui dropdown" v-model="pickedClass">
-        <option v-bind:value="null">Izberi razred</option>
-        <option
+    <szr-header title="<i class='users icon'></i>Razredi" />
+    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+      <div class="row">
+        <div style="margin-left: 2%" class="ui icon input">
+          <input 
+            class="prompt" 
+            type="text" 
+            placeholder="Filtriraj razrede..."
+            v-model="filterValue"
+            v-on:keydown="filterClasses()" 
+          />
+          <i class="search icon"></i>
+        </div>
+      </div>
+      <div class="row">
+        <div 
+          style="float: left; width: 29.3%; margin: 2% !important" 
+          class="ui card" 
+          v-for="(_class, index) in classesForDisplay" 
           v-bind:key="index"
-          v-for="(_class, index) in classes"
-          v-bind:value="index"
-        >{{ _class.name }}</option>
-      </select>
-    </div>
-    <div v-if="pickedClass != null" class="row">
-      <ul style="display:block; width:70%" class="w3-ul w3-card-4">
-        <li v-bind:key="index" v-for="(subject, index) in subjects" class="w3-bar">
-          <a v-tooltip.top-center="'Odstrani predmet iz razreda'" v-on:click="removeSubject(index)" class="ui round-button w3-right">
-            <i class="delete icon"></i>
-          </a>
-          <img src="https://backgroundcheckall.com/wp-content/uploads/2017/12/book-clipart-transparent-background-5.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px" />
-          <div class="w3-bar-item">
-            <span class="w3-large"><b>{{ subject.short | capitalize }}</b></span>
-            <br />
-            <span>{{ subject.long }}</span>
+        >
+          <div class="image">
+            <div class="img-container">
+              <img style="padding: 10px; margin-left: 35%; width: 30%" src="./../assets/classroom.png" />
+            </div>
           </div>
-        </li>
-        <li class="w3-bar">
-            <button 
-                style="width: 15%"
-                v-if="selectedClass != null"
-                v-on:click="addSubject(index)"
-                class="ui green button w3-right"
-            ><i class="add icon"></i>Dodaj</button>
-          <img src="https://backgroundcheckall.com/wp-content/uploads/2017/12/book-clipart-transparent-background-5.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px" />
-          <div style="width: 40%;" class="w3-bar-item">
-            <select style="width: 90%;" name="predmet" class="ui dropdown" v-model="selectedClass">
-              <option v-bind:value="null">Izberi predmet</option>
-              <option
-                v-bind:key="index"
-                v-for="(subject, index) in subjects"
-                v-bind:value="index"
-              >{{ subject.long }}</option>
-            </select>
+          <div class="content">
+            <a class="header">{{ _class.class }}</a>
+            <div class="meta">
+              <span class="date">{{ _class.school }}</span>
+            </div>
           </div>
-        </li>
-      </ul>
+          <div class="extra content">
+            <a>
+              <i class="add icon"></i>
+              Pregled predmetov
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -55,7 +51,9 @@ export default {
       selectedClass: null,
       pickedClass: null,
       subjects: [],
-      classes: []
+      classes: [],
+      classesForDisplay: [],
+      filterValue: null,
     };
   },
   created: function() {
@@ -63,18 +61,30 @@ export default {
   },
   methods: {
     fetchData: function() {
-        fetch("http://localhost:3000/api/get/subjects", { method: "GET" })
-            .then(response => response.json())
-            .then(data => (this.subjects = data["subjects"]));
-        fetch("http://localhost:3000/api/get/classes", { method: "GET" })
-            .then(response => response.json())
-            .then(data => (this.classes = data["classes"]));
+      fetch("http://localhost:3000/api/get/classes", { method: "GET" })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          this.classes = data.result;
+          this.classesForDisplay = data.result;
+        });
+    },
+    filterClasses: function() {
+      if (window.event.keyCode != 13) return;
+      this.filterValue = this.filterValue.toLowerCase()
+      this.classesForDisplay = this.classes.filter(row => 
+        row.class.toLowerCase().includes(this.filterValue) 
+          || row.school.toLowerCase().includes(this.filterValue));
+    },
+    toggleView: function(index) {
+      this.classes[index].tView = !this.classes[index].tView;
+      alert("size big");
     },
     removeSubject: function() {
-        this.$forceUpdate();
+      this.$forceUpdate();
     },
     addSubject: function() {
-        this.$forceUpdate();
+      this.$forceUpdate();
     }
   }
 };

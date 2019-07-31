@@ -5,37 +5,39 @@
         <i class="key icon"></i>Prijava
       </h1>
     </div>
-    <div class="row">
-      <div
-        style="margin-top: 1vw; box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%;"
-        class="ui card"
-      >
-        <div id="topLogin">
-          <img style="padding: 10px; margin-left: 35%; width: 30%" src="./../assets/userlogin.png" />
-        </div>
-        <div>
-          <form style=" padding: 15px" class="ui form">
-            <div class="field">
-              <label>E-pošta</label>
-              <input type="text" v-model="form.mail" />
-            </div>
-            <div class="field">
-              <label>Geslo</label>
-              <input type="password" v-model="form.pass" />
-            </div>
-            <div class="field">
-              <div class="ui toggle checkbox">
-                <input v-model="form.role" type="checkbox" name="public">
-                <label>Prijavi se kot:&nbsp;<span v-html="form.role ? 'Mentor' : 'Dijak'"></span></label>
+    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+      <div class="row">
+        <div
+          style="margin-top: 1vw; box-shadow: 0 0 10px #333 !important; margin-left: 30%; width: 40%;"
+          class="ui card"
+        >
+          <div id="topLogin">
+            <img style="padding: 10px; margin-left: 35%; width: 30%" src="./../assets/userlogin.png" />
+          </div>
+          <div>
+            <form style=" padding: 15px" class="ui form">
+              <div class="field">
+                <label>E-pošta</label>
+                <input type="text" v-model="form.mail" />
               </div>
-            </div>
-            <button
-              style="min-width: 30%"
-              v-on:click="tryLogin()"
-              class="ui primary button"
-              type="submit"
-            >Prijavi se!</button>
-          </form>
+              <div class="field">
+                <label>Geslo</label>
+                <input type="password" v-model="form.pass" />
+              </div>
+              <div class="field">
+                <div class="ui toggle checkbox">
+                  <input v-model="form.role" type="checkbox" name="public">
+                  <label>Prijavi se kot:&nbsp;<span v-html="form.role ? 'Mentor' : 'Dijak'"></span></label>
+                </div>
+              </div>
+              <button
+                style="min-width: 30%"
+                v-on:click="tryLogin()"
+                class="ui primary button"
+                type="submit"
+              >Prijavi se!</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

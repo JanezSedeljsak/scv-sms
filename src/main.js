@@ -24,6 +24,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    console.log('%c WebApp developed by Janez Sedeljsak & Luka Pavcnik (2k18/19)', 'background: #337; color: #fff; font-size:50px;');
+    console.log('%c      ', 'font-size:200px; background-image: url("https://media.giphy.com/media/REoKXuuCVu02A/giphy.gif")');
     let user = null;
     if (to.path === '/login') {
         if (sessionStorage.getItem("szr_auth")) sessionStorage.removeItem('szr_auth');

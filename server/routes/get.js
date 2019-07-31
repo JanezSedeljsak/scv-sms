@@ -124,18 +124,18 @@ class DBMethods {
     }
 
     static getClasses() {
-        return new Promise(async resolve => {
-            let classRes = await new Promise(resolve => {
-                const qb = new QueryBuilder(settings, 'mysql', 'single');
-    
-                qb.select("c.id, c.name as class, s.name").from('classes c')
-                    .join('schools s', 's.id=c.school_id', 'left')
-                    .get((err, result) => {
-                        qb.disconnect();
-                        resolve(result);
-                    });
-            });
-            let subjectsRes = await new Promise(resolve => {
+        //return new Promise(async resolve => {
+        return new Promise(resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+            qb.select("c.id, c.name as class, s.name as school").from('classes c')
+                .join('schools s', 's.id=c.school_id', 'left')
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+            /*let subjectsRes = await new Promise(resolve => {
                 const qb = new QueryBuilder(settings, 'mysql', 'single');
     
                 qb.select("cs.class_id, s.name, s.short_name").from('classes_subjects cs')
@@ -147,17 +147,11 @@ class DBMethods {
             });
     
             resolve(classRes.map(citem => {
-                citem['subjects'] = subjectsRes
-                    .filter(x => x.class_id == citem.id)
-                    .map(x => {
-                        delete x.class_id
-                        return x;
-                    });
-        
-                delete citem.id;
+                citem.subjects = subjectsRes.filter(x => x.class_id == citem.id)
+                citem.tView = false;
                 return citem;
             })); 
-        });
+        });*/
     }
 }
 

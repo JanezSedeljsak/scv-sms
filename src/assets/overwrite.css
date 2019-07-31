@@ -47,6 +47,16 @@ body {
   table-layout: fixed;
 }
 
+.classView {
+  font-size: 1.3em;
+  min-height: 5vw !important;
+  transition: .3s all;
+}
+
+.activeClass {
+  height: 15vw !important;
+}
+
 table.picker-table {
   width: 100%;
 }
@@ -84,10 +94,13 @@ table.picker-table {
 }
 
 .szrheader {
-  padding-top: 10px;
+  padding: 10px;
   width: 100%;
-  margin-bottom: 5px;
   background-color: #333;
+  position: fixed; 
+  z-index: 5;
+  max-height: 4vw !important;
+  box-shadow: 0 7px 4px -2px rgba(51, 51, 51, 0.61);
 }
 
 .szrheader h1 {
@@ -189,7 +202,7 @@ h1:not(.title) {
   background-repeat: no-repeat;
 }
 
-#topLogin {
+#topLogin, .img-container {
   box-shadow: 0 5px 5px 0 gray;
   background-image: url("./logback.png");
   background-size: cover;

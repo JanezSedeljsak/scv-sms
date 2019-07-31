@@ -1,68 +1,70 @@
 <template>
   <div class="ui padded grid">
     <szr-header v-cloak title='<i class="sort numeric up icon"></i>Tekmovanja'/>
-    <div class="row">
-      <button v-on:click="openCreate()" class="ui primary button w3-right">
-        <i class="add icon"></i>Dodaj tekmovanje
-      </button>
-      <div style="margin-left: 10px" class="ui icon input">
-        <input
-          v-model="filterValue"
-          v-on:keydown="filterCompetitions()"
-          class="prompt"
-          type="text"
-          placeholder="Filtriraj tekmovanja..."
-        />
-        <i class="search icon"></i>
+    <div style="padding-top: 4vw !important; width: 100% !important" class="ui padded grid">
+      <div class="row">
+        <button v-on:click="openCreate()" class="ui primary button w3-right">
+          <i class="add icon"></i>Dodaj tekmovanje
+        </button>
+        <div style="margin-left: 10px" class="ui icon input">
+          <input
+            v-model="filterValue"
+            v-on:keydown="filterCompetitions()"
+            class="prompt"
+            type="text"
+            placeholder="Filtriraj tekmovanja..."
+          />
+          <i class="search icon"></i>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <ul style="display:block; width:100%" class="w3-ul w3-card-4">
-        <li
-          class="w3-bar"
-          v-for="(competition, index) in competitionsForDisplay"
-          v-bind:key="index"
-        >
-          <div style="margin-left: 15px; width: 25%; float: left;">
-            <span>
-              Naslov:
-              <b>{{ competition.name }}</b>
-            </span>
-            <br />
-            <span>
-              Mentor:
-              <b>{{ competition.teacher }}</b>
-            </span>
-          </div>
+      <div class="row">
+        <ul style="display:block; width:100%" class="w3-ul w3-card-4">
+          <li
+            class="w3-bar"
+            v-for="(competition, index) in competitionsForDisplay"
+            v-bind:key="index"
+          >
+            <div style="margin-left: 15px; width: 25%; float: left;">
+              <span>
+                Naslov:
+                <b>{{ competition.name }}</b>
+              </span>
+              <br />
+              <span>
+                Mentor:
+                <b>{{ competition.teacher }}</b>
+              </span>
+            </div>
 
-          <div style="width: 25%; float: left;">
-            <span>
-              Mesta:
-              <b>{{ competition.places }}</b>
-            </span>
-            <br />
-            <span>
-              St.prijavljenih:
-              <b>{{ competition.places }}</b>
-            </span>
-          </div>
+            <div style="width: 25%; float: left;">
+              <span>
+                Mesta:
+                <b>{{ competition.places }}</b>
+              </span>
+              <br />
+              <span>
+                St.prijavljenih:
+                <b>{{ competition.places }}</b>
+              </span>
+            </div>
 
-          <div style="width: 25%; float: left;">
-            <span>
-              Ustvajeno:
-              <b>{{ competition.date_created | dateFormat }}</b>
-            </span>
-            <br />
-            <span>
-              Rok prijave:
-              <b>{{ competition.deadline | dateFormat }}</b>
-            </span>
-          </div>
-          <a v-tooltip.top-center="editTooltip" v-on:click="openEdit(competition.id)" class="ui round-button w3-right">
-            <i class="edit icon"></i>
-          </a>
-        </li>
-      </ul>
+            <div style="width: 25%; float: left;">
+              <span>
+                Ustvajeno:
+                <b>{{ competition.date_created | dateFormat }}</b>
+              </span>
+              <br />
+              <span>
+                Rok prijave:
+                <b>{{ competition.deadline | dateFormat }}</b>
+              </span>
+            </div>
+            <a v-tooltip.top-center="editTooltip" v-on:click="openEdit(competition.id)" class="ui round-button w3-right">
+              <i class="edit icon"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
