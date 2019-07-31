@@ -190,7 +190,20 @@ router.get('/students', (req, res, next) => {
         });
 });
 
-router.get('/students-by-year', (req, res, next) => {
+router.get('/years', (req, res, next) => {
+    const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+    qb.select("*").from('years')
+        .get((err, result) => {
+            qb.disconnect();
+            res.status(200).json({
+                ok: true,
+                result: result
+            });
+        });
+});
+
+router.post('/students-by-year', (req, res, next) => {
     if (Object.values(req.body).includes('')) {
         res.status(200).json({
             ok: false,
