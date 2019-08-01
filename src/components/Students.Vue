@@ -1,99 +1,97 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title='<i class="graduation cap icon"></i>Dijaki'/>
+    <szr-header title="<i class='graduation cap icon'></i>Dijaki" />
     <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
-        <select style="width: 40%;" name="predmet" class="ui dropdown" v-model="pickedYear">
-          <option v-bind:key="index" v-for="(year, index) in years" v-bind:value="index">{{ year }}</option>
-        </select>
+        <div style="min-width: 33%" class="ui action left icon input">
+          <i class="search icon"></i>
+          <select
+            @change="onYearChange($event)"
+            style="width: 100%;"
+            class="ui dropdown"
+            v-model="pickedYear"
+          >
+            <option
+              :value="year.id"
+              v-bind:key="index"
+              v-for="(year, index) in years"
+            >{{ year.name }}</option>
+          </select>
+          <div class="ui black disabled button">Izberi leto</div>
+        </div>
       </div>
       <div class="row">
-        <table class="ui single line striped selectable unstackable table">
-          <thead>
-            <tr>
-              <th>
-                <i class="filter icon"></i>
-              </th>
-              <th>
-                <div style="border: 1px solid #44444466" class="ui inverted left icon input">
-                  <input
-                    v-model="filtersApplied.name"
-                    v-on:keydown="filter()"
-                    type="text"
-                    placeholder="filtriraj imena..."
-                  />
-                  <i class="search icon"></i>
+        <div style="width: 100%" class="ui relaxed divided list">
+          <div class="item">
+            <div class="content" style="float: left; width: 5%">
+              <i class="large filter middle aligned icon"></i>
+            </div>
+            <div class="content" style="float: left; width: 25%">
+              <a class="header">Ime<i class="sort icon"></i></a>
+              <div class="description">
+                <div class="ui corner labeled input">
+                  <input type="text" placeholder="naziv..." />
+                  <div class="ui corner label">
+                    <i class="asterisk icon"></i>
+                  </div>
                 </div>
-              </th>
-              <th>
-                <div style="border: 1px solid #44444466" class="ui inverted left icon input">
-                  <input
-                    v-model="filtersApplied.surname"
-                    v-on:keydown="filter()"
-                    type="text"
-                    placeholder="filtriraj priimke..."
-                  />
-                  <i class="search icon"></i>
+              </div>
+            </div>
+            <div class="content" style="float: left; width: 25%">
+              <a class="header">Priimek<i class="sort icon"></i></a>
+              <div class="description">
+                <div class="ui corner labeled input">
+                  <input type="text" placeholder="naziv..." />
+                  <div class="ui corner label">
+                    <i class="asterisk icon"></i>
+                  </div>
                 </div>
-              </th>
-              <th>
-                <div style="border: 1px solid #44444466" class="ui inverted left icon input">
-                  <input
-                    v-model="filtersApplied.surname"
-                    v-on:keydown="filter()"
-                    type="text"
-                    placeholder="filtriraj razrede..."
-                  />
-                  <i class="search icon"></i>
+              </div>
+            </div>
+            <div class="content" style="float: left; width: 25%">
+              <a class="header">Razred<i class="sort icon"></i></a>
+              <div class="description">
+                <div class="ui corner labeled input">
+                  <input type="text" placeholder="naziv..." />
+                  <div class="ui corner label">
+                    <i class="asterisk icon"></i>
+                  </div>
                 </div>
-              </th>
-              <th>
-                <div style="border: 1px solid #44444466" class="ui inverted left icon input">
-                  <input
-                    v-model="filtersApplied.surname"
-                    v-on:keydown="filter()"
-                    type="text"
-                    placeholder="filtriraj ocene..."
-                  />
-                  <i class="search icon"></i>
+              </div>
+            </div>
+            <div class="content" style="float: left; width: 20%">
+              <a class="header">Potrjene ocene<i class="sort icon"></i></a>
+              <div class="description">
+                <div class="ui corner labeled input">
+                  <input type="text" placeholder="naziv..." />
+                  <div class="ui corner label">
+                    <i class="asterisk icon"></i>
+                  </div>
                 </div>
-              </th>
-            </tr>
-            <tr class="ui inverted blue table">
-              <th>#</th>
-              <th class="sort hover-head" v-on:click="sortActionClick('name')">Ime</th>
-              <th class="sort hover-head" v-on:click="sortActionClick('surname')">Priimek</th>
-              <th class="sort hover-head" v-on:click="sortActionClick('surname')">Razredi</th>
-              <th class="sort hover-head" v-on:click="sortActionClick('surname')">Potrjene ocene</th>
-              <th class="sort hover-head">Akcije</th>
-            </tr>
-          </thead>
-          <tbody class="list">
-            <tr
-              class="studentRow"
-              v-bind:key="index"
-              v-for="(student, index) in studentsForDisplay"
-            >
-              <td>{{ index + 1}}</td>
-              <td class="name">{{ student.name }}</td>
-              <td class="surname">{{ student.surname }}</td>
-              <td class="surname">{{ "3.tra" }}</td>
-              <td class="surname">
-                <i style="color: green" v-if="true" class="check icon"></i>
-                <i style="color: red" v-else class="close icon"></i>
-              </td>
-              <td>
-                <a
-                  v-tooltip.top-center="'Uredi podatke dijaka'"
-                  v-on:click="changeLocation( student.id)"
-                  class="ui round-button w3-right"
-                >
-                  <i class="edit icon"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </div>
+            </div>
+          </div>
+          <div id="student_display" class="item" v-for="(student, index) in students" v-bind:key="index">
+            <div class="content" style="float: left; width: 5%">
+              <i v-on:click="openEdit(student.id)" class="large edit middle aligned icon"></i>
+            </div>
+            <div class="content" style="float: left; width: 25%">
+              <div class="header">{{ student.name }}</div>
+            </div>
+            <div class="content" style="float: left; width: 25%">
+              <div class="header">{{ student.surname }}</div>
+            </div>
+            <div class="content" style="float: left; width: 25%">
+              <div class="header">{{ student.class }}</div>
+            </div>
+            <div class="content" style="float: left; width: 20%">
+              <div class="header">
+                <i v-if="student.confirmed_grades" class="check green square outline icon"></i>
+                <i v-else class="window red close outline icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -104,18 +102,13 @@ export default {
   data() {
     return {
       students: [],
-      studentsForDisplay: [],
-      filtersApplied: {
-        name: "",
-        surname: ""
-      },
-      sortByKey: "name",
-      sortASC: true,
-      pickedYear: "2018/19",
-      years: ["2016/17", "2017/18", "2018/19", "2019/20", "2020/21"]
+      years: [],
+      pickedYear: null,
+      years: []
     };
   },
-  created: function() {
+  created: async function() {
+    this.pickedYear = await this.getCurrentYear();
     this.fetchData();
   },
   methods: {
@@ -133,24 +126,14 @@ export default {
       });
       if (this.sortByKey) this.tblSort(this.sortByKey);
     },
-    sortActionClick: function(key) {
-      if (this.sortByKey == key) this.sortASC = !this.sortASC;
-      this.tblSort(key);
+    onYearChange: function(event) {
+      this.pickedYear = event.target.value;
+      this.fetchStudents();
     },
-    tblSort: function(key) {
-      this.sortByKey = key;
-      this.studentsForDisplay = this.studentsForDisplay.sort((a, b) =>
-        this.sortASC
-          ? a[this.sortByKey].localeCompare(b[this.sortByKey])
-          : b[this.sortByKey].localeCompare(a[this.sortByKey])
-      );
-    },
-    fetchData: async function() {
-      let year = await this.getCurrentYear();
-      console.log(year);
+    fetchStudents: async function() {
       fetch("http://localhost:3000/api/get/students-by-year", {
         method: "POST",
-        body: JSON.stringify({year}),
+        body: JSON.stringify({ year: this.pickedYear }),
         headers: {
           "Content-Type": "application/json"
         }
@@ -159,10 +142,17 @@ export default {
         .then(data => {
           console.log(data);
           this.students = data["result"];
-          this.studentsForDisplay = data["result"];
         });
     },
-    changeLocation: function(student) {
+    fetchData: async function() {
+      this.fetchStudents();
+      fetch("http://localhost:3000/api/get/years")
+        .then(response => response.json())
+        .then(data => {
+          this.years = data["result"];
+        });
+    },
+    openEdit: function(student) {
       window.location = `/admin/students/${student}/`;
     }
   }

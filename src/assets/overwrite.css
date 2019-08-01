@@ -93,6 +93,12 @@ table.picker-table {
   z-index: 10;
 }
 
+#student_display .header {
+  padding: 5px;
+  font-weight: normal !important;
+  font-size: 1.3em;
+}
+
 .szrheader {
   padding: 10px;
   width: 100%;

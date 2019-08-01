@@ -1,17 +1,10 @@
 const express = require('express');
 const CryptoJS = require('crypto-js');
 const router = express.Router();
-var passwordHash = require('password-hash');
-
-
+const passwordHash = require('password-hash');
+const settings = require("./connect");
 const QueryBuilder = require('node-querybuilder');
-const settings = {
-    host: 'localhost',
-    port: '3306',
-    database: 'SZR_DB',
-    user: 'root',
-    password: 'root'
-};
+
 
 const hash = pass => passwordHash.generate(pass)
 

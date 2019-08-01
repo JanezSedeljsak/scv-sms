@@ -30,8 +30,9 @@
           <i class="address book icon"></i>Administratorji
         </a>
         <a v-on:click="moveUrl('/admin/requests')" class="item">
-        <i class="sticky note icon"></i>
-          Zahtevki
+          <i class="sticky note icon"></i>
+          <span >Zahtevki</span>
+          <a class="ui teal tag label">22</a>
         </a>
         <div style="height:3vw" class="ui hidden divider"></div>
         <a v-on:click="moveUrl('/login')" class="item">

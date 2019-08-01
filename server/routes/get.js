@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
+const settings = require("./connect");
 const QueryBuilder = require('node-querybuilder');
-const settings = {
-    host: 'localhost',
-    port: '3306',
-    database: 'SZR_DB',
-    user: 'root',
-    password: 'root'
-};
+
 
 class DBMethods {
     static getCompetitions() {
@@ -325,6 +319,7 @@ router.post('/students-by-year', (req, res, next) => {
             's.surname',
             'c.name as class',
             's.mail',
+            'gs.id',
             'y.name as year',
             'ss.name as school',
             'gs.confirmed_grades'

@@ -171,9 +171,13 @@
               <div class="content" style="float: left; width: 10%">
                 <i class="large edit middle aligned icon"></i>
               </div>
-              <div class="content" style="float: left; width: 35%">
+              <div class="content" style="float: left; width: 25%">
                 <a class="header">Leto</a>
                 <div class="description">{{ year.name }}</div>
+              </div>
+              <div class="content" style="float: left; width: 35%">
+                <a class="header">Začetek/konec</a>
+                <div class="description">{{ year.start_date | dateFormat }}&nbsp;/&nbsp;{{ year.end_date | dateFormat }}</div>
               </div>
             </div>
           </div>
