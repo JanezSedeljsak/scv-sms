@@ -32,7 +32,7 @@
         <a v-on:click="moveUrl('/admin/requests')" class="item">
           <i class="sticky note icon"></i>
           <span >Zahtevki</span>
-          <a class="ui teal tag label">22</a>
+          <a class="ui teal tag label">&nbsp;{{ msgCount }}</a>
         </a>
         <div style="height:3vw" class="ui hidden divider"></div>
         <a v-on:click="moveUrl('/login')" class="item">
@@ -53,7 +53,8 @@
 export default {
   data() {
     return {
-      username: ""
+      username: "",
+      msgCount: 0
     };
   },
   methods: {
@@ -71,6 +72,11 @@ export default {
         console.log(response);
         let { name, surname } = response.result[0];
         this.username = `${name} ${surname}`;
+      });
+    fetch("http://localhost:3000/api/get/message-count")
+      .then(res => res.json())
+      .then(response => {
+        this.msgCount = response.result;
       });
   },
   head: {

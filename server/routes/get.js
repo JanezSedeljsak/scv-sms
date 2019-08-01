@@ -29,7 +29,7 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
     
-            qb.select([
+            qb.order_by('m.date_sent', 'desc').select([
                 'CONCAT(s.name, " ", s.surname) AS student',
                 'm.date_sent',
                 'st.value',
@@ -42,6 +42,20 @@ class DBMethods {
                     qb.disconnect();
                     resolve(result);
                 });
+        });
+    }
+
+
+    static getMessageCount() {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+            qb.where({'st.id': '06b1c46e-b3da-11e9-be63-902b34549865'})
+                .from('messages m')
+                .join('states st', 'st.id=m.state_id', 'left')
+                .count('', (err, count) => {
+                resolve(count);
+            });
         });
     }
 
@@ -208,6 +222,13 @@ router.get('/messages', async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.getMessages()
+    })  
+});
+
+router.get('/message-count', async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getMessageCount()
     })  
 });
 
