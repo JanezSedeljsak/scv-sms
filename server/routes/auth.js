@@ -6,11 +6,11 @@ var passwordHash = require('password-hash');
 
 const QueryBuilder = require('node-querybuilder');
 const settings = {
-    host: 'localhost',
+    host: 'remotemysql.com',
     port: '3306',
-    database: 'SZR_DB',
-    user: 'root',
-    password: 'root'
+    database: 'iEXCKtGSNW',
+    user: 'iEXCKtGSNW',
+    password: '9ghVf8vBpT'
 };
 
 const hash = pass => passwordHash.generate(pass)
