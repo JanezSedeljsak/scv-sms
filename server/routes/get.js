@@ -318,9 +318,10 @@ router.post('/students-by-year', (req, res, next) => {
         });
     } else {
         const qb = new QueryBuilder(settings, 'mysql', 'single');
+        console.log("line 321", req.body)
 
         qb.select([
-            's.name as studentname',
+            's.name',
             's.surname',
             'c.name as class',
             's.mail',
@@ -328,7 +329,7 @@ router.post('/students-by-year', (req, res, next) => {
             'ss.name as school',
             'gs.confirmed_grades'
         ]).from('gstudents gs')
-            .where('year_id', req.body.id)
+            .where('gs.year_id', req.body.year)
             .join('students s', 's.id=gs.student_id', 'left')
             .join('classes c', 'c.id=gs.class_id', 'left')
             .join('years y', 'y.id=gs.year_id', 'left')

@@ -145,10 +145,19 @@ export default {
           : b[this.sortByKey].localeCompare(a[this.sortByKey])
       );
     },
-    fetchData: function() {
-      fetch("http://localhost:3000/api/get/students")
+    fetchData: async function() {
+      let year = await this.getCurrentYear();
+      console.log(year);
+      fetch("http://localhost:3000/api/get/students-by-year", {
+        method: "POST",
+        body: JSON.stringify({year}),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
         .then(response => response.json())
         .then(data => {
+          console.log(data);
           this.students = data["result"];
           this.studentsForDisplay = data["result"];
         });
