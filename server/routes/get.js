@@ -3,7 +3,6 @@ const router = express.Router();
 const settings = require("./connect");
 const QueryBuilder = require('node-querybuilder');
 
-
 class DBMethods {
     static getCompetitions() {
         return new Promise(async resolve => {
