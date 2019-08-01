@@ -56,7 +56,7 @@
               <a class="header">Stanje</a>
               <div class="description date">{{ item.value }}</div>
             </div>
-            <div v-if="item.active" class="content" style="float: left; width: 99%">
+            <div v-if="item.active" class="content" style="margin-left: 10%; margin-top: 2vh; float: left; width: 70%">
               <a class="header">Vsebina</a>
               <div
                 class="description date"

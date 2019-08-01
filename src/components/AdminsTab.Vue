@@ -27,26 +27,88 @@
           </div>
         </div>
         <div v-if="tabOpen === 'adminlist'" class="ui bottom attached tab active segment">
-          <table style="box-shadow: none !important;" class="ui celled table">
-            <thead>
-              <tr class="ui inverted blue table">
-                <th>#</th>
-                <th>Ime</th>
-                <th>Priimek</th>
-                <th>E-Pošta</th>
-                <th>Šola</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(teacher, index) in teachers" v-bind:key="index">
-                <td>{{ index + 1 }}</td>
-                <td>{{ teacher.name }}</td>
-                <td>{{ teacher.surname }}</td>
-                <td>{{ teacher.mail }}</td>
-                <td>{{ teacher.school }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div style="width: 100%" class="ui relaxed divided list">
+            <div class="item">
+              <div class="content" style="float: left; width: 5%">
+                <i class="large filter middle aligned icon"></i>
+              </div>
+              <div class="content" style="float: left; width: 20%">
+                <a class="header">
+                  Ime
+                  <i class="sort icon"></i>
+                </a>
+                <div class="description">
+                  <div class="ui corner labeled input">
+                    <input type="text" placeholder="filtriraj..." />
+                    <div class="ui corner label">
+                      <i class="asterisk icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content" style="float: left; width: 20%">
+                <a class="header">
+                  Priimek
+                  <i class="sort icon"></i>
+                </a>
+                <div class="description">
+                  <div class="ui corner labeled input">
+                    <input type="text" placeholder="filtriraj..." />
+                    <div class="ui corner label">
+                      <i class="asterisk icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content" style="float: left; width: 20%">
+                <a class="header">
+                  E-Naslov
+                  <i class="sort icon"></i>
+                </a>
+                <div class="description">
+                  <div class="ui corner labeled input">
+                    <input type="text" placeholder="filtriraj..." />
+                    <div class="ui corner label">
+                      <i class="asterisk icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content" style="float: left; width: 20%">
+                <a class="header">
+                  Šola
+                  <i class="sort icon"></i>
+                </a>
+                <div class="description">
+                  <div class="ui corner labeled input">
+                    <input type="text" placeholder="filtriraj..." />
+                    <div class="ui corner label">
+                      <i class="asterisk icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="student_display"
+              class="item"
+              v-for="(teacher, index) in teachers"
+              v-bind:key="index"
+            >
+              <div class="content" style="margin-left: 5%; float: left; width: 20%">
+                <div class="header">{{ teacher.name }}</div>
+              </div>
+              <div class="content" style="float: left; width: 20%">
+                <div class="header">{{ teacher.surname }}</div>
+              </div>
+              <div class="content" style="float: left; width: 20%">
+                <div class="header">{{ teacher.mail }}</div>
+              </div>
+              <div class="content" style="float: left; width: 20%">
+                <div class="header">{{ teacher.school }}</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div v-if="tabOpen === 'registeradmin'" class="ui bottom attached tab active segment">
           <form class="ui form">
@@ -61,11 +123,18 @@
             <div class="field">
               <label>Šola</label>
               <div v-on:click="toggleDropDown()" class="ui fluid selection dropdown">
-                <input type="hidden" name="school"><span v-html="dropdownPlaceholder"></span>
+                <input type="hidden" name="school" />
+                <span v-html="dropdownPlaceholder"></span>
                 <i class="dropdown icon"></i>
                 <div v-if="reqDropToggle" style="display: block" class="menu">
-                  <div v-for="school in schools" v-on:click="bindSchool(school.id)" v-bind:key="school.id" class="item">
-                    <b>{{ school.short_name | capitalize }}</b>{{ ` [${school.name}]`}}
+                  <div
+                    v-for="school in schools"
+                    v-on:click="bindSchool(school.id)"
+                    v-bind:key="school.id"
+                    class="item"
+                  >
+                    <b>{{ school.short_name | capitalize }}</b>
+                    {{ ` [${school.name}]`}}
                   </div>
                 </div>
               </div>
@@ -82,56 +151,52 @@
               <label>Ponovi geslo</label>
               <input type="password" v-model="form.pass1" />
             </div>
-            <button
-              v-on:click="sendAdminForm()"
-              class="ui primary button"
-              type="submit"
-            >Dodaj administratorja</button>
+            <button v-on:click="sendAdminForm()" class="ui primary button" type="submit">
+              <i class="add icon"></i>Dodaj administratorja
+            </button>
           </form>
         </div>
         <div v-if="tabOpen === 'profile'" class="ui bottom attached active tab segment">
-          <div class="ui relaxed divided list">
-            <div class="item">
-              <div class="content" style="float: left; width: 10%">
-                <i class="large add middle aligned icon"></i>
-              </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Kratica</a>
-                <div class="description">
-                  <div class="ui corner labeled input">
-                    <input type="text" placeholder="kratica..." />
-                    <div class="ui corner label">
-                      <i class="asterisk icon"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Naziv</a>
-                <div class="description">
-                  <div class="ui corner labeled input">
-                    <input type="text" placeholder="naziv..." />
-                    <div class="ui corner label">
-                      <i class="asterisk icon"></i>
-                    </div>
+          <form class="ui form">
+            <div class="field">
+              <label>Ime</label>
+              <input type="text" v-model="form.name" />
+            </div>
+            <div class="field">
+              <label>Priimek</label>
+              <input type="text" v-model="form.surname" />
+            </div>
+            <div class="field">
+              <label>Šola</label>
+              <div v-on:click="toggleDropDown()" class="ui fluid selection dropdown">
+                <input type="hidden" name="school" />
+                <span v-html="dropdownPlaceholder"></span>
+                <i class="dropdown icon"></i>
+                <div v-if="reqDropToggle" style="display: block" class="menu">
+                  <div
+                    v-for="school in schools"
+                    v-on:click="bindSchool(school.id)"
+                    v-bind:key="school.id"
+                    class="item"
+                  >
+                    <b>{{ school.short_name | capitalize }}</b>
+                    {{ ` [${school.name}]`}}
                   </div>
                 </div>
               </div>
             </div>
-            <div class="item" v-for="(subject, index) in subjects" v-bind:key="index">
-              <div class="content" style="float: left; width: 10%">
-                <i class="large edit middle aligned icon"></i>
-              </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Kratica</a>
-                <div class="description">{{ subject.shortname }}</div>
-              </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Naziv</a>
-                <div class="description">{{ subject.name }}</div>
-              </div>
+            <div class="field">
+              <label>E-pošta</label>
+              <input type="text" v-model="form.mail" />
             </div>
-          </div>
+            <div class="field">
+              <label>Geslo</label>
+              <input type="password" v-model="form.pass" />
+            </div>
+            <button v-on:click="sendAdminForm()" class="ui primary button" type="submit">
+              <i class="clipboard check icon"></i>Posodobi podatke
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -154,7 +219,7 @@ export default {
       schools: [],
       reqDropToggle: false,
       teachers: [],
-      dropdownPlaceholder: ''
+      dropdownPlaceholder: ""
     };
   },
   created: function() {
@@ -165,7 +230,7 @@ export default {
       this.reqDropToggle = !this.reqDropToggle;
     },
     bindSchool: function(idSchool) {
-      this.dropdownPlaceholder = window.event.target.innerHTML
+      this.dropdownPlaceholder = window.event.target.innerHTML;
       this.form.school = idSchool;
       console.log(this);
     },
@@ -176,7 +241,7 @@ export default {
       fetch("http://localhost:3000/api/get/schools", { method: "GET" })
         .then(response => response.json())
         .then(data => (this.schools = data.result));
-        console.log(this);
+      console.log(this);
     },
     setTab(tab) {
       this.tabOpen = tab;

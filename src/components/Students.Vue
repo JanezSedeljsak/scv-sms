@@ -30,7 +30,7 @@
               <a class="header">Ime<i class="sort icon"></i></a>
               <div class="description">
                 <div class="ui corner labeled input">
-                  <input type="text" placeholder="naziv..." />
+                  <input type="text" placeholder="filtriraj..." />
                   <div class="ui corner label">
                     <i class="asterisk icon"></i>
                   </div>
@@ -41,7 +41,7 @@
               <a class="header">Priimek<i class="sort icon"></i></a>
               <div class="description">
                 <div class="ui corner labeled input">
-                  <input type="text" placeholder="naziv..." />
+                  <input type="text" placeholder="filtriraj..." />
                   <div class="ui corner label">
                     <i class="asterisk icon"></i>
                   </div>
@@ -52,7 +52,7 @@
               <a class="header">Razred<i class="sort icon"></i></a>
               <div class="description">
                 <div class="ui corner labeled input">
-                  <input type="text" placeholder="naziv..." />
+                  <input type="text" placeholder="filtriraj..." />
                   <div class="ui corner label">
                     <i class="asterisk icon"></i>
                   </div>
@@ -63,7 +63,7 @@
               <a class="header">Potrjene ocene<i class="sort icon"></i></a>
               <div class="description">
                 <div class="ui corner labeled input">
-                  <input type="text" placeholder="naziv..." />
+                  <input type="text" placeholder="filtriraj..." />
                   <div class="ui corner label">
                     <i class="asterisk icon"></i>
                   </div>
