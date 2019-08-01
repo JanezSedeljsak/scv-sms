@@ -59,16 +59,28 @@
               <input type="text" v-model="form.surname" />
             </div>
             <div class="field">
+              <label>Šola</label>
+              <div v-on:click="toggleDropDown()" class="ui fluid selection dropdown">
+                <input type="hidden" name="school"><span v-html="dropdownPlaceholder"></span>
+                <i class="dropdown icon"></i>
+                <div v-if="reqDropToggle" style="display: block" class="menu">
+                  <div v-for="school in schools" v-on:click="bindSchool(school.id)" v-bind:key="school.id" class="item">
+                    <b>{{ school.short_name | capitalize }}</b>{{ ` [${school.name}]`}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
               <label>E-pošta</label>
               <input type="text" v-model="form.mail" />
             </div>
             <div class="field">
               <label>Geslo</label>
-              <input type="text" v-model="form.pass" />
+              <input type="password" v-model="form.pass" />
             </div>
             <div class="field">
               <label>Ponovi geslo</label>
-              <input type="text" v-model="form.pass1" />
+              <input type="password" v-model="form.pass1" />
             </div>
             <button
               v-on:click="sendAdminForm()"
@@ -136,22 +148,35 @@ export default {
         surname: "",
         mail: "",
         pass: "",
-        pass1: ""
+        pass1: "",
+        school: ""
       },
-      teachers: []
+      schools: [],
+      reqDropToggle: false,
+      teachers: [],
+      dropdownPlaceholder: ''
     };
   },
   created: function() {
     this.fetchData();
   },
   methods: {
-    toggle: function() {
-      this.toggleDisplay = !this.toggleDisplay;
+    toggleDropDown: function() {
+      this.reqDropToggle = !this.reqDropToggle;
+    },
+    bindSchool: function(idSchool) {
+      this.dropdownPlaceholder = window.event.target.innerHTML
+      this.form.school = idSchool;
+      console.log(this);
     },
     fetchData: function() {
       fetch("http://localhost:3000/api/get/teachers", { method: "GET" })
         .then(response => response.json())
         .then(data => (this.teachers = data.result));
+      fetch("http://localhost:3000/api/get/schools", { method: "GET" })
+        .then(response => response.json())
+        .then(data => (this.schools = data.result));
+        console.log(this);
     },
     setTab(tab) {
       this.tabOpen = tab;

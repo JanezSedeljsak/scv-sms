@@ -152,6 +152,10 @@ ul.w3-ul {
   transform: scale(1.2, 1.2);
 }
 
+.menu {
+  user-select: none !important;
+}
+
 input,
 div.input {
   border-radius: 0 !important;

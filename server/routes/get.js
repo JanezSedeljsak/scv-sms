@@ -7,7 +7,7 @@ const settings = {
     port: '3306',
     database: 'SZR_DB',
     user: 'root',
-    password: ''
+    password: 'root'
 };
 
 class DBMethods {
@@ -31,6 +31,26 @@ class DBMethods {
         });
     }
 
+
+    static getMessages() {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+    
+            qb.select([
+                'CONCAT(s.name, " ", s.surname) AS student',
+                'm.date_sent',
+                'st.value',
+                'm.header',
+                'm.content'
+            ]).from('messages m')
+                .join('states st', 'st.id=m.state_id', 'left')
+                .join('students s', 's.id=m.student_id', 'left')
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+    }
 
     static getStudentsInCompetition(idCompetition) {
         return new Promise(async resolve => {
@@ -191,6 +211,13 @@ class DBMethods {
     }
 }
 
+router.get('/messages', async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getMessages()
+    })  
+});
+
 router.get('/subjects', async (req, res, next) => {
     res.status(200).json({
         ok: true,
@@ -231,6 +258,19 @@ router.get('/students', (req, res, next) => {
     const qb = new QueryBuilder(settings, 'mysql', 'single');
 
     qb.select("*").from('students')
+        .get((err, result) => {
+            qb.disconnect();
+            res.status(200).json({
+                ok: true,
+                result: result
+            });
+        });
+});
+
+router.get('/schools', (req, res, next) => {
+    const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+    qb.select("*").from('schools')
         .get((err, result) => {
             qb.disconnect();
             res.status(200).json({

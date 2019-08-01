@@ -11,7 +11,7 @@
             v-model="filterValue"
             v-on:keydown="filterClasses()" 
           />
-          <i class="search icon"></i>
+          <i class="filter icon"></i>
         </div>
       </div>
       <div class="row">

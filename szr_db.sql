@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.3.16-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL Version:             10.2.0.5599
+-- Strežnik:                     127.0.0.1
+-- Verzija strežnika:            10.3.10-MariaDB - mariadb.org binary distribution
+-- Operacijski sistem strežnika: Win64
+-- HeidiSQL Različica:           10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -17,7 +17,7 @@ DROP DATABASE IF EXISTS `szr_db`;
 CREATE DATABASE IF NOT EXISTS `szr_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `szr_db`;
 
--- Dumping structure for table szr_db.achivments
+-- Dumping structure for tabela szr_db.achivments
 DROP TABLE IF EXISTS `achivments`;
 CREATE TABLE IF NOT EXISTS `achivments` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -40,7 +40,7 @@ INSERT INTO `achivments` (`id`, `level_id`, `type_id`, `name`, `date`, `place`, 
 	('edc1a631-b1e4-11e9-9658-f04da2b5f496', '8aef4c5b-b1da-11e9-9658-f04da2b5f496', '16712be8-b1da-11e9-9658-f04da2b5f496', 'Rekordni tek na 600m', '2018-02-06 07:19:25', 1, 'Dijak je podrl rekord na 600m');
 /*!40000 ALTER TABLE `achivments` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.achivments_students
+-- Dumping structure for tabela szr_db.achivments_students
 DROP TABLE IF EXISTS `achivments_students`;
 CREATE TABLE IF NOT EXISTS `achivments_students` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -59,7 +59,7 @@ INSERT INTO `achivments_students` (`id`, `student_id`, `achivment_id`) VALUES
 	('374eb18e-b1e5-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'edc1a631-b1e4-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `achivments_students` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.classes
+-- Dumping structure for tabela szr_db.classes
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE IF NOT EXISTS `classes` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -172,7 +172,7 @@ INSERT INTO `classes` (`id`, `scv_id`, `school_id`, `name`) VALUES
 	('5ca57046-b1c8-11e9-9658-f04da2b5f496', 46, '36ee7821-b1c7-11e9-9658-f04da2b5f496', '4.Š');
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.classes_competitions
+-- Dumping structure for tabela szr_db.classes_competitions
 DROP TABLE IF EXISTS `classes_competitions`;
 CREATE TABLE IF NOT EXISTS `classes_competitions` (
   `id` varchar(36) NOT NULL DEFAULT uuid(),
@@ -192,7 +192,7 @@ INSERT INTO `classes_competitions` (`id`, `competition_id`, `class_id`) VALUES
 	('80588272-b28c-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '5ca50613-b1c8-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `classes_competitions` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.classes_subjects
+-- Dumping structure for tabela szr_db.classes_subjects
 DROP TABLE IF EXISTS `classes_subjects`;
 CREATE TABLE IF NOT EXISTS `classes_subjects` (
   `id` varchar(36) NOT NULL DEFAULT uuid(),
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `classes_subjects` (
   KEY `subject_id` (`subject_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table szr_db.classes_subjects: ~6 rows (approximately)
+-- Dumping data for table szr_db.classes_subjects: ~6 rows (približno)
 DELETE FROM `classes_subjects`;
 /*!40000 ALTER TABLE `classes_subjects` DISABLE KEYS */;
 INSERT INTO `classes_subjects` (`id`, `class_id`, `subject_id`) VALUES
@@ -216,7 +216,7 @@ INSERT INTO `classes_subjects` (`id`, `class_id`, `subject_id`) VALUES
 	('b0b30f0b-b1ec-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', '226d83b4-b1e7-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `classes_subjects` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.competitions
+-- Dumping structure for tabela szr_db.competitions
 DROP TABLE IF EXISTS `competitions`;
 CREATE TABLE IF NOT EXISTS `competitions` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -241,7 +241,7 @@ INSERT INTO `competitions` (`id`, `teacher_id`, `name`, `date_created`, `places`
 	('201e26a7-b288-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'Malta2k20', '2020-02-06 07:19:25', 9, '2020-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `competitions` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.competitions_students
+-- Dumping structure for tabela szr_db.competitions_students
 DROP TABLE IF EXISTS `competitions_students`;
 CREATE TABLE IF NOT EXISTS `competitions_students` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -260,7 +260,7 @@ INSERT INTO `competitions_students` (`id`, `gstudent_id`, `competition_id`) VALU
 	('3d560f82-b28d-11e9-9658-f04da2b5f496', '2247a287-b1e2-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `competitions_students` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.competitions_subjects
+-- Dumping structure for tabela szr_db.competitions_subjects
 DROP TABLE IF EXISTS `competitions_subjects`;
 CREATE TABLE IF NOT EXISTS `competitions_subjects` (
   `id` varchar(36) NOT NULL DEFAULT uuid(),
@@ -282,7 +282,7 @@ INSERT INTO `competitions_subjects` (`id`, `competition_id`, `subject_id`, `valu
 	('b8a18e1e-b28a-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '226d1b15-b1e7-11e9-9658-f04da2b5f496', 0.7);
 /*!40000 ALTER TABLE `competitions_subjects` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.competitions_types
+-- Dumping structure for tabela szr_db.competitions_types
 DROP TABLE IF EXISTS `competitions_types`;
 CREATE TABLE IF NOT EXISTS `competitions_types` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -303,7 +303,7 @@ INSERT INTO `competitions_types` (`id`, `competition_id`, `type_id`, `value`) VA
 	('b443613e-b289-11e9-9658-f04da2b5f496', '138e3551-b288-11e9-9658-f04da2b5f496', '16712be8-b1da-11e9-9658-f04da2b5f496', 0.2);
 /*!40000 ALTER TABLE `competitions_types` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.grades
+-- Dumping structure for tabela szr_db.grades
 DROP TABLE IF EXISTS `grades`;
 CREATE TABLE IF NOT EXISTS `grades` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -322,7 +322,7 @@ DELETE FROM `grades`;
 /*!40000 ALTER TABLE `grades` DISABLE KEYS */;
 /*!40000 ALTER TABLE `grades` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.gstudents
+-- Dumping structure for tabela szr_db.gstudents
 DROP TABLE IF EXISTS `gstudents`;
 CREATE TABLE IF NOT EXISTS `gstudents` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -344,7 +344,7 @@ INSERT INTO `gstudents` (`id`, `student_id`, `year_id`, `class_id`, `confirmed_g
 	('2247a287-b1e2-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'da8bcd31-b1e1-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', 1);
 /*!40000 ALTER TABLE `gstudents` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.levels
+-- Dumping structure for tabela szr_db.levels
 DROP TABLE IF EXISTS `levels`;
 CREATE TABLE IF NOT EXISTS `levels` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -363,7 +363,7 @@ INSERT INTO `levels` (`id`, `name`, `value`) VALUES
 	('8aef5621-b1da-11e9-9658-f04da2b5f496', 'Državni nivo', 1.5);
 /*!40000 ALTER TABLE `levels` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.messages
+-- Dumping structure for tabela szr_db.messages
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
   `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -380,12 +380,16 @@ CREATE TABLE IF NOT EXISTS `messages` (
   KEY `teacher_id` (`teacher_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table szr_db.messages: ~0 rows (approximately)
+-- Dumping data for table szr_db.messages: ~0 rows (približno)
 DELETE FROM `messages`;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` (`id`, `student_id`, `teacher_id`, `state_id`, `header`, `content`, `date_sent`, `date_edit`) VALUES
+	('7d4b7d63-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2019', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-06 07:19:25', '2019-03-06 07:19:25'),
+	('7d4b8667-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d474-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2016', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-06 07:19:25', '2019-03-06 07:19:25'),
+	('7d4b9335-b41d-11e9-9519-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Manjkajoč dosežek za leto 2018', 'Ob pregledu mojih dosežkov sem opazil, da mi v letu 2018 manjka dosežek za srebrno priznanje iz biologije, ki sem ga prejel v Ljubljani. Prosim če mi popravite.', '2019-02-06 07:19:25', '2019-03-06 07:19:25');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.schools
+-- Dumping structure for tabela szr_db.schools
 DROP TABLE IF EXISTS `schools`;
 CREATE TABLE IF NOT EXISTS `schools` (
   `id` varchar(36) NOT NULL DEFAULT uuid(),
@@ -395,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `schools` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table szr_db.schools: ~4 rows (approximately)
+-- Dumping data for table szr_db.schools: ~4 rows (približno)
 DELETE FROM `schools`;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
 INSERT INTO `schools` (`id`, `name`, `short_name`) VALUES
@@ -405,7 +409,7 @@ INSERT INTO `schools` (`id`, `name`, `short_name`) VALUES
 	('36ee7821-b1c7-11e9-9658-f04da2b5f496', 'Gimnazija', 'GIM');
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.states
+-- Dumping structure for tabela szr_db.states
 DROP TABLE IF EXISTS `states`;
 CREATE TABLE IF NOT EXISTS `states` (
   `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -414,7 +418,7 @@ CREATE TABLE IF NOT EXISTS `states` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table szr_db.states: ~3 rows (approximately)
+-- Dumping data for table szr_db.states: ~0 rows (približno)
 DELETE FROM `states`;
 /*!40000 ALTER TABLE `states` DISABLE KEYS */;
 INSERT INTO `states` (`id`, `value`) VALUES
@@ -423,7 +427,7 @@ INSERT INTO `states` (`id`, `value`) VALUES
 	('06b1d52c-b3da-11e9-be63-902b34549865', 'Zavrnjeno');
 /*!40000 ALTER TABLE `states` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.students
+-- Dumping structure for tabela szr_db.students
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE IF NOT EXISTS `students` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -443,7 +447,7 @@ INSERT INTO `students` (`id`, `name`, `surname`, `mail`, `easistent_id`) VALUES
 	('241a43cb-b1d9-11e9-9658-f04da2b5f496', 'JANEZ', 'SEDELJSAK', 'janez.sedeljsak@gmail.com', '1953935');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.subjects
+-- Dumping structure for tabela szr_db.subjects
 DROP TABLE IF EXISTS `subjects`;
 CREATE TABLE IF NOT EXISTS `subjects` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -466,7 +470,7 @@ INSERT INTO `subjects` (`id`, `name`, `short_name`) VALUES
 	('226d84eb-b1e7-11e9-9658-f04da2b5f496', 'Načrtovanje in razvoj spletnih aplikacij', 'RSA');
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.teachers
+-- Dumping structure for tabela szr_db.teachers
 DROP TABLE IF EXISTS `teachers`;
 CREATE TABLE IF NOT EXISTS `teachers` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -487,7 +491,7 @@ INSERT INTO `teachers` (`id`, `name`, `surname`, `mail`, `password`, `school_id`
 	('7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'miran', 'zevnik', 'miran@gmail.com', '701a5a53956070cd9abf668359eef2dfb5bb6b23f1e525cc4ea4c154966156ac', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.types
+-- Dumping structure for tabela szr_db.types
 DROP TABLE IF EXISTS `types`;
 CREATE TABLE IF NOT EXISTS `types` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
@@ -506,7 +510,7 @@ INSERT INTO `types` (`id`, `name`) VALUES
 	('16712be8-b1da-11e9-9658-f04da2b5f496', 'Športni dosežek');
 /*!40000 ALTER TABLE `types` ENABLE KEYS */;
 
--- Dumping structure for table szr_db.years
+-- Dumping structure for tabela szr_db.years
 DROP TABLE IF EXISTS `years`;
 CREATE TABLE IF NOT EXISTS `years` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),

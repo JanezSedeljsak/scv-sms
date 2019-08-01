@@ -39,28 +39,28 @@
               </div>
             </div>
           </div>
-          <div class="item" v-for="index in 10" v-bind:key="index">
+          <div class="item" v-for="(item, index) in messages" v-bind:key="index">
             <div class="content" style="float: left; width: 10%">
-              <i v-if="!active" class="search plus large alternate icon middle aligned icon"></i>
-              <i v-else class="search minus large alternate icon middle aligned icon"></i>
+              <i v-on:click="toggleActive(index)" v-if="!item.active" class="search plus large alternate icon middle aligned icon"></i>
+              <i v-on:click="toggleActive(index)" v-else class="search minus large alternate icon middle aligned icon"></i>
             </div>
             <div class="content" style="float: left; width: 25%">
-              <a class="header">Janez Sedeljsak</a>
-              <div class="description date">{{ new Date() | dateFormat }}</div>
+              <a class="header">{{ item.student }}</a>
+              <div class="description date">{{ item.date_sent | dateFormat }}</div>
             </div>
             <div class="content" style="float: left; width: 25%">
               <a class="header">Naziv</a>
-              <div class="description">Odobritev ocen za leto 2018/19</div>
+              <div class="description">{{ item.header }}</div>
             </div>
             <div class="content" style="float: left; width: 25%">
               <a class="header">Stanje</a>
-              <div class="description date">{{ 'odobreno' }}</div>
+              <div class="description date">{{ item.value }}</div>
             </div>
-            <div v-if="active" class="content" style="float: left; width: 99%">
-              <a class="header">Daljši opis</a>
+            <div v-if="item.active" class="content" style="float: left; width: 99%">
+              <a class="header">Vsebina</a>
               <div
                 class="description date"
-              >{{ 'Donec sagittis viverra lorem, quis vestibulum augue rhoncus sed. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc volutpat lectus ac tristique egestas. Donec id lectus nec mi pulvinar aliquam sed sed eros. Phasellus a leo quam. Aliquam feugiat rutrum dui, eget mollis quam posuere nec. Proin rutrum feugiat elit quis vulputate. Proin ac nulla ultricies, pellentesque purus nec, vehicula nisl. Pellentesque in elementum turpis, eu molestie dolor. Nulla eu nisi a nunc fringilla aliquet eu vitae turpis. Suspendisse et tellus ac tortor tempus pretium. Donec vitae lectus eget magna eleifend faucibus non in justo. Sed feugiat vitae velit vel interdum. Sed blandit cursus dui, quis euismod tortor varius a.' }}</div>
+              >{{ item.content }}</div>
             </div>
           </div>
         </div>
@@ -73,13 +73,7 @@
 export default {
   data() {
     return {
-      selectedClass: null,
-      pickedClass: null,
-      subjects: [],
-      classes: [],
-      classesForDisplay: [],
-      filterValue: null,
-      tabOpen: "recived"
+      messages: []
     };
   },
   created: function() {
@@ -87,35 +81,14 @@ export default {
   },
   methods: {
     fetchData: function() {
-      fetch("http://localhost:3000/api/get/classes", { method: "GET" })
+      fetch("http://localhost:3000/api/get/messages", { method: "GET" })
         .then(response => response.json())
         .then(data => {
-          console.log(data);
-          this.classes = data.result;
-          this.classesForDisplay = data.result;
+          this.messages = data.result.map(msg => Object.assign(msg, {active: false}));
         });
     },
-    setTab(tab) {
-      this.tabOpen = tab;
-    },
-    filterClasses: function() {
-      if (window.event.keyCode != 13) return;
-      this.filterValue = this.filterValue.toLowerCase();
-      this.classesForDisplay = this.classes.filter(
-        row =>
-          row.class.toLowerCase().includes(this.filterValue) ||
-          row.school.toLowerCase().includes(this.filterValue)
-      );
-    },
-    toggleView: function(index) {
-      this.classes[index].tView = !this.classes[index].tView;
-      alert("size big");
-    },
-    removeSubject: function() {
-      this.$forceUpdate();
-    },
-    addSubject: function() {
-      this.$forceUpdate();
+    toggleActive: function(index) {
+      this.messages[index].active = !this.messages[index].active;
     }
   }
 };
