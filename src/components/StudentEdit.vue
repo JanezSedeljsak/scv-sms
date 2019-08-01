@@ -112,7 +112,7 @@ export default {
     this.fetchData();
   },
   methods: {
-    fetchData: function() {
+    fetchData: async function() {
       fetch("http://localhost:3000/api/get/subjects")
         .then(response => response.json())
         .then(data => (this.subjects = data["subjects"]));
@@ -127,8 +127,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.student = data.result;
-          console.log(this.student);
         });
+        this.pickedYear = await this.getCurrentYear();
+        console.log(this);
     },
     editAchivmentsForStudent: function() {
       window.location = `/admin/students/${this.$route.params.id}/achivments`;

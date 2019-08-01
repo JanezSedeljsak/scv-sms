@@ -267,6 +267,23 @@ router.get('/students', (req, res, next) => {
         });
 });
 
+
+router.get('/curr-year', (req, res, next) => {
+    const qb = new QueryBuilder(settings, 'mysql', 'single');
+    let currentDate = new Date();
+    qb.limit(1)
+        .select("id")
+        .from('years')
+        .where({'start_date <=': currentDate, 'end_date >=': currentDate})
+            .get((err, result) => {
+            qb.disconnect();
+            res.status(200).json({
+                ok: true,
+                result: result[0]
+            });
+        });
+});
+
 router.get('/schools', (req, res, next) => {
     const qb = new QueryBuilder(settings, 'mysql', 'single');
 

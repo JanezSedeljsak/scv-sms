@@ -1,7 +1,8 @@
 const express = require('express');
 const CryptoJS = require('crypto-js');
-const SHA256 = require("crypto-js/sha256")
 const router = express.Router();
+var passwordHash = require('password-hash');
+
 
 const QueryBuilder = require('node-querybuilder');
 const settings = {
@@ -9,12 +10,10 @@ const settings = {
     port: '3306',
     database: 'SZR_DB',
     user: 'root',
-    password: ''
+    password: 'root'
 };
 
-const hash = pass => {
-    return SHA256(`${pass}SCV541T$$`);
-}
+const hash = pass => passwordHash.generate(pass)
 
 const generateToken = userObj => {
     let token = CryptoJS.AES.encrypt(JSON.stringify(userObj), "5cv4pp0ortk3y");
@@ -38,26 +37,30 @@ router.post('/create-admin', (req, res, next) => {
             result: 'Gesli se ne ujemata'
         });
     } else {
-        //new mysql insert TODO
-        /*let newAdmin = new Teacher({
-            name: req.body.name,
+        const qb = new QueryBuilder(settings, 'mysql', 'single');
+        const data = { 
+            name: req.body.name, 
             surname: req.body.surname,
-            email: req.body.mail,
+            mail: req.body.mail,
+            school_id: req.body.school,
             password: hash(req.body.pass).toString()
-        });
-        newAdmin.save(error => {
-            if (error) {
+        };
+
+        qb.returning('id').insert('Teachers', data, (err, result) => {
+            if (err) {
+                console.log(err);
                 res.status(200).json({
                     ok: false,
-                    result: 'Pojavila se je napaka pri vnosu administratorja; Verjetno učitelj že obstaja!'
-                });
-            } else {
-                res.status(200).json({
-                    ok: true,
-                    result: 'Uspešno smo dodali novega učitelja!'
+                    result: 'Pojavila se je napaka'
                 });
             }
-        });*/
+            else {
+                res.status(200).json({
+                    ok: false,
+                    result: 'Nov admin je bil dodan'
+                });
+            }
+        });
     }
 });
 
@@ -70,11 +73,8 @@ router.post('/try-login', (req, res, next) => {
     } else {
         const qb = new QueryBuilder(settings, 'mysql', 'single');
 
-        qb.select("id").from('teachers')
-            .where({
-                mail: req.body.mail,
-                password: hash(req.body.pass).toString()
-            })
+        qb.select("id, password").from('teachers')
+            .where({ mail: req.body.mail })
             .get(async (error, result) => {
                 qb.disconnect();
                 if (error) {
@@ -89,13 +89,23 @@ router.post('/try-login', (req, res, next) => {
                             result: "Uporabnik ni bil najden!"
                         });
                     } else {
-                        res.status(200).json({
-                            ok: true,
-                            result: await generateToken({
-                                _id: result[0].id,
-                                _rights: 'admin'
-                            })
-                        });
+                        let pass = result[0].password;
+                        var passwordHash = require('password-hash/lib/password-hash');
+                        if(passwordHash.verify(req.body.pass, pass)) {
+                            res.status(200).json({
+                                ok: true,
+                                result: await generateToken({
+                                    _id: result[0].id,
+                                    _rights: 'admin'
+                                })
+                            });
+                        } else {
+                            res.status(200).json({
+                                ok: false,
+                                result: {pass: pass, sent: req.body.pass}
+                            });         
+                        }
+ 
                     }
                 }
             });

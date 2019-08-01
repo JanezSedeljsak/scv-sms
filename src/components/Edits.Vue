@@ -25,6 +25,13 @@
           >
             <i class="book icon"></i>Predmeti
           </div>
+          <div
+            v-on:click="setTab('years')"
+            v-bind:class="{ active: tabOpen === 'years' }"
+            class="item"
+          >
+            <i class="calendar alternate outline icon"></i>Leta
+          </div>
         </div>
         <div v-if="tabOpen === 'levels'" class="ui bottom attached tab active segment">
           <div class="ui relaxed divided list">
@@ -143,6 +150,34 @@
             </div>
           </div>
         </div>
+        <div v-if="tabOpen === 'years'" class="ui bottom attached active tab segment">
+          <div class="ui relaxed divided list">
+            <div class="item">
+              <div class="content" style="float: left; width: 10%">
+                <i class="large add middle aligned icon"></i>
+              </div>
+              <div class="content" style="float: left; width: 35%">
+                <div class="description">
+                  <div class="ui corner labeled input">
+                    <input type="text" placeholder="leto..." />
+                    <div class="ui corner label">
+                      <i class="asterisk icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item" v-for="(year, index) in years" v-bind:key="index">
+              <div class="content" style="float: left; width: 10%">
+                <i class="large edit middle aligned icon"></i>
+              </div>
+              <div class="content" style="float: left; width: 35%">
+                <a class="header">Leto</a>
+                <div class="description">{{ year.name }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -156,12 +191,10 @@ export default {
       types: [],
       levels: [],
       subjects: [],
+      years: [],
       filterValue: null,
       tabOpen: "subjects"
     };
-  },
-  filters: {
-    dateFormat: date => moment(date).format("DD. MM. YYYY")
   },
   created: function() {
     this.fetchData();
@@ -183,6 +216,11 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.subjects = data["result"];
+        });
+      fetch("http://localhost:3000/api/get/years")
+        .then(response => response.json())
+        .then(data => {
+          this.years = data["result"];
         });
       console.log(this);
     },
