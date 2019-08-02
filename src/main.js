@@ -63,6 +63,9 @@ Vue.mixin({
 
 Vue.filter('capitalize', value => value.toUpperCase());
 Vue.filter('dateFormat', date => moment(date).format('DD. MM. YYYY'));
+Vue.filter('capFirst', item => item.split(" ").map(x => 
+    x.substr(0,1).toUpperCase() + x.substr(1,x.length-1).toLowerCase()
+).join(" "));
 
 //// global vue components
 Vue.component('szr-header', {

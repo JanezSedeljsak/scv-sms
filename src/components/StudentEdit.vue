@@ -18,11 +18,11 @@
             <div class="content">
               <p>
                 Ime & Priimek
-                <b>{{ student.name }}&nbsp;{{ student.surname }}</b>
+                <b>{{ `${student.name} ${student.surname}` | capFirst }}</b>
               </p>
               <p>
                 Razred:
-                <b>3.tra</b>
+                <b>{{ student.class }}</b>
               </p>
               <p>
                 Povp. ocena
@@ -43,12 +43,12 @@
             <button
               style="margin-bottom: 10px;  width: 100% !important;"
               class="ui primary button"
-              v-on:click="editAchivmentsForStudent()"
+              v-on:click="editAchivmentsForStudent(student.id)"
             >Uredi dosezke</button>
             <button
               style="margin-bottom: 10px;  width: 100% !important;"
               class="ui primary button"
-              v-on:click="editCompetitionsForStudent()"
+              v-on:click="editCompetitionsForStudent(student.id)"
             >Uredi tekmovanja</button>
             <button
               style="width: 100% !important;"
@@ -77,11 +77,14 @@
             >
               <td>{{ index + 1}}</td>
               <td class="name">
-                <b>{{ subject.short | capitalize }}</b>
+                <b>
+                  {{ subject.shortname | capitalize }}
+                  {{" - "}}
+                </b>{{ subject.name }}
               </td>
               <td class="surname">
                 <div class="ui icon input">
-                  <input type="text" placeholder="Dodaj oceno" />
+                  <input type="text" placeholder="Dodaj oceno" maxlength="1"/>
                 </div>
               </td>
             </tr>
@@ -96,17 +99,9 @@
 export default {
   data() {
     return {
-      student: {
-        "name": "",
-        "surname": ""
-      },
+      student: [],
       subjects: [],
-      pickedYear: null,
-      years: ["2016/17", "2017/18", "2018/19", "2019/20", "2020/21"]
     };
-  },
-  filters: {
-    capitalize: value => value.toUpperCase()
   },
   created: function() {
     this.fetchData();
@@ -115,9 +110,12 @@ export default {
     fetchData: async function() {
       fetch("http://localhost:3000/api/get/subjects")
         .then(response => response.json())
-        .then(data => (this.subjects = data["subjects"]));
+        .then(data => {
+          console.log(data);
+          (this.subjects = data["result"]);
+        });
 
-      fetch("http://localhost:3000/api/get/get-student-by-id", {
+      fetch("http://localhost:3000/api/get/get-student-by-qid", {
         method: "POST",
         body: JSON.stringify({ id: this.$route.params.id }),
         headers: {
@@ -126,13 +124,17 @@ export default {
       })
         .then(response => response.json())
         .then(data => {
-          this.student = data.result;
+          console.log(data)
+          this.student = data.result[0];
         });
         this.pickedYear = await this.getCurrentYear();
         console.log(this);
     },
-    editAchivmentsForStudent: function() {
-      window.location = `/admin/students/${this.$route.params.id}/achivments`;
+    editAchivmentsForStudent: function(idStudent) {
+      window.location = `/admin/students/${idStudent}/achivments`;
+    },
+    editAchivmentsForStudent: function(idStudent) {
+      window.location = `/admin/students/${idStudent}/achivments`;
     }
   }
 };

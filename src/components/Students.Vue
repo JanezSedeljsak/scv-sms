@@ -76,13 +76,13 @@
               <i v-on:click="openEdit(student.id)" class="large edit middle aligned icon"></i>
             </div>
             <div class="content" style="float: left; width: 25%">
-              <div class="header">{{ student.name }}</div>
+              <div class="header">{{ student.name | capFirst }}</div>
             </div>
             <div class="content" style="float: left; width: 25%">
-              <div class="header">{{ student.surname }}</div>
+              <div class="header">{{ student.surname | capFirst }}</div>
             </div>
             <div class="content" style="float: left; width: 25%">
-              <div class="header">{{ student.class }}</div>
+              <div class="header">{{ student.class | capFirst }}</div>
             </div>
             <div class="content" style="float: left; width: 20%">
               <div class="header">

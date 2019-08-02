@@ -174,6 +174,25 @@ class DBMethods {
         });
     }
 
+    static getStudentByQID() {
+        return new Promise(resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+            qb.select([
+                's.id',
+                's.name',
+                's.surname',
+                'c.name as class'
+            ]).from('gstudents gs')
+            .join('students s', 's.id=gs.student_id', 'left')
+            .join('classes c', 'c.id=gs.class_id', 'left')
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });    
+    }
+
     static getClasses() {
         //return new Promise(async resolve => {
         return new Promise(resolve => {
@@ -393,24 +412,17 @@ router.get('/achivments', (req, res, next) => {
     }
 });
 
-router.post('/get-student-by-id', (req, res, next) => {
+router.post('/get-student-by-qid', async (req, res, next) => {
     if (Object.values(req.body).includes('')) {
         res.status(200).json({
             ok: false,
             result: 'Obrazec ni bil pravilno izpolnjen!'
         });
     } else {
-        const qb = new QueryBuilder(settings, 'mysql', 'single');
-
-        qb.select("*").from('students')
-            .where('id', req.body.id)
-            .get((err, result) => {
-                qb.disconnect();
-                res.status(200).json({
-                    ok: true,
-                    result: result[0]
-                });
-            });
+        res.status(200).json({
+            ok: true,
+            result: await DBMethods.getStudentByQID(req.body.id)
+        });
     }
 });
 

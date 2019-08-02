@@ -96,10 +96,10 @@
               v-bind:key="index"
             >
               <div class="content" style="margin-left: 5%; float: left; width: 20%">
-                <div class="header">{{ teacher.name }}</div>
+                <div class="header">{{ teacher.name | capFirst }}</div>
               </div>
               <div class="content" style="float: left; width: 20%">
-                <div class="header">{{ teacher.surname }}</div>
+                <div class="header">{{ teacher.surname | capFirst }}</div>
               </div>
               <div class="content" style="float: left; width: 20%">
                 <div class="header">{{ teacher.mail }}</div>
