@@ -370,6 +370,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
   `student_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
   `teacher_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `school_id` varchar(36) DEFAULT NULL,
   `state_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
   `header` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
   `content` text CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
@@ -378,16 +379,17 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `student_id` (`student_id`),
-  KEY `teacher_id` (`teacher_id`)
+  KEY `teacher_id` (`teacher_id`),
+  KEY `school_id` (`school_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table szr_db.messages: ~3 rows (približno)
 DELETE FROM `messages`;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` (`id`, `student_id`, `teacher_id`, `state_id`, `header`, `content`, `date_sent`, `date_edit`) VALUES
-	('7d4b7d63-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2019', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-06 07:19:25', '2019-03-06 07:19:25'),
-	('7d4b8667-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1c46e-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2016', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-08 07:12:25', '2019-03-06 07:19:25'),
-	('7d4b9335-b41d-11e9-9519-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Manjkajoč dosežek za leto 2018', 'Ob pregledu mojih dosežkov sem opazil, da mi v letu 2018 manjka dosežek za srebrno priznanje iz biologije, ki sem ga prejel v Ljubljani. Prosim če mi popravite.', '2019-03-06 07:19:25', '2019-03-06 07:19:25');
+INSERT INTO `messages` (`id`, `student_id`, `teacher_id`, `school_id`, `state_id`, `header`, `content`, `date_sent`, `date_edit`) VALUES
+	('7d4b7d63-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2019', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-06 07:19:25', '2019-03-06 07:19:25'),
+	('7d4b8667-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496', '06b1c46e-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2016', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-08 07:12:25', '2019-03-06 07:19:25'),
+	('7d4b9335-b41d-11e9-9519-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Manjkajoč dosežek za leto 2018', 'Ob pregledu mojih dosežkov sem opazil, da mi v letu 2018 manjka dosežek za srebrno priznanje iz biologije, ki sem ga prejel v Ljubljani. Prosim če mi popravite.', '2019-03-06 07:19:25', '2019-03-06 07:19:25');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.schools
