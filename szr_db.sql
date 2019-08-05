@@ -237,8 +237,8 @@ CREATE TABLE IF NOT EXISTS `competitions` (
 DELETE FROM `competitions`;
 /*!40000 ALTER TABLE `competitions` DISABLE KEYS */;
 INSERT INTO `competitions` (`id`, `teacher_id`, `name`, `date_created`, `places`, `deadline`, `description`, `year_id`) VALUES
-	('138e3551-b288-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'Malta2k19', '2019-02-06 07:19:25', 12, '2019-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496'),
-	('201e26a7-b288-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'Malta2k20', '2020-02-06 07:19:25', 9, '2020-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496');
+	('138e3551-b288-11e9-9658-f04da2b5f496', 'e545e052-b433-11e9-9519-f04da2b5f496', 'Malta2k19', '2019-02-06 07:19:25', 12, '2019-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496'),
+	('201e26a7-b288-11e9-9658-f04da2b5f496', 'e545e052-b433-11e9-9519-f04da2b5f496', 'Malta2k20', '2020-02-06 07:19:25', 9, '2020-07-06 07:19:25', NULL, 'da8bcd31-b1e1-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `competitions` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.competitions_students
@@ -337,11 +337,12 @@ CREATE TABLE IF NOT EXISTS `gstudents` (
   KEY `leto_id` (`year_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
--- Dumping data for table szr_db.gstudents: 1 rows
+-- Dumping data for table szr_db.gstudents: 2 rows
 DELETE FROM `gstudents`;
 /*!40000 ALTER TABLE `gstudents` DISABLE KEYS */;
 INSERT INTO `gstudents` (`id`, `student_id`, `year_id`, `class_id`, `confirmed_grades`) VALUES
-	('2247a287-b1e2-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'da8bcd31-b1e1-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', 1);
+	('2247a287-b1e2-11e9-9658-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', 'da8bcb64-b1e1-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', 1),
+	('2247a287-b1e2-11e9-9658-f04dv2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', 'da8bcb64-b1e1-11e9-9658-f04da2b5f496', '5ca509f5-b1c8-11e9-9658-f04da2b5f496', 0);
 /*!40000 ALTER TABLE `gstudents` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.levels
@@ -380,13 +381,13 @@ CREATE TABLE IF NOT EXISTS `messages` (
   KEY `teacher_id` (`teacher_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table szr_db.messages: ~0 rows (približno)
+-- Dumping data for table szr_db.messages: ~3 rows (približno)
 DELETE FROM `messages`;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`id`, `student_id`, `teacher_id`, `state_id`, `header`, `content`, `date_sent`, `date_edit`) VALUES
 	('7d4b7d63-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2019', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-06 07:19:25', '2019-03-06 07:19:25'),
-	('7d4b8667-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d474-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2016', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-06 07:19:25', '2019-03-06 07:19:25'),
-	('7d4b9335-b41d-11e9-9519-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Manjkajoč dosežek za leto 2018', 'Ob pregledu mojih dosežkov sem opazil, da mi v letu 2018 manjka dosežek za srebrno priznanje iz biologije, ki sem ga prejel v Ljubljani. Prosim če mi popravite.', '2019-02-06 07:19:25', '2019-03-06 07:19:25');
+	('7d4b8667-b41d-11e9-9519-f04da2b5f496', '241a0ee6-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1c46e-b3da-11e9-be63-902b34549865', 'Popravek ocen za leto 2016', 'Prišlo je do napake pri mojih ocenah za leto 2019, saj imam matematiko zaključeno 5 in ne 3, kot je zapisano v bazi.', '2019-02-08 07:12:25', '2019-03-06 07:19:25'),
+	('7d4b9335-b41d-11e9-9519-f04da2b5f496', '241a43cb-b1d9-11e9-9658-f04da2b5f496', '7b2fd87f-b1d9-11e9-9658-f04da2b5f496', '06b1d52c-b3da-11e9-be63-902b34549865', 'Manjkajoč dosežek za leto 2018', 'Ob pregledu mojih dosežkov sem opazil, da mi v letu 2018 manjka dosežek za srebrno priznanje iz biologije, ki sem ga prejel v Ljubljani. Prosim če mi popravite.', '2019-03-06 07:19:25', '2019-03-06 07:19:25');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.schools
@@ -414,17 +415,18 @@ DROP TABLE IF EXISTS `states`;
 CREATE TABLE IF NOT EXISTS `states` (
   `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
   `value` varchar(36) CHARACTER SET utf8 COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `index` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table szr_db.states: ~0 rows (približno)
+-- Dumping data for table szr_db.states: ~3 rows (približno)
 DELETE FROM `states`;
 /*!40000 ALTER TABLE `states` DISABLE KEYS */;
-INSERT INTO `states` (`id`, `value`) VALUES
-	('06b1c46e-b3da-11e9-be63-902b34549865', 'Poslano'),
-	('06b1d474-b3da-11e9-be63-902b34549865', 'Odobreno'),
-	('06b1d52c-b3da-11e9-be63-902b34549865', 'Zavrnjeno');
+INSERT INTO `states` (`id`, `value`, `index`) VALUES
+	('06b1c46e-b3da-11e9-be63-902b34549865', 'Poslano', 3),
+	('06b1d474-b3da-11e9-be63-902b34549865', 'Odobreno', 2),
+	('06b1d52c-b3da-11e9-be63-902b34549865', 'Zavrnjeno', 1);
 /*!40000 ALTER TABLE `states` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.students
@@ -484,11 +486,13 @@ CREATE TABLE IF NOT EXISTS `teachers` (
   KEY `school_id` (`school_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
--- Dumping data for table szr_db.teachers: 1 rows
+-- Dumping data for table szr_db.teachers: 3 rows
 DELETE FROM `teachers`;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
 INSERT INTO `teachers` (`id`, `name`, `surname`, `mail`, `password`, `school_id`) VALUES
-	('7b2fd87f-b1d9-11e9-9658-f04da2b5f496', 'miran', 'zevnik', 'miran@gmail.com', '701a5a53956070cd9abf668359eef2dfb5bb6b23f1e525cc4ea4c154966156ac', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496');
+	('e545e052-b433-11e9-9519-f04da2b5f496', 'Miran', 'Zevnik', 'miran@gmail.com', 'sha1$bbcb1e19$1$23a1274326619c82e551e2d91bb881efaccfc961', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496'),
+	('0eb75c31-b430-11e9-9519-f04da2b5f496', 'marjetka', 'herodež', 'marjetka@gmail.com', 'sha1$16006fd3$1$9c8a30b259814bdff4c506c09517cc817e57490c', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496'),
+	('f270f73f-b433-11e9-9519-f04da2b5f496', 'Nino', 'Golčman', 'nino@gmail.com', 'sha1$4a062f49$1$c3703899592fbfe0f5b68adabaa9d225553956ea', '36ee6f6e-b1c7-11e9-9658-f04da2b5f496');
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 
 -- Dumping structure for tabela szr_db.types
@@ -515,6 +519,8 @@ DROP TABLE IF EXISTS `years`;
 CREATE TABLE IF NOT EXISTS `years` (
   `id` varchar(36) COLLATE utf8_slovenian_ci NOT NULL DEFAULT uuid(),
   `name` varchar(20) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
@@ -522,12 +528,12 @@ CREATE TABLE IF NOT EXISTS `years` (
 -- Dumping data for table szr_db.years: 5 rows
 DELETE FROM `years`;
 /*!40000 ALTER TABLE `years` DISABLE KEYS */;
-INSERT INTO `years` (`id`, `name`) VALUES
-	('da8b1386-b1e1-11e9-9658-f04da2b5f496', '2016/17'),
-	('da8bc7db-b1e1-11e9-9658-f04da2b5f496', '2017/18'),
-	('da8bcb64-b1e1-11e9-9658-f04da2b5f496', '2018/19'),
-	('da8bcd31-b1e1-11e9-9658-f04da2b5f496', '2019/20'),
-	('da8bcefa-b1e1-11e9-9658-f04da2b5f496', '2020/21');
+INSERT INTO `years` (`id`, `name`, `start_date`, `end_date`) VALUES
+	('da8b1386-b1e1-11e9-9658-f04da2b5f496', '2016/17', '2016-09-01 00:00:00', '2017-08-31 23:59:59'),
+	('da8bc7db-b1e1-11e9-9658-f04da2b5f496', '2017/18', '2017-09-01 00:00:00', '2018-08-31 23:59:59'),
+	('da8bcb64-b1e1-11e9-9658-f04da2b5f496', '2018/19', '2018-09-01 00:00:00', '2019-08-31 23:59:59'),
+	('da8bcd31-b1e1-11e9-9658-f04da2b5f496', '2019/20', '2019-09-01 00:00:00', '2020-08-31 23:59:59'),
+	('da8bcefa-b1e1-11e9-9658-f04da2b5f496', '2020/21', '2020-09-01 00:00:00', '2021-08-31 23:59:59');
 /*!40000 ALTER TABLE `years` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
