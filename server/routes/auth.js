@@ -4,6 +4,7 @@ const router = express.Router();
 const passwordHash = require('password-hash');
 const settings = require("./connect");
 const QueryBuilder = require('node-querybuilder');
+const axios = require('axios');
 
 
 const hash = pass => passwordHash.generate(pass)
@@ -31,8 +32,8 @@ router.post('/create-admin', (req, res, next) => {
         });
     } else {
         const qb = new QueryBuilder(settings, 'mysql', 'single');
-        const data = { 
-            name: req.body.name, 
+        const data = {
+            name: req.body.name,
             surname: req.body.surname,
             mail: req.body.mail,
             school_id: req.body.school,
@@ -57,7 +58,7 @@ router.post('/create-admin', (req, res, next) => {
     }
 });
 
-router.post('/try-login', (req, res, next) => {
+router.post('/admin-login', (req, res, next) => {
     if (Object.values(req.body).includes('')) {
         res.status(200).json({
             ok: false,
@@ -84,7 +85,7 @@ router.post('/try-login', (req, res, next) => {
                     } else {
                         let pass = result[0].password;
                         var passwordHash = require('password-hash/lib/password-hash');
-                        if(passwordHash.verify(req.body.pass, pass)) {
+                        if (passwordHash.verify(req.body.pass, pass)) {
                             res.status(200).json({
                                 ok: true,
                                 result: await generateToken({
@@ -95,13 +96,37 @@ router.post('/try-login', (req, res, next) => {
                         } else {
                             res.status(200).json({
                                 ok: false,
-                                result: {pass: pass, sent: req.body.pass}
-                            });         
+                                result: { pass: pass, sent: req.body.pass }
+                            });
                         }
- 
+
                     }
                 }
             });
+    }
+});
+
+router.post('/student-login', (req, res, next) => {
+    if (Object.values(req.body).includes('')) {
+        res.status(200).json({
+            ok: false,
+            result: 'Obrazec ni bil pravilno izpolnjen!'
+        });
+    } else {
+        axios.post('https://malice.scv.si/api/v2/auth', {
+            email: req.body.mail,
+            password: req.body.pass
+        }).then(function (response) {
+            res.status(200).json({
+                ok: true,
+                result: response
+            });
+        }).catch(function (error) {
+            res.status(200).json({
+                ok: false,
+                result: error
+            });
+        });
     }
 });
 

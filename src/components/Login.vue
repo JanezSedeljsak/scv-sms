@@ -32,7 +32,7 @@
               </div>
               <button
                 style="min-width: 30%"
-                v-on:click="tryLogin()"
+                v-on:click="loginClick()"
                 class="ui primary button"
                 type="submit"
               >Prijavi se!</button>
@@ -58,9 +58,12 @@ export default {
   },
   created: function() {},
   methods: {
-    tryLogin: function() {
+    loginClick() {
+      this.form.role ? this.tryAdminLogin() : this.tryStudentLogin()
+    },
+    tryAdminLogin() {
       window.event.preventDefault();
-      fetch("http://localhost:3000/api/auth/try-login", {
+      fetch("http://localhost:3000/api/auth/admin-login", {
         method: "POST",
         body: JSON.stringify(this.form),
         headers: {
@@ -74,10 +77,28 @@ export default {
           } else {
             sessionStorage.setItem("szr_auth", response.result.toString());
             window.location = "/admin";
-            //$cookies.set('szr_auth', response.result.toString());
-            //console.log($cookies.get('szr_auth'))
           }
         });
+    },
+    tryStudentLogin() {
+      window.event.preventDefault();
+      fetch("http://localhost:3000/api/auth/student-login", {
+        method: "POST",
+        body: JSON.stringify(this.form),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+          if (!response.ok) {
+            console.log(response.result);
+          } else {
+            sessionStorage.setItem("szr_auth", response.result.toString());
+            window.location = "/student";
+          }
+        }); 
     }
   }
 };
