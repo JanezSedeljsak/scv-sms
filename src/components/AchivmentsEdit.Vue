@@ -1,6 +1,6 @@
 <template>
   <div class="ui padded grid">
-    <szr-header title='<i class="trophy icon"></i>Urejanje dosežka'/>
+    <szr-header title="<i class='trophy icon'></i>Urejanje dosežka" />
     <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
         <form class="ui form">
@@ -51,27 +51,47 @@
             </div>
             <div class="ten wide column">
               <label>Opis</label>
-              <textarea rows="3"></textarea>
+              <vue-editor/>
             </div>
           </div>
           <hr style="width: 93.8%; border-bottom: 2px solid #2185d0" />
           <h3 style="color: #2185d0">Vključeni dijaki</h3>
-          <table style="box-shadow: none !important; width: 93.8%" class="ui celled table">
-            <thead class="ui inverted blue table">
-              <tr>
-                <th>Ime</th>
-                <th>Priimek</th>
-                <th>E-Pošta</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Name">James</td>
-                <td data-label="Age">24</td>
-                <td data-label="Job">Engineer</td>
-              </tr>
-            </tbody>
-          </table>
+          <div style="width: 93.8%" class="ui relaxed divided list">
+            <div class="item">
+              <div class="content" style="float: left; width: 10%">
+                <a class="header">#</a>
+              </div>
+              <div class="content" style="float: left; width: 31%">
+                <a class="header">Ime</a>
+              </div>
+              <div class="content" style="float: left; width: 31%">
+                <a class="header">Priimek</a>
+              </div>
+              <div class="content" style="float: left; width: 27%">
+                <i class="w3-right large add icon"></i>
+              </div>
+            </div>
+            <div
+              id="list_display"
+              class="item"
+              v-for="(student, index) in students"
+              v-bind:key="index"
+            >
+              <div class="content" style="float: left; width: 10%">
+                <div class="header">{{ index + 1 }}</div>
+              </div>
+              <div class="content" style="float: left; width: 31%">
+                <div class="header">{{ student.name | capFirst }}</div>
+              </div>
+              <div class="content" style="float: left; width: 31%">
+                <div class="header">{{ student.surname | capFirst }}</div>
+              </div>
+              <div class="content" style="float: left; width: 27%">
+                <i v-on:click="openEdit(student.id)" class="w3-right large remove icon"></i>
+                <i v-on:click="openEdit(student.id)" class="w3-right large edit icon"></i>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -80,15 +100,29 @@
 
 <script>
 import Datepicker from "vuejs-datepicker";
+import { VueEditor } from "vue2-editor";
 
 export default {
   data() {
-    return {};
+    return {
+      students: []
+    };
   },
   components: {
-    Datepicker
+    Datepicker,
+    VueEditor
   },
-  created: function() {},
-  methods: {}
+  created: function() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+        fetch("http://localhost:3000/api/get/students")
+        .then(response => response.json())
+        .then(data => {
+          this.students = data["result"];
+        });
+    }
+  }
 };
 </script>

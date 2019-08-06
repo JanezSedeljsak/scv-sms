@@ -90,7 +90,7 @@
               </div>
             </div>
             <div
-              id="student_display"
+              id="list_display"
               class="item"
               v-for="(teacher, index) in teachers"
               v-bind:key="index"

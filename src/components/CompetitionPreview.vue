@@ -3,7 +3,7 @@
     <szr-header title="<i class='graduation cap icon'></i>Prijavljeni dijaki" />
     <div style="padding-top: 9vh !important; width: 100% !important" class="ui padded grid">
       <div class="row">
-                <div style="width: 100%" class="ui relaxed divided list">
+        <div style="width: 100%" class="ui relaxed divided list">
           <div class="item">
             <div class="content" style="float: left; width: 10%">
               <a class="header">#</a>
@@ -18,10 +18,10 @@
               <a class="header">Razred</a>
             </div>
             <div class="content" style="float: left; width: 22%">
-              <i class="w3-right large filter icon"></i>
+              <i class="w3-right large add icon"></i>
             </div>
           </div>
-          <div id="student_display" class="item" v-for="(student, index) in students" v-bind:key="index">
+          <div id="list_display" class="item" v-for="(student, index) in students" v-bind:key="index">
             <div class="content" style="float: left; width: 10%">
               <div class="header">{{ index + 1 }}</div> 
             </div>
@@ -35,6 +35,7 @@
               <div class="header">{{ student.class | capFirst }}</div>
             </div>
             <div class="content" style="float: left; width: 22%">
+              <i v-on:click="removeStudent(student.id)" class="w3-right large remove icon"></i>
               <i v-on:click="openEdit(student.id)" class="w3-right large edit icon"></i>
             </div>
           </div>

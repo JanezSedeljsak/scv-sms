@@ -71,7 +71,7 @@
               </div>
             </div>
           </div>
-          <div id="student_display" class="item" v-for="(student, index) in students" v-bind:key="index">
+          <div id="list_display" class="item" v-for="(student, index) in students" v-bind:key="index">
             <div class="content" style="float: left; width: 5%">
               <i v-on:click="openEdit(student.id)" class="large edit middle aligned icon"></i>
             </div>

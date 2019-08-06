@@ -24,7 +24,7 @@
             </div>
             <div class="ten wide column">
               <label>Opis</label>
-              <textarea rows="3"></textarea>
+              <vue-editor />
             </div>
           </div>
           <hr style="width: 93.8%; border-bottom: 2px solid #2185d0" />
@@ -49,56 +49,121 @@
             >Predmeti</div>
           </div>
           <div v-if="tabDisplay == 'students'" class="customTab ui bottom attached tab segment">
-            <table
-              style="box-shadow: none !important; table-layout: fixed !important"
-              class="ui celled table"
-            >
-              <thead class="ui inverted blue table">
-                <tr>
-                  <th>Ime</th>
-                  <th>Priimek</th>
-                  <th>Razred</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Name">James</td>
-                  <td data-label="Age">24</td>
-                  <td data-label="Job">Engineer</td>
-                  <td data-label="Job">
-                  <a v-tooltip.top-center="'Odstrani predmet iz tekmovanja'" v-on:click="removeSubject(index)" class="ui round-button w3-right">
-                      <i class="delete icon"></i>
-                  </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div v-if="tabDisplay == 'classes'" class="customTab ui bottom attached tab segment"></div>
-          <div v-if="tabDisplay == 'subjects'" class="customTab ui bottom attached tab segment">
-            <ul
-              style="box-shadow: none !important; outline: 1px solid #aaa; display:block"
-              class="w3-ul w3-card-4"
-            >
-              <li v-bind:key="index" v-for="(subject, index) in subjects" class="w3-bar">
-              <a v-tooltip.top-center="'Odstrani predmet iz tekmovanja'" v-on:click="removeSubject(index)" class="ui round-button w3-right">
-                  <i class="delete icon"></i>
-              </a>
-                <img
-                  src="https://backgroundcheckall.com/wp-content/uploads/2017/12/book-clipart-transparent-background-5.png"
-                  class="w3-bar-item w3-circle w3-hide-small"
-                  style="width:85px"
-                />
-                <div class="w3-bar-item">
-                  <span class="w3-large">
-                    <b>{{ subject.short | capitalize }}</b>
-                  </span>
-                  <br />
-                  <span>{{ subject.long }}</span>
+            <div style="width: 100%" class="ui relaxed divided list">
+              <div class="item">
+                <div class="content" style="float: left; width: 10%">
+                  <a class="header">#</a>
                 </div>
-              </li>
-            </ul>
+                <div class="content" style="float: left; width: 31%">
+                  <a class="header">Ime</a>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <a class="header">Priimek</a>
+                </div>
+                <div class="content" style="float: left; width: 27%">
+                  <i class="w3-right large add icon"></i>
+                </div>
+              </div>
+              <div
+                id="list_display"
+                class="item"
+                v-for="(student, index) in students"
+                v-bind:key="index"
+              >
+                <div class="content" style="float: left; width: 10%">
+                  <div class="header">{{ index + 1 }}</div>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <div class="header">{{ student.name | capFirst }}</div>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <div class="header">{{ student.surname | capFirst }}</div>
+                </div>
+                <div class="content" style="float: left; width: 27%">
+                  <i v-on:click="openEdit(student.id)" class="w3-right large remove icon"></i>
+                  <i v-on:click="openEdit(student.id)" class="w3-right large edit icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-else-if="tabDisplay == 'classes'" class="customTab ui bottom attached tab segment">
+            <div style="width: 100%" class="ui relaxed divided list">
+              <div class="item">
+                <div class="content" style="float: left; width: 10%">
+                  <a class="header">#</a>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <a class="header">Razred</a>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <a class="header">Šola</a>
+                </div>
+                <div class="content" style="float: left; width: 27%">
+                  <i class="w3-right large add icon"></i>
+                </div>
+              </div>
+              <div
+                id="list_display"
+                class="item"
+                v-for="(cls, index) in classes"
+                v-bind:key="index"
+              >
+                <div class="content" style="float: left; width: 10%">
+                  <div class="header">{{ index + 1 }}</div>
+                </div>
+                <div class="content" style="float: left; width: 30%">
+                  <div class="header">{{ cls.name | capFirst }}</div>
+                </div>
+                <div class="content" style="float: left; width: 30%">
+                  <div class="header">{{ cls.school | capFirst }}</div>
+                </div>
+                <div class="content" style="float: left; width: 25%">
+                  <i v-on:click="openEdit(cls.id)" class="w3-right large remove icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-else-if="tabDisplay == 'subjects'"
+            class="customTab ui bottom attached tab segment"
+          >
+            <div style="width: 100%" class="ui relaxed divided list">
+              <div class="item">
+                <div class="content" style="float: left; width: 10%">
+                  <a class="header">#</a>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <a class="header">Kratica</a>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <a class="header">Naziv</a>
+                </div>
+                <div class="content" style="float: left; width: 27%">
+                  <i class="w3-right large add icon"></i>
+                </div>
+              </div>
+              <div
+                id="list_display"
+                class="item"
+                v-for="(subject, index) in subjects"
+                v-bind:key="index"
+              >
+                <div class="content" style="float: left; width: 10%">
+                  <div class="header">{{ index + 1 }}</div>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <div class="header">
+                    <b>{{ subject.short_name | capitalize }}</b>
+                  </div>
+                </div>
+                <div class="content" style="float: left; width: 31%">
+                  <div class="header">{{ subject.name | capFirst }}</div>
+                </div>
+                <div class="content" style="float: left; width: 27%">
+                  <i v-on:click="openEdit(subject.id)" class="w3-right large remove icon"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -108,28 +173,28 @@
 
 <script>
 import Datepicker from "vuejs-datepicker";
+import { VueEditor } from "vue2-editor";
+
 export default {
   data() {
     return {
       szrPickerOptions: {
         teacher: {
-          mTitle: 'Admin izbirnik',
+          mTitle: "Admin izbirnik",
           apiRoute: "/teachers-for-picker",
           titles: ["Ime", "Priimek"],
           display: ["name", "surname"]
         }
       },
-      tabOptions: {
-        students: "Dodaj dijaka",
-        classes: "Dodaj razred",
-        subjects: "Dodaj predmet"
-      },
-      tabDisplay: "students",
-      subjects: []
+      tabDisplay: "subjects",
+      students: [],
+      subjects: [],
+      classes: []
     };
   },
   components: {
-    Datepicker
+    Datepicker,
+    VueEditor
   },
   created: function() {
     this.fetchData();
@@ -138,11 +203,7 @@ export default {
     changeTabs: function(tabKey) {
       this.tabDisplay = tabKey;
     },
-    fetchData: function() {
-      fetch("http://localhost:3000/api/get/subjects", { method: "GET" })
-        .then(response => response.json())
-        .then(data => (this.subjects = data["subjects"]));
-    }
+    fetchData: function() {}
   }
 };
 </script>
