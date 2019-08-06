@@ -8,7 +8,7 @@
       >Razvrščevalni sistem ŠCV</h1>
       <h2 style="text-align: center; font-size: 1.2em; color:white">
         <i class="user circle icon"></i>
-        {{ username ? username : "Ni Uporabnika" | capFirst }}
+        {{ username ? username : "Ni Uporabnika" }}
       </h2>
       <div v-if="username" class="ui vertical borderless fluid text menu">
         <a v-on:click="moveUrl('/admin/students')" class="item">
@@ -31,7 +31,7 @@
         </a>
         <a v-on:click="moveUrl('/admin/requests')" class="item">
           <i class="sticky note icon"></i>
-          <span >Zahtevki</span>
+          <span>Zahtevki</span>
           <a class="ui teal tag label">&nbsp;{{ msgCount }}</a>
         </a>
         <div style="height:3vw" class="ui hidden divider"></div>
@@ -69,9 +69,10 @@ export default {
     })
       .then(res => res.json())
       .then(response => {
-        console.log(response);
-        let { name, surname } = response.result[0];
-        this.username = `${name} ${surname}`;
+        let user = Object.values(response.result[0]).map(x =>
+          x.substr(0, 1).toUpperCase() + x.substr(1, x.length - 1).toLowerCase()
+        ).join(" ");
+        this.username = `${user}`;
       });
     fetch("http://localhost:3000/api/get/message-count")
       .then(res => res.json())
