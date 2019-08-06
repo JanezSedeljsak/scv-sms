@@ -10,7 +10,7 @@
         <i class="user circle icon"></i>
         {{ username ? username : "Ni Uporabnika" | capFirst }}
       </h2>
-      <div class="ui vertical borderless fluid text menu">
+      <div v-if="username" class="ui vertical borderless fluid text menu">
         <a v-on:click="moveUrl('/admin/students')" class="item">
           <i class="graduation cap icon"></i>Dijaki
         </a>

@@ -174,7 +174,7 @@ class DBMethods {
         });
     }
 
-    static getStudentByQID() {
+    static getStudentByQID(qid) {
         return new Promise(resolve => {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
 
@@ -186,11 +186,36 @@ class DBMethods {
             ]).from('gstudents gs')
             .join('students s', 's.id=gs.student_id', 'left')
             .join('classes c', 'c.id=gs.class_id', 'left')
+            .where({'gs.id': qid})
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
                 });
         });    
+    }
+
+    static getGradesByQID(qid) {
+        return new Promise(resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+            qb.distinct().select([ 
+                's.name', 
+                's.short_name as shortname',
+                'g.grade'
+            ]).from('gstudents gs')
+            .join('classes c', ' c.id = gs.class_id', 'left')
+            .join('classes_subjects cs', 'cs.class_id = c.id', 'left')
+            .join('subjects s', 's.id = cs.subject_id', 'left')
+            .join('grades g', 'g.subject_id = s.id', 'left outer')
+            .where(`
+                (gs.id = g.gstudent_id OR g.gstudent_id IS NULL) AND
+                (gs.id = '${qid}' OR g.gstudent_id IS NULL)
+            `)
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });       
     }
 
     static getClasses() {
@@ -258,10 +283,10 @@ router.get('/subjects', async (req, res, next) => {
     })  
 });
 
-router.get('/competition-students', async (req, res, next) => {
+router.post('/competition-students', async (req, res, next) => {
     res.status(200).json({
         ok: true,
-        result: await DBMethods.getStudentsInCompetition('138e3551-b288-11e9-9658-f04da2b5f496')
+        result: await DBMethods.getStudentsInCompetition(req.body.id)
     })  
 });
 
@@ -422,6 +447,35 @@ router.post('/get-student-by-qid', async (req, res, next) => {
         res.status(200).json({
             ok: true,
             result: await DBMethods.getStudentByQID(req.body.id)
+        });
+    }
+});
+
+
+router.post('/get-grades-by-qid', async (req, res, next) => {
+    if (Object.values(req.body).includes('')) {
+        res.status(200).json({
+            ok: false,
+            result: 'Obrazec ni bil pravilno izpolnjen!'
+        });
+    } else {
+        res.status(200).json({
+            ok: true,
+            result: await DBMethods.getGradesByQID(req.body.id)
+        });
+    }
+});
+
+router.post('/get-grades-by-qid', async (req, res, next) => {
+    if (Object.values(req.body).includes('')) {
+        res.status(200).json({
+            ok: false,
+            result: 'Obrazec ni bil pravilno izpolnjen!'
+        });
+    } else {
+        res.status(200).json({
+            ok: true,
+            result: await DBMethods.getGradesByQID(req.body.id)
         });
     }
 });

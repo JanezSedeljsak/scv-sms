@@ -41,8 +41,8 @@
           </div>
           <div class="item" v-for="(item, index) in messages" v-bind:key="index">
             <div class="content" style="float: left; width: 10%">
-              <i v-on:click="toggleActive(index)" v-if="!item.active" class="search plus large alternate icon middle aligned icon"></i>
-              <i v-on:click="toggleActive(index)" v-else class="search minus large alternate icon middle aligned icon"></i>
+              <i v-on:click="toggleActive(index)" v-show="!item.active" class="search plus large alternate icon middle aligned icon"></i>
+              <i v-on:click="toggleActive(index)" v-show="item.active" class="search minus large alternate icon middle aligned icon"></i>
             </div>
             <div class="content" style="float: left; width: 25%">
               <a class="header">{{ item.student }}</a>

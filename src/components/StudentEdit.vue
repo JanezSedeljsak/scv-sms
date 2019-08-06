@@ -108,12 +108,18 @@ export default {
   },
   methods: {
     fetchData: async function() {
-      fetch("http://localhost:3000/api/get/subjects")
+      fetch("http://localhost:3000/api/get/get-grades-by-qid", {
+        method: "POST",
+        body: JSON.stringify({ id: this.$route.params.id }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
         .then(response => response.json())
         .then(data => {
-          console.log(data);
-          (this.subjects = data["result"]);
+          this.subjects = data["result"]
         });
+    
 
       fetch("http://localhost:3000/api/get/get-student-by-qid", {
         method: "POST",
@@ -127,8 +133,6 @@ export default {
           console.log(data)
           this.student = data.result[0];
         });
-        this.pickedYear = await this.getCurrentYear();
-        console.log(this);
     },
     editAchivmentsForStudent: function(idStudent) {
       window.location = `/admin/students/${idStudent}/achivments`;
