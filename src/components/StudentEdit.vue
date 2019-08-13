@@ -137,8 +137,8 @@ export default {
     editAchivmentsForStudent: function(idStudent) {
       window.location = `/admin/students/${idStudent}/achivments`;
     },
-    editAchivmentsForStudent: function(idStudent) {
-      window.location = `/admin/students/${idStudent}/achivments`;
+    editCompetitionsForStudent: function(idStudent) {
+      window.location = `/admin/students/${idStudent}/competitions`;
     }
   }
 };

@@ -24,6 +24,7 @@ export const routes = [
     { path: "/admin/competitions", component: Competitions },
     { path: "/admin/admins-tab", component: AdminsTab },
     { path: "/admin/students/:id/achivments/", component: Achivments, props: { getById: true }},
+    { path: "/admin/students/:id/competitions/", component: Achivments, props: { getById: true }},
     { path: "/admin/edits", component: Edits },
     { path: "/admin/requests", component: Messages },
     { path: "/admin/achivments/create", component: AchivmentsEdit },
