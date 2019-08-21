@@ -57,6 +57,12 @@ Vue.mixin({
             let response = await fetch("http://localhost:3000/api/get/curr-year");
             let data = await response.json()
             return data.ok ? data.result.id : null;
+        },
+        async getNewUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });    
         }
     }
 });

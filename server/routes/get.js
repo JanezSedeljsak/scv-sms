@@ -11,10 +11,11 @@ class DBMethods {
             qb.select([
                 'c.id as id',
                 'CONCAT(t.name, " ", t.surname) AS teacher',
-                'c.name',
+                'c.name as competition',
                 'c.deadline',
                 'c.date_created',
-                'c.places'
+                'c.places',
+                'c.description'
             ]).from('competitions c')
                 .join('teachers t', 't.id=c.teacher_id', 'left')
                 .get((err, result) => {
@@ -123,6 +124,7 @@ class DBMethods {
         
                 qb.select([
                     's.name',
+                    's.short_name',
                     'cs.value'
                 ]).from('competitions_subjects cs')
                     .join('subjects s', 's.id=cs.subject_id', 'left')
@@ -153,7 +155,8 @@ class DBMethods {
                 const qb = new QueryBuilder(settings, 'mysql', 'single');
         
                 qb.select([
-                    'CONCAT(s.name, " ", s.surname) AS student'
+                    's.name', 
+                    's.surname'
                 ]).from('competitions_students cs')
                     .join('gstudents gs', 'gs.id=cs.gstudent_id', 'left')
                     .join('students s', 's.id = gs.student_id', 'left')
@@ -290,10 +293,10 @@ router.post('/competition-students', async (req, res, next) => {
     })  
 });
 
-router.get('/competition-by-id', async (req, res, next) => {
+router.post('/competition-by-id', async (req, res, next) => {
     res.status(200).json({
         ok: true,
-        result: await DBMethods.getCompetitionData('138e3551-b288-11e9-9658-f04da2b5f496')
+        result: await DBMethods.getCompetitionData(req.body.id)
     })  
 });
 

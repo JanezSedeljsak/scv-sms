@@ -20,7 +20,7 @@ export const routes = [
     { path: "/admin/classes", component: Classes },
     { path: "/admin/students", component: Students },
     { path: '/admin/students/:id', component: StudentEdit },
-    { path: "/admin/achivments", component: Achivments, props: { getById: true } },
+    { path: "/admin/achivments", component: Achivments },
     { path: "/admin/competitions", component: Competitions },
     { path: "/admin/admins-tab", component: AdminsTab },
     { path: "/admin/students/:id/achivments/", component: Achivments, props: { getById: true }},

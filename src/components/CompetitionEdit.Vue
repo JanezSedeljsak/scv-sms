@@ -7,15 +7,15 @@
           <div class="ui grid">
             <div class="five wide column">
               <label>Naslov</label>
-              <input type="text" name="first-name" />
+              <input type="text" v-model="base.name" />
             </div>
             <div class="five wide column">
               <label>Vpisni rok</label>
-              <datepicker :value="new Date()" name="uniquename"></datepicker>
+              <datepicker v-model="base.deadline"></datepicker>
             </div>
             <div class="five wide column">
               <label>Št. vpisnih mest</label>
-              <input type="text" name="first-name" />
+              <input type="text" v-model="base.places" />
             </div>
             <div class="five wide column">
               <label>Mentor</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="ten wide column">
               <label>Opis</label>
-              <vue-editor />
+              <vue-editor v-model="base.description"/>
             </div>
           </div>
           <hr style="width: 93.8%; border-bottom: 2px solid #2185d0" />
@@ -111,13 +111,13 @@
                 <div class="content" style="float: left; width: 10%">
                   <div class="header">{{ index + 1 }}</div>
                 </div>
-                <div class="content" style="float: left; width: 30%">
-                  <div class="header">{{ cls.name | capFirst }}</div>
+                <div class="content" style="float: left; width: 31%">
+                  <div class="header">{{ cls.class | capFirst }}</div>
                 </div>
-                <div class="content" style="float: left; width: 30%">
+                <div class="content" style="float: left; width: 31%">
                   <div class="header">{{ cls.school | capFirst }}</div>
                 </div>
-                <div class="content" style="float: left; width: 25%">
+                <div class="content" style="float: left; width: 27%">
                   <i v-on:click="openEdit(cls.id)" class="w3-right large remove icon"></i>
                 </div>
               </div>
@@ -132,13 +132,16 @@
                 <div class="content" style="float: left; width: 10%">
                   <a class="header">#</a>
                 </div>
-                <div class="content" style="float: left; width: 31%">
+                <div class="content" style="float: left; width: 22%">
                   <a class="header">Kratica</a>
                 </div>
-                <div class="content" style="float: left; width: 31%">
+                <div class="content" style="float: left; width: 39%">
                   <a class="header">Naziv</a>
                 </div>
-                <div class="content" style="float: left; width: 27%">
+                <div class="content" style="float: left; width: 17%">
+                  <a class="header">Vrednost</a>
+                </div>
+                <div class="content" style="float: left; width: 10%">
                   <i class="w3-right large add icon"></i>
                 </div>
               </div>
@@ -151,15 +154,18 @@
                 <div class="content" style="float: left; width: 10%">
                   <div class="header">{{ index + 1 }}</div>
                 </div>
-                <div class="content" style="float: left; width: 31%">
+                <div class="content" style="float: left; width: 22%">
                   <div class="header">
                     <b>{{ subject.short_name | capitalize }}</b>
                   </div>
                 </div>
-                <div class="content" style="float: left; width: 31%">
-                  <div class="header">{{ subject.name | capFirst }}</div>
+                <div class="content" style="float: left; width: 39%">
+                  <div class="header">{{ subject.name }}</div>
                 </div>
-                <div class="content" style="float: left; width: 27%">
+                <div class="content" style="float: left; width: 17%">
+                  <div class="header">{{ subject.value }}</div>
+                </div>
+                <div class="content" style="float: left; width: 10%">
                   <i v-on:click="openEdit(subject.id)" class="w3-right large remove icon"></i>
                 </div>
               </div>
@@ -187,6 +193,14 @@ export default {
         }
       },
       tabDisplay: "subjects",
+      base: {
+        name: "neki",
+        teacher: "",
+        deadline: "",
+        places: "",
+        date_created: "",
+        description: ""
+      },
       students: [],
       subjects: [],
       classes: []
@@ -197,13 +211,29 @@ export default {
     VueEditor
   },
   created: function() {
-    this.fetchData();
+    if(this.$route.params.id) {
+      this.fetchData();
+    }
   },
   methods: {
     changeTabs: function(tabKey) {
       this.tabDisplay = tabKey;
     },
-    fetchData: function() {}
+    fetchData: function() {
+     fetch("http://localhost:3000/api/get/competition-by-id", {
+        method: "POST",
+        body: JSON.stringify({ id: this.$route.params.id }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.result)
+          this.classes = data.result.classes,
+          this.students = data.result.students,
+          this.subjects = data.result.subjects,
+          this.base = data.result.base[0]
+      });
+    }
   }
 };
 </script>

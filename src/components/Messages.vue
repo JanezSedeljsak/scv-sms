@@ -21,7 +21,7 @@
             <div class="content" style="float: left; width: 25%">
               <div class="description date">
                 <div class="ui corner labeled input">
-                  <input type="text" placeholder="filtriraj nazive..." />
+                  <input type="text" placeholder="filtriraj vsebine..." />
                   <div class="ui corner label">
                     <i class="asterisk icon"></i>
                   </div>
@@ -49,7 +49,7 @@
               <div class="description date">{{ item.date_sent | dateFormat }}</div>
             </div>
             <div class="content" style="float: left; width: 25%">
-              <a class="header">Naziv</a>
+              <a class="header">Vsebina</a>
               <div class="description">{{ item.header }}</div>
             </div>
             <div class="content" style="float: left; width: 25%">

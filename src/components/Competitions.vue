@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="content">
-            <a v-on:click="openPreview(competition.id)" class="header">{{ competition.name }}</a>
+            <a v-on:click="openPreview(competition.id)" class="header">{{ competition.competition }}</a>
             <div class="meta">
               <span class="date">mentor:&nbsp;<b>{{ competition.teacher | capitalize }}</b></span>
             </div>
