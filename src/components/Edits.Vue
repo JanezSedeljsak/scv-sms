@@ -36,7 +36,7 @@
         <div v-if="tabOpen === 'levels'" class="ui bottom attached tab active segment">
           <div class="ui relaxed divided list">
             <div class="item">
-              <div class="content" style="float: left; width: 10%">
+              <div class="content" style="float: left; width: 15%">
                 <i class="large add middle aligned icon"></i>
               </div>
               <div class="content" style="float: left; width: 35%">
@@ -62,17 +62,37 @@
                 </div>
               </div>
             </div>
-            <div class="item" v-for="(level, index) in levels" v-bind:key="index">
-              <div class="content" style="float: left; width: 10%">
-                <i class="large edit middle aligned icon"></i>
+            <div v-bind:class="{ editRow: editIndex === index }" class="item" v-for="(level, index) in levels" v-bind:key="index">
+              <div v-if="index !== editIndex">
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="openEdit(index)" class="large edit middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 35%">
+                  <a class="header">Naziv</a>
+                  <div class="description">{{ level.name }}</div>
+                </div>
+                <div class="content" style="float: left; width: 35%">
+                  <a class="header">Vrednost</a>
+                  <div class="description">{{ level.value }}</div>
+                </div>
               </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Naziv</a>
-                <div class="description">{{ level.name }}</div>
-              </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Vrednost</a>
-                <div class="description">{{ level.value }}</div>
+              <div v-else>
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="closeEdit()" class="large chevron left middle aligned icon"></i>
+                  <i class="large save middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 35%">
+                  <a class="header">Naziv</a>
+                  <div class="description">
+                    <input v-model="level.name" class="w3-input" style="width: 15em" type="text" />
+                  </div>
+                </div>
+                <div class="content" style="float: left; width: 35%">
+                  <a class="header">Vrednost</a>
+                  <div class="description">
+                    <input v-model="level.value" class="w3-input" style="width: 15em" type="text" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -80,10 +100,10 @@
         <div v-if="tabOpen === 'types'" class="ui bottom attached tab active segment">
           <div class="ui relaxed divided list">
             <div class="item">
-              <div class="content" style="float: left; width: 10%">
+              <div class="content" style="float: left; width: 15%">
                 <i class="large add middle aligned icon"></i>
               </div>
-              <div class="content" style="float: left; width: 35%">
+              <div class="content" style="float: left; width: 50%">
                 <a class="header">Naziv</a>
                 <div class="description">
                   <div class="ui corner labeled input">
@@ -95,13 +115,27 @@
                 </div>
               </div>
             </div>
-            <div class="item" v-for="(type, index) in types" v-bind:key="index">
-              <div class="content" style="float: left; width: 10%">
-                <i class="large edit middle aligned icon"></i>
+            <div v-bind:class="{ editRow: editIndex === index }" class="item" v-for="(type, index) in types" v-bind:key="index">
+              <div v-if="index !== editIndex">
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="openEdit(index)" class="large edit middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 50%">
+                  <a class="header">Naziv</a>
+                  <div class="description">{{ type.name }}</div>
+                </div>
               </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Naziv</a>
-                <div class="description">{{ type.name }}</div>
+              <div v-else>
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="closeEdit()" class="large chevron left middle aligned icon"></i>
+                  <i class="large save middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 25%">
+                  <a class="header">Naziv</a>
+                  <div class="description">
+                    <input v-model="type.name" class="w3-input" style="width: 100%" type="text" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -109,10 +143,10 @@
         <div v-if="tabOpen === 'subjects'" class="ui bottom attached active tab segment">
           <div class="ui relaxed divided list">
             <div class="item">
-              <div class="content" style="float: left; width: 10%">
+              <div class="content" style="float: left; width: 15%">
                 <i class="large add middle aligned icon"></i>
               </div>
-              <div class="content" style="float: left; width: 35%">
+              <div class="content" style="float: left; width: 30%">
                 <a class="header">Kratica</a>
                 <div class="description">
                   <div class="ui corner labeled input">
@@ -123,7 +157,7 @@
                   </div>
                 </div>
               </div>
-              <div class="content" style="float: left; width: 35%">
+              <div class="content" style="float: left; width: 50%">
                 <a class="header">Naziv</a>
                 <div class="description">
                   <div class="ui corner labeled input">
@@ -135,17 +169,37 @@
                 </div>
               </div>
             </div>
-            <div class="item" v-for="(subject, index) in subjects" v-bind:key="index">
-              <div class="content" style="float: left; width: 10%">
-                <i class="large edit middle aligned icon"></i>
+            <div v-bind:class="{ editRow: editIndex === index }" class="item" v-for="(subject, index) in subjects" v-bind:key="index">
+              <div v-if="editIndex !== index">
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="openEdit(index)" class="large edit middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 30%">
+                  <a class="header">Kratica</a>
+                  <div class="description">{{ subject.shortname }}</div>
+                </div>
+                <div class="content" style="float: left; width: 50%">
+                  <a class="header">Naziv</a>
+                  <div class="description">{{ subject.name }}</div>
+                </div>
               </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Kratica</a>
-                <div class="description">{{ subject.shortname }}</div>
-              </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Naziv</a>
-                <div class="description">{{ subject.name }}</div>
+              <div v-else >
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="closeEdit()" class="large chevron left middle aligned icon"></i>
+                  <i class="large save middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 30%">
+                  <a class="header">Kratica</a>
+                  <div class="description">
+                    <input v-model="subject.shortname" class="w3-input" style="width: 15em" type="text" />
+                  </div>
+                </div>
+                <div class="content" style="float: left; width: 50%">
+                  <a class="header">Naziv</a>
+                  <div class="description">
+                    <input v-model="subject.name" class="w3-input" style="width: 80%" type="text" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -153,10 +207,10 @@
         <div v-if="tabOpen === 'years'" class="ui bottom attached active tab segment">
           <div class="ui relaxed divided list">
             <div class="item">
-              <div class="content" style="float: left; width: 10%">
+              <div class="content" style="float: left; width: 15%">
                 <i class="large add middle aligned icon"></i>
               </div>
-              <div class="content" style="float: left; width: 35%">
+              <div class="content" style="float: left; width: 30%">
                 <div class="description">
                   <div class="ui corner labeled input">
                     <input type="text" placeholder="leto..." />
@@ -167,17 +221,42 @@
                 </div>
               </div>
             </div>
-            <div class="item" v-for="(year, index) in years" v-bind:key="index">
-              <div class="content" style="float: left; width: 10%">
-                <i class="large edit middle aligned icon"></i>
+            <div v-bind:class="{ editRow: editIndex === index }" class="item" v-for="(year, index) in years" v-bind:key="index">
+              <div v-if="editIndex !== index">
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="openEdit(index)" class="large edit middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 30%">
+                  <a class="header">Leto</a>
+                  <div class="description">{{ year.name }}</div>
+                </div>
+                <div class="content" style="float: left; width: 50%">
+                  <a class="header">Začetek/konec</a>
+                  <div
+                    class="description"
+                  >{{ year.start_date | dateFormat }}&nbsp;/&nbsp;{{ year.end_date | dateFormat }}</div>
+                </div>
               </div>
-              <div class="content" style="float: left; width: 25%">
-                <a class="header">Leto</a>
-                <div class="description">{{ year.name }}</div>
-              </div>
-              <div class="content" style="float: left; width: 35%">
-                <a class="header">Začetek/konec</a>
-                <div class="description">{{ year.start_date | dateFormat }}&nbsp;/&nbsp;{{ year.end_date | dateFormat }}</div>
+              <div v-if="editIndex === index">
+                <div class="content" style="float: left; width: 15%">
+                  <i v-on:click="closeEdit()" class="large chevron left middle aligned icon"></i>
+                  <i class="large save middle aligned icon"></i>
+                </div>
+                <div class="content" style="float: left; width: 30%">
+                  <a class="header">Leto</a>
+                  <div class="description">
+                    <input v-model="year.name" class="w3-input" style="width: 15em" type="text" />
+                  </div>
+                </div>
+                <div class="content" style="float: left; width: 50%">
+                  <a class="header">Začetek/konec</a>
+                  <div class="description">
+                    <span>
+                      <datepicker v-model="year.start_date"></datepicker>
+                      <datepicker v-model="year.end_date"></datepicker>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -189,6 +268,8 @@
 
 <script>
 var moment = require("moment");
+import Datepicker from "vuejs-datepicker";
+
 export default {
   data() {
     return {
@@ -197,8 +278,12 @@ export default {
       subjects: [],
       years: [],
       filterValue: null,
+      editIndex: null,
       tabOpen: "subjects"
     };
+  },
+  components: {
+    Datepicker
   },
   created: function() {
     this.fetchData();
@@ -230,6 +315,7 @@ export default {
     },
     setTab(tab) {
       this.tabOpen = tab;
+      this.editIndex = null;
     },
     moveUrl: function(params) {
       let onClickRoutes = [
@@ -239,6 +325,12 @@ export default {
         `/admin/level-edits/4/${params[1]}`
       ];
       window.location = onClickRoutes[params[0]];
+    },
+    openEdit(index) {
+      this.editIndex = index;
+    },
+    closeEdit() {
+      this.editIndex = null;
     }
     /*openEdit: function(type) {
       this.$swal({

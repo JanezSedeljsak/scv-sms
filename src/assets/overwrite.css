@@ -291,3 +291,9 @@ table {
   outline: none;
   box-shadow: 0 0 10px #333 !important;
 }
+
+.editRow {
+  padding: 10px !important;
+  box-shadow: 0 0 10px #444 !important; 
+  border-radius: 5px;
+}

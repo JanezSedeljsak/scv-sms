@@ -5,7 +5,7 @@
       <div class="row">
         <div style="width: 100%" class="ui relaxed divided list">
           <div class="item">
-            <div class="content" style="float: left; width: 10%">
+            <div class="content" style="float: left; width: 15%">
               <i class="large filter icon middle aligned icon"></i>
             </div>
             <div class="content" style="float: left; width: 25%">
@@ -40,7 +40,8 @@
             </div>
           </div>
           <div class="item" v-for="(item, index) in messages" v-bind:key="index">
-            <div class="content" style="float: left; width: 10%">
+            <div class="content" style="float: left; width: 15%">
+              <i v-on:click="changeStatus(index)" class="pencil alternate large alternate icon middle aligned icon"></i>
               <i v-on:click="toggleActive(index)" v-show="!item.active" class="search plus large alternate icon middle aligned icon"></i>
               <i v-on:click="toggleActive(index)" v-show="item.active" class="search minus large alternate icon middle aligned icon"></i>
             </div>
@@ -56,7 +57,7 @@
               <a class="header">Stanje</a>
               <div class="description date">{{ item.value }}</div>
             </div>
-            <div v-if="item.active" class="content" style="margin-left: 10%; margin-top: 2vh; float: left; width: 70%">
+            <div v-if="item.active" class="content" style="margin-left: 15%; margin-top: 2vh; float: left; width: 70%">
               <a class="header">Vsebina</a>
               <div
                 class="description date"
