@@ -47,6 +47,12 @@
               v-bind:class="{ active: tabDisplay === 'subjects' }"
               class="item"
             >Predmeti</div>
+            <div
+              style="width: 13%"
+              v-on:click="changeTabs('types')"
+              v-bind:class="{ active: tabDisplay === 'types' }"
+              class="item"
+            >Dosezki</div>
           </div>
           <div v-if="tabDisplay == 'students'" class="customTab ui bottom attached tab segment">
             <div style="width: 100%" class="ui relaxed divided list">
@@ -171,6 +177,48 @@
               </div>
             </div>
           </div>
+                    <div
+            v-else-if="tabDisplay == 'types'"
+            class="customTab ui bottom attached tab segment"
+          >
+            <div style="width: 100%" class="ui relaxed divided list">
+              <div class="item">
+                <div class="content" style="float: left; width: 10%">
+                  <a class="header">#</a>
+                </div>
+                <div class="content" style="float: left; width: 50%">
+                  <a class="header">Tip</a>
+                </div>
+                <div class="content" style="float: left; width: 27%">
+                  <a class="header">Vrednost</a>
+                </div>
+                <div class="content" style="float: left; width: 10%">
+                  <i class="w3-right large add icon"></i>
+                </div>
+              </div>
+              <div
+                id="list_display"
+                class="item"
+                v-for="(type, index) in types"
+                v-bind:key="index"
+              >
+                <div class="content" style="float: left; width: 10%">
+                  <div class="header">{{ index + 1 }}</div>
+                </div>
+                <div class="content" style="float: left; width: 50%">
+                  <div class="header">
+                    <b>{{ type.type | capFirst }}</b>
+                  </div>
+                </div>
+                <div class="content" style="float: left; width: 27%">
+                  <div class="header">{{ type.value }}</div>
+                </div>
+                <div class="content" style="float: left; width: 10%">
+                  <i v-on:click="openEdit(type.id)" class="w3-right large remove icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -194,7 +242,7 @@ export default {
       },
       tabDisplay: "subjects",
       base: {
-        name: "neki",
+        name: "",
         teacher: "",
         deadline: "",
         places: "",
@@ -203,7 +251,8 @@ export default {
       },
       students: [],
       subjects: [],
-      classes: []
+      classes: [],
+      types: []
     };
   },
   components: {
@@ -228,10 +277,11 @@ export default {
         .then(response => response.json())
         .then(data => {
           console.log(data.result)
-          this.classes = data.result.classes,
-          this.students = data.result.students,
-          this.subjects = data.result.subjects,
-          this.base = data.result.base[0]
+          this.classes = data.result.classes;
+          this.students = data.result.students;
+          this.subjects = data.result.subjects;
+          this.base = data.result.base[0];
+          this.types = data.result.types;
       });
     }
   }
