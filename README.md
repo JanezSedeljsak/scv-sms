@@ -2,6 +2,8 @@
 
 Scv school monitoring system for adding grades, looking at achivments and applications (requests) to join projects...
 
+![alt text](https://github.com/JanezSedeljsak/scv-sms/blob/master/site.png)
+
 ## Getting Started
 
 > Download the project<br/>
