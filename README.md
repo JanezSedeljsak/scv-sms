@@ -14,7 +14,7 @@ Scv school monitoring system for adding grades, looking at achivments and applic
 > 4. Alter the file server/routes/connect.js to connect your database<br/>
 > 5. Run 2 different CMDs to run npm run dev && npm run start-server <br/>
 
-### Prerequisites
+## Prerequisites
 
 * NodeJS 
 * Some kind of a mySQL server
@@ -24,6 +24,10 @@ Scv school monitoring system for adding grades, looking at achivments and applic
 * [Express](https://www.npmjs.com/package/express)
 * [Semantic ui](https://semantic-ui.com)
 * some extra js libraries....
+
+## Architecture
+
+![alt text](https://d1xple9gxb4tux.cloudfront.net/assets/images/article_images/bd4442aed16acafc54c7943d34abff0edadfa74c.png?1553504574)
 
 ## License
 
