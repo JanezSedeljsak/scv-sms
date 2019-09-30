@@ -1,3 +1,5 @@
+<img src="https://github.com/matiassingers/awesome-readme/blob/master/icon.png" align="right" />
+
 # School monitoring System
 
 Scv school monitoring system for adding grades, looking at achivments and applications (requests) to join projects...
@@ -18,11 +20,14 @@ Scv school monitoring system for adding grades, looking at achivments and applic
 * Some kind of a mySQL server
 
 ## Built With
+* [Vue](https://www.npmjs.com/package/vue)
+* [Express](https://www.npmjs.com/package/express)
+* [Semantic ui](https://semantic-ui.com)
+* some extra js libraries....
 
-* vue
-* express
-* semantic ui 
-* some random js libraries
+## License
+
+[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Authors
 
